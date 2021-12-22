@@ -28,4 +28,4 @@ jobs:
       - name: Run Tests
         run: swift test --enable-code-coverage
       - name: Code Coverage
-        run: - bash <(curl -s https://codecov.io/bash)
+        run: bash <(curl -s https://codecov.io/bash)
