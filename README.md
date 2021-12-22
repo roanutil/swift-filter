@@ -1,5 +1,7 @@
 # SwiftFilter
 
+[![CI](https://github.com/roanutil/SwiftFilter/actions/workflows/ci.yml/badge.svg)](https://github.com/roanutil/SwiftFilter/actions/workflows/ci.yml)
+
 SwiftFilter is a library that makes it easy to model filters in state and then create predicates from that state.
 
 ## Included Products
