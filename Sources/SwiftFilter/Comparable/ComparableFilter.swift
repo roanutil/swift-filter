@@ -1,11 +1,10 @@
+// ComparableFilter.swift
+// SwiftFilter
 //
-//  ComparableFilter.swift
-//  
 //
-//  MIT License
+// MIT License
 //
-//  Copyright (c) 2020 Andrew Roan
-//
+// Copyright © 2021 Andrew Roan
 
 import Foundation
 
@@ -37,9 +36,9 @@ public enum ComparableFilter<T: Comparable>: Equatable {
         /// Returns the wrapped ComparableFilter from `self`.
         public var unwrapped: ComparableFilter<T> {
             switch self {
-            case .orNil(let unwrapped):
+            case let .orNil(unwrapped):
                 return unwrapped
-            case .notNil(let unwrapped):
+            case let .notNil(unwrapped):
                 return unwrapped
             case .isNil:
                 return .none

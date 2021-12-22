@@ -1,11 +1,10 @@
+// NSExpression+ComparableOperators.swift
+// SwiftFilter
 //
-//  NSExpression+ComparableOperators.swift
-//  
 //
-//  MIT License
+// MIT License
 //
-//  Copyright (c) 2020 Andrew Roan
-//
+// Copyright © 2021 Andrew Roan
 
 import Foundation
 
@@ -22,7 +21,7 @@ extension NSExpression {
         type: NSComparisonPredicate.Operator,
         options: NSComparisonPredicate.Options = []
     ) -> NSComparisonPredicate {
-        return NSComparisonPredicate(
+        NSComparisonPredicate(
             leftExpression: self,
             rightExpression: rhs,
             modifier: modifier,
@@ -41,7 +40,7 @@ extension NSExpression {
         modifier: NSComparisonPredicate.Modifier = .direct,
         options: NSComparisonPredicate.Options = []
     ) -> NSPredicate {
-        return comparisonPredicate(rhs, modifier: modifier, type: .lessThan, options: options)
+        comparisonPredicate(rhs, modifier: modifier, type: .lessThan, options: options)
     }
 
     /// Convenience method for creating a NSPredicate on an NSExpression
@@ -54,7 +53,7 @@ extension NSExpression {
         modifier: NSComparisonPredicate.Modifier = .direct,
         options: NSComparisonPredicate.Options = []
     ) -> NSPredicate {
-        return comparisonPredicate(rhs, modifier: modifier, type: .lessThanOrEqualTo, options: options)
+        comparisonPredicate(rhs, modifier: modifier, type: .lessThanOrEqualTo, options: options)
     }
 
     /// Convenience method for creating a NSPredicate on an NSExpression
@@ -67,7 +66,7 @@ extension NSExpression {
         modifier: NSComparisonPredicate.Modifier = .direct,
         options: NSComparisonPredicate.Options = []
     ) -> NSPredicate {
-        return comparisonPredicate(rhs, modifier: modifier, type: .greaterThan, options: options)
+        comparisonPredicate(rhs, modifier: modifier, type: .greaterThan, options: options)
     }
 
     /// Convenience method for creating a NSPredicate on an NSExpression
@@ -80,6 +79,6 @@ extension NSExpression {
         modifier: NSComparisonPredicate.Modifier = .direct,
         options: NSComparisonPredicate.Options = []
     ) -> NSPredicate {
-        return comparisonPredicate(rhs, modifier: modifier, type: .greaterThanOrEqualTo, options: options)
+        comparisonPredicate(rhs, modifier: modifier, type: .greaterThanOrEqualTo, options: options)
     }
 }

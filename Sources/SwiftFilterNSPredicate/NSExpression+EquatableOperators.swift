@@ -1,11 +1,10 @@
+// NSExpression+EquatableOperators.swift
+// SwiftFilter
 //
-//  NSExpression+EquatableOperators.swift
-//  
 //
-//  MIT License
+// MIT License
 //
-//  Copyright (c) 2020 Andrew Roan
-//
+// Copyright © 2021 Andrew Roan
 
 import Foundation
 
@@ -20,6 +19,6 @@ extension NSExpression {
         modifier: NSComparisonPredicate.Modifier = .direct,
         options: NSComparisonPredicate.Options = []
     ) -> NSPredicate {
-        return comparisonPredicate(rhs, modifier: modifier, type: .equalTo, options: options)
+        comparisonPredicate(rhs, modifier: modifier, type: .equalTo, options: options)
     }
 }

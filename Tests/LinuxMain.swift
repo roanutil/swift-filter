@@ -1,7 +1,16 @@
+// LinuxMain.swift
+// SwiftFilter
+//
+//
+// MIT License
+//
+// Copyright © 2021 Andrew Roan
+
 import XCTest
 
 import SwiftFilterTests
 
 var tests = [XCTestCaseEntry]()
-tests += SwiftFilterTests.allTests()
+tests += SwiftFilterClosureTests.allTests()
+tests += SwiftFilterNSPredicateTests.allTests()
 XCTMain(tests)
