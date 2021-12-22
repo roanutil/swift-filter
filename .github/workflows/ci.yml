@@ -27,3 +27,5 @@ jobs:
         run: swiftlint .
       - name: Run Tests
         run: swift test --enable-code-coverage
+      - name: Code Coverage
+        run: - bash <(curl -s https://codecov.io/bash)
