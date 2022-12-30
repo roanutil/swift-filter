@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2021 Andrew Roan
+// Copyright © 2022 Andrew Roan
 
 import Foundation
 import SwiftFilter
@@ -12,7 +12,8 @@ import SwiftFilter
 extension NSPredicate: OptionalAnyComparablePredicate {
     /// Creates a NSPredicate from a ComparableFilter.Optional
     ///
-    /// - Parameter filter: An instance of ComparableFilter.Optional representing the logic of the resulting NSPredicate.
+    /// - Parameter filter: An instance of ComparableFilter.Optional representing the logic of the resulting
+    /// NSPredicate.
     /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
     public static func build<Root, Value>(
         from filter: ComparableFilter<Value>.Optional,

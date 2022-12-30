@@ -7,17 +7,25 @@ on:
   pull_request:
     branches:
       - '*'
+  workflow_dispatch:
 
 jobs:
   library:
-    runs-on: macos-11.0
     environment: default
     strategy:
       matrix:
-        xcode:
-          - '12.4'
-          - '12.5.1'
-          - '13.2'
+        include:
+          - os: macos-11
+            xcode: '12.4' # swift 5.3
+          - os: macos-11
+            xcode: '12.5.1' # swift 5.4
+          - os: macos-12
+            xcode: '13.2.1' # swift 5.5
+          - os: macos-12
+            xcode: '13.4' # swift 5.6
+          - os: macos-12
+            xcode: '14.2' # swift 5.7
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
       - name: Select Xcode ${{ matrix.xcode }}
@@ -27,8 +35,9 @@ jobs:
       - name: Lint
         run: swiftlint .
       - name: Run Tests
-        run: swift test --enable-code-coverage
+        run: swift test --enable-code-coverage --parallel
       - name: Swift Coverage Report
-        uses: maxep/spm-lcov-action@0.3.1
-      - name: Code Coverage
-        run: bash <(curl -s https://codecov.io/bash) -X xcodellvm
+        run: xcrun llvm-cov export -format="lcov" .build/debug/SwiftFilterPackageTests.xctest/Contents/MacOS/SwiftFilterPackageTests -instr-profile .build/debug/codecov/default.profdata > coverage_report.lcov
+      - uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true # optional (default = false)

@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2021 Andrew Roan
+// Copyright © 2022 Andrew Roan
 
 import Foundation
 import SwiftFilter
@@ -12,7 +12,8 @@ import SwiftFilter
 extension Closure: OptionalComparablePredicate where Value: Comparable {
     /// Creates a closure `(Self) -> Bool` from a ComparableFilter.Optional
     ///
-    /// - Parameter filter: An instance of ComparableFilter.Optional representing the logic of the resulting NSPredicate.
+    /// - Parameter filter: An instance of ComparableFilter.Optional representing the logic of the resulting
+    /// NSPredicate.
     public static func build(from filter: ComparableFilter<Value>.Optional,
                              on keyPath: KeyPath<Root, Value?>) -> ((Root) -> Bool)
     {

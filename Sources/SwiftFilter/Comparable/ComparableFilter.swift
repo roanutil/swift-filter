@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2021 Andrew Roan
+// Copyright © 2022 Andrew Roan
 
 import Foundation
 
@@ -12,7 +12,8 @@ import Foundation
 ///
 /// When using indirect cases for compound comparisons it is best to place more simple comparisons
 /// towards the outside and nest more complicated comparisons inside. When building a NSCompoundPredicate from
-/// a filter the outer most filters will be placed first in the array of NSPredicates. Similarly, when bulding a closure the structure
+/// a filter the outer most filters will be placed first in the array of NSPredicates. Similarly, when bulding a closure
+/// the structure
 /// is maintained so that the outer most is evaluated first.
 public enum ComparableFilter<T: Comparable>: Equatable {
     case lessThan(T)
@@ -46,3 +47,7 @@ public enum ComparableFilter<T: Comparable>: Equatable {
         }
     }
 }
+
+extension ComparableFilter: Hashable where T: Hashable {}
+
+extension ComparableFilter.Optional: Hashable where T: Hashable {}
