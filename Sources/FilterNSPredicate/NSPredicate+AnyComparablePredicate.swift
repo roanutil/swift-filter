@@ -9,6 +9,8 @@
 import Filter
 import Foundation
 
+// swiftlint:disable cyclomatic_complexity
+
 extension NSPredicate: AnyComparablePredicate {
     /// Creates a NSPredicate from a ComparableFilter
     ///

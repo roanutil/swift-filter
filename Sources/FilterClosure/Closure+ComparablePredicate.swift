@@ -9,6 +9,8 @@
 import Filter
 import Foundation
 
+// swiftlint:disable cyclomatic_complexity
+
 extension Closure: ComparablePredicate where Value: Comparable {
     /// Creates a closure `(Self) -> Bool` from a ComparableFilter
     ///
