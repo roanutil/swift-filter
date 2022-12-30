@@ -1,48 +1,47 @@
 // swift-tools-version:5.3
-// The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
-    name: "SwiftFilter",
+    name: "swift-filter",
     products: [
         .library(
-            name: "SwiftFilter",
-            targets: ["SwiftFilter"]
+            name: "Filter",
+            targets: ["Filter"]
         ),
         .library(
-            name: "SwiftFilterNSPredicate",
-            targets: ["SwiftFilterNSPredicate"]
+            name: "FilterNSPredicate",
+            targets: ["FilterNSPredicate"]
         ),
         .library(
-            name: "SwiftFilterClosure",
-            targets: ["SwiftFilterClosure"]
+            name: "FilterClosure",
+            targets: ["FilterClosure"]
         ),
     ],
     dependencies: [],
     targets: [
         .target(
-            name: "SwiftFilter",
+            name: "Filter",
             dependencies: []
         ),
         .testTarget(
-            name: "SwiftFilterClosureTests",
-            dependencies: ["SwiftFilterClosure"]
+            name: "FilterClosureTests",
+            dependencies: ["FilterClosure"]
         ),
         .testTarget(
-            name: "SwiftFilterNSPredicateTests",
-            dependencies: ["SwiftFilterNSPredicate"]
+            name: "FilterNSPredicateTests",
+            dependencies: ["FilterNSPredicate"]
         ),
         .target(
-            name: "SwiftFilterNSPredicate",
+            name: "FilterNSPredicate",
             dependencies: [
-                "SwiftFilter",
+                "Filter",
             ]
         ),
         .target(
-            name: "SwiftFilterClosure",
+            name: "FilterClosure",
             dependencies: [
-                "SwiftFilter",
+                "Filter",
             ]
         ),
     ]

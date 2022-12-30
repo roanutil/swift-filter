@@ -1,5 +1,5 @@
 // LinuxMain.swift
-// SwiftFilter
+// Filter
 //
 //
 // MIT License
@@ -8,9 +8,9 @@
 
 import XCTest
 
-import SwiftFilterTests
+import FilterTests
 
 var tests = [XCTestCaseEntry]()
-tests += SwiftFilterClosureTests.allTests()
-tests += SwiftFilterNSPredicateTests.allTests()
+tests += FilterClosureTests.allTests()
+tests += FilterNSPredicateTests.allTests()
 XCTMain(tests)
