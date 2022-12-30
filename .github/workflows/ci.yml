@@ -33,7 +33,7 @@ jobs:
       - name: Run Tests
         run: swift test --enable-code-coverage --parallel
       - name: Swift Coverage Report
-        run: xcrun llvm-cov export -format="lcov" .build/debug/swift-filter-PackageTests.xctest/Contents/MacOS/swift-filter-PackageTests -instr-profile .build/debug/codecov/default.profdata > coverage_report.lcov
+        run: xcrun llvm-cov export -format="lcov" .build/debug/swift-filterPackageTests.xctest/Contents/MacOS/swift-filterPackageTests -instr-profile .build/debug/codecov/default.profdata > coverage_report.lcov
       - uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true # optional (default = false)
