@@ -47,3 +47,7 @@ public enum EquatableFilter<T: Equatable>: Equatable {
 extension EquatableFilter: Hashable where T: Hashable {}
 
 extension EquatableFilter.Optional: Hashable where T: Hashable {}
+
+extension EquatableFilter: Sendable where T: Sendable {}
+
+extension EquatableFilter.Optional: Sendable where T: Sendable {}
