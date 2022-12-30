@@ -46,3 +46,7 @@ public enum ComparableFilter<T: Comparable>: Equatable {
         }
     }
 }
+
+extension ComparableFilter: Hashable where T: Hashable {}
+
+extension ComparableFilter.Optional: Hashable where T: Hashable {}

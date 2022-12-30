@@ -42,3 +42,7 @@ public enum EquatableFilter<T: Equatable>: Equatable {
         }
     }
 }
+
+extension EquatableFilter: Hashable where T: Hashable {}
+
+extension EquatableFilter.Optional: Hashable where T: Hashable {}
