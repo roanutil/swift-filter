@@ -19,19 +19,19 @@ class EquatableFilterNSPredicateTests: XCTestCase {
     func testEqualTo() {
         let filter = EquatableFilter.equalTo(3)
         let result = all.filter(NSPredicate.build(from: filter).closure)
-        assert(result == [3])
+        XCTAssertEqual(result, [3])
     }
 
     func testOptionalEqualTo() {
         let filter = EquatableFilter<Int?>.equalTo(3)
         let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-        assert(result == [3])
+        XCTAssertEqual(result, [3])
     }
 
     func testNone() {
         let filter = EquatableFilter<Int>.none
         let result = all.filter(NSPredicate.build(from: filter).closure)
-        assert(result == [1, 2, 3, 4, 5])
+        XCTAssertEqual(result, [1, 2, 3, 4, 5])
     }
 
     // MARK: Optional Wrapper
@@ -39,19 +39,19 @@ class EquatableFilterNSPredicateTests: XCTestCase {
     func testOptionalOrNil() {
         let filter = EquatableFilter<Int>.Optional.orNil(.none)
         let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-        assert(result == [1, nil, 3, 4, 5])
+        XCTAssertEqual(result, [1, nil, 3, 4, 5])
     }
 
     func testOptionalNotNil() {
         let filter = EquatableFilter<Int>.Optional.notNil(.none)
         let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-        assert(result == [1, 3, 4, 5])
+        XCTAssertEqual(result, [1, 3, 4, 5])
     }
 
     func testOptionalIsNil() {
         let filter = EquatableFilter<Int>.Optional.isNil
         let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-        assert(result == [nil])
+        XCTAssertEqual(result, [nil])
     }
 
     // MARK: Compound
@@ -62,7 +62,7 @@ class EquatableFilterNSPredicateTests: XCTestCase {
             .equalTo(3)
         )
         let result = all.filter(NSPredicate.build(from: filter).closure)
-        assert(result == [])
+        XCTAssertEqual(result, [])
     }
 
     func testOptionalAnd() {
@@ -71,7 +71,7 @@ class EquatableFilterNSPredicateTests: XCTestCase {
             .equalTo(3)
         ))
         let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-        assert(result == [nil])
+        XCTAssertEqual(result, [nil])
     }
 
     func testOr() {
@@ -80,7 +80,7 @@ class EquatableFilterNSPredicateTests: XCTestCase {
             .equalTo(3)
         )
         let result = all.filter(NSPredicate.build(from: filter).closure)
-        assert(result == [2, 3])
+        XCTAssertEqual(result, [2, 3])
     }
 
     func testOptionalOr() {
@@ -89,7 +89,7 @@ class EquatableFilterNSPredicateTests: XCTestCase {
             .equalTo(3)
         ))
         let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-        assert(result == [nil, 3])
+        XCTAssertEqual(result, [nil, 3])
     }
 
     func testAndMulti() {
@@ -98,7 +98,7 @@ class EquatableFilterNSPredicateTests: XCTestCase {
             .equalTo(3),
         ])
         let result = all.filter(NSPredicate.build(from: filter).closure)
-        assert(result == [])
+        XCTAssertEqual(result, [])
     }
 
     func testOptionalAndMulti() {
@@ -107,7 +107,7 @@ class EquatableFilterNSPredicateTests: XCTestCase {
             .equalTo(3),
         ]))
         let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-        assert(result == [nil])
+        XCTAssertEqual(result, [nil])
     }
 
     func testOrMulti() {
@@ -116,7 +116,7 @@ class EquatableFilterNSPredicateTests: XCTestCase {
             .equalTo(3),
         ])
         let result = all.filter(NSPredicate.build(from: filter).closure)
-        assert(result == [2, 3])
+        XCTAssertEqual(result, [2, 3])
     }
 
     func testOptionalOrMulti() {
@@ -125,22 +125,6 @@ class EquatableFilterNSPredicateTests: XCTestCase {
             .equalTo(3),
         ]))
         let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-        assert(result == [nil, 3])
+        XCTAssertEqual(result, [nil, 3])
     }
-
-    static var allTests = [
-        ("testEqualTo", testEqualTo),
-        ("testOptionalEqualTo", testOptionalEqualTo),
-        ("testOptionalOrNil", testOptionalOrNil),
-        ("testOptionalNotNil", testOptionalNotNil),
-        ("testOptionalIsNil", testOptionalIsNil),
-        ("testAnd", testAnd),
-        ("testOptionalAnd", testOptionalAnd),
-        ("testOr", testOr),
-        ("testOptionalOr", testOptionalOr),
-        ("testAndMulti", testAndMulti),
-        ("testOptionalAndMulti", testOptionalAndMulti),
-        ("testOrMulti", testOrMulti),
-        ("testOptionalOrMulti", testOptionalOrMulti),
-    ]
 }
