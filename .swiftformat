@@ -2,5 +2,5 @@
 --redundanttype explicit
 --swiftversion 5.5
 --maxwidth 120
---header "{file}\nSwiftFilter\n\n\nMIT License\n\nCopyright © {year} Andrew Roan"
+--header "{file}\nFilter\n\n\nMIT License\n\nCopyright © {year} Andrew Roan"
 --allman false

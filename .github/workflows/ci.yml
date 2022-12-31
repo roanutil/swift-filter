@@ -15,10 +15,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: macos-11
-            xcode: '12.4' # swift 5.3
-          - os: macos-11
-            xcode: '12.5.1' # swift 5.4
           - os: macos-12
             xcode: '13.2.1' # swift 5.5
           - os: macos-12
@@ -37,7 +33,7 @@ jobs:
       - name: Run Tests
         run: swift test --enable-code-coverage --parallel
       - name: Swift Coverage Report
-        run: xcrun llvm-cov export -format="lcov" .build/debug/SwiftFilterPackageTests.xctest/Contents/MacOS/SwiftFilterPackageTests -instr-profile .build/debug/codecov/default.profdata > coverage_report.lcov
+        run: xcrun llvm-cov export -format="lcov" .build/debug/swift-filterPackageTests.xctest/Contents/MacOS/swift-filterPackageTests -instr-profile .build/debug/codecov/default.profdata > coverage_report.lcov
       - uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true # optional (default = false)
