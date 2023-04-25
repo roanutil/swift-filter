@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2022 Andrew Roan
+// Copyright © 2023 Andrew Roan
 
 import Filter
 import Foundation
@@ -81,3 +81,5 @@ extension NSPredicate: AnyComparablePredicate {
         }
     }
 }
+
+// swiftlint:enable cyclomatic_complexity
