@@ -15,7 +15,7 @@ extension NSExpression {
     /// - Parameter modifer: See NSComparisonPredicate. Default: `.direct`
     /// - Parameter type: See NSComparisonPredicate.
     /// - Parameter options: See NSComparisonPredicate. Default: `[]`
-    internal func comparisonPredicate(
+    func comparisonPredicate(
         _ rhs: NSExpression,
         modifier: NSComparisonPredicate.Modifier = .direct,
         type: NSComparisonPredicate.Operator,
