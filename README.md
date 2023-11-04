@@ -2,8 +2,8 @@
 
 [![CI](https://github.com/roanutil/swift-filter/actions/workflows/ci.yml/badge.svg)](https://github.com/roanutil/swift-filter/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/roanutil/swift-filter/branch/main/graph/badge.svg?token=86G7F92SM2)](https://codecov.io/gh/roanutil/swift-filter)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Froanutil%2FFilter%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/roanutil/swift-filter)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Froanutil%2FFilter%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/roanutil/swift-filter)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Froanutil%2Fswift-filter%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/roanutil/swift-filter)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Froanutil%2Fswift-filter%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/roanutil/swift-filter)
 
 Filter is a library that makes it easy to model filters in state and then create predicates from that state.
 
