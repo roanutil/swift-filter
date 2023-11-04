@@ -2,47 +2,57 @@
 
 import PackageDescription
 
-let package = Package(
-    name: "swift-filter",
-    products: [
-        .library(
-            name: "Filter",
-            targets: ["Filter"]
-        ),
-        .library(
-            name: "FilterNSPredicate",
-            targets: ["FilterNSPredicate"]
-        ),
-        .library(
-            name: "FilterClosure",
-            targets: ["FilterClosure"]
-        ),
-    ],
-    dependencies: [],
-    targets: [
+var products: [Product] = [
+    .library(
+        name: "Filter",
+        targets: ["Filter"]
+    ),
+    .library(
+        name: "FilterClosure",
+        targets: ["FilterClosure"]
+    ),
+]
+
+var targets: [Target] = [
+    .target(name: "Filter"),
+    .target(
+        name: "FilterClosure",
+        dependencies: [
+            "Filter",
+        ]
+    ),
+    .testTarget(
+        name: "FilterClosureTests",
+        dependencies: [
+            "FilterClosure",
+        ]
+    ),
+]
+
+#if !os(Linux) && !os(Windows)
+    products.append(.library(
+        name: "FilterNSPredicate",
+        targets: ["FilterNSPredicate"]
+    ))
+
+    targets.append(contentsOf: [
         .target(
-            name: "Filter",
-            dependencies: []
-        ),
-        .testTarget(
-            name: "FilterClosureTests",
-            dependencies: ["FilterClosure"]
+            name: "FilterNSPredicate",
+            dependencies: [
+                "Filter",
+            ]
         ),
         .testTarget(
             name: "FilterNSPredicateTests",
-            dependencies: ["FilterNSPredicate"]
-        ),
-        .target(
-            name: "FilterNSPredicate",
             dependencies: [
-                "Filter",
+                "FilterNSPredicate",
             ]
         ),
-        .target(
-            name: "FilterClosure",
-            dependencies: [
-                "Filter",
-            ]
-        ),
-    ]
+    ])
+#endif
+
+let package = Package(
+    name: "swift-filter",
+    products: products,
+    targets: targets
 )
