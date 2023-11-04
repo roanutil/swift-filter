@@ -46,3 +46,11 @@ jobs:
       - uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true # optional (default = false)
+  linux-test:
+    runs-on: ubuntu-latest
+    environment: default
+    
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Tests
+        run: swift test --parallel
