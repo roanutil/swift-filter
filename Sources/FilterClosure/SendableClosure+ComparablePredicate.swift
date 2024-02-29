@@ -1,10 +1,10 @@
-// Closure+ComparablePredicate.swift
+// SendableClosure+ComparablePredicate.swift
 // Filter
 //
 //
 // MIT License
 //
-// Copyright © 2023 Andrew Roan
+// Copyright © 2024 Andrew Roan
 
 import Filter
 import Foundation

@@ -1,9 +1,10 @@
+// SendableClosure.swift
+// Filter
 //
-//  File.swift
-//  
 //
-//  Created by andrew on 2/27/24.
+// MIT License
 //
+// Copyright © 2024 Andrew Roan
 
 import Foundation
 
