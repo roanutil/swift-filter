@@ -1,4 +1,4 @@
-// Closure+ComparablePredicate.swift
+// SendableClosure+EquatablePredicate.swift
 // Filter
 //
 //
@@ -9,24 +9,16 @@
 import Filter
 import Foundation
 
-// swiftlint:disable cyclomatic_complexity
-
-extension Closure: ComparablePredicate where Value: Comparable {
-    /// Creates a closure `(Self) -> Bool` from a ComparableFilter
+extension SendableClosure: EquatablePredicate where Value: Equatable {
+    /// Creates a closure `(Self) -> Bool` from a EquatableFilter
     ///
-    /// - Parameter filter: An instance of ComparableFilter representing the logic of the resulting NSPredicate.
-    public static func build(from filter: ComparableFilter<Value>,
-                             on keyPath: KeyPath<Root, Value>) -> ((Root) -> Bool)
+    /// - Parameter filter: An instance of EquatableFilter representing the logic of the resulting NSPredicate.
+    public static func build(from filter: EquatableFilter<Value>,
+                             on keyPath: KeyPath<Root, Value>) -> (@Sendable (Root) -> Bool)
     {
         switch filter {
-        case let .lessThan(bound):
-            return { $0[keyPath: keyPath] < bound }
-        case let .lessThanOrEqualTo(bound):
-            return { $0[keyPath: keyPath] <= bound }
-        case let .greaterThan(bound):
-            return { $0[keyPath: keyPath] > bound }
-        case let .greaterThanOrEqualTo(bound):
-            return { $0[keyPath: keyPath] >= bound }
+        case let .equalTo(requiredValue):
+            return { $0[keyPath: keyPath] == requiredValue }
         case .none:
             return { _ in true }
         case let .or(lhs, rhs):
@@ -48,10 +40,6 @@ extension Closure: ComparablePredicate where Value: Comparable {
         case let .not(inverted):
             let invertedClosure = Self.build(from: inverted, on: keyPath)
             return { !invertedClosure($0) }
-        case let .equatable(equatable):
-            return Self.build(from: equatable, on: keyPath)
         }
     }
 }
-
-// swiftlint:enable cyclomatic_complexity

@@ -1,4 +1,4 @@
-// Closure+OptionalEquatablePredicate.swift
+// SendableClosure+OptionalComparablePredicate.swift
 // Filter
 //
 //
@@ -9,12 +9,13 @@
 import Filter
 import Foundation
 
-extension Closure: OptionalEquatablePredicate where Value: Equatable {
-    /// Creates a closure `(Self) -> Bool` from a EquatableFilter
+extension SendableClosure: OptionalComparablePredicate where Value: Comparable {
+    /// Creates a closure `(Self) -> Bool` from a ComparableFilter.Optional
     ///
-    /// - Parameter filter: An instance of EquatableFilter representing the logic of the resulting NSPredicate.
-    public static func build(from filter: EquatableFilter<Value>.Optional,
-                             on keyPath: KeyPath<Root, Value?>) -> ((Root) -> Bool)
+    /// - Parameter filter: An instance of ComparableFilter.Optional representing the logic of the resulting
+    /// NSPredicate.
+    public static func build(from filter: ComparableFilter<Value>.Optional,
+                             on keyPath: KeyPath<Root, Value?>) -> (@Sendable (Root) -> Bool)
     {
         switch filter {
         case let .orNil(subFilter):

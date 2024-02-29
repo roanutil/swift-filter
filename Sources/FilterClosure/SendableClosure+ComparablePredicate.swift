@@ -1,4 +1,4 @@
-// Closure+ComparablePredicate.swift
+// SendableClosure+ComparablePredicate.swift
 // Filter
 //
 //
@@ -11,12 +11,12 @@ import Foundation
 
 // swiftlint:disable cyclomatic_complexity
 
-extension Closure: ComparablePredicate where Value: Comparable {
+extension SendableClosure: ComparablePredicate where Value: Comparable {
     /// Creates a closure `(Self) -> Bool` from a ComparableFilter
     ///
     /// - Parameter filter: An instance of ComparableFilter representing the logic of the resulting NSPredicate.
     public static func build(from filter: ComparableFilter<Value>,
-                             on keyPath: KeyPath<Root, Value>) -> ((Root) -> Bool)
+                             on keyPath: KeyPath<Root, Value>) -> (@Sendable (Root) -> Bool)
     {
         switch filter {
         case let .lessThan(bound):

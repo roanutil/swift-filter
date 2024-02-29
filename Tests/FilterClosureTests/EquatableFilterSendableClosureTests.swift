@@ -1,4 +1,4 @@
-// EquatableFilterClosureTests.swift
+// EquatableFilterSendableClosureTests.swift
 // Filter
 //
 //
@@ -10,7 +10,7 @@ import Filter
 import FilterClosure
 import XCTest
 
-class EquatableFilterClosureTests: XCTestCase {
+class EquatableFilterSendableClosureTests: XCTestCase {
     let all: [Int] = [1, 2, 3, 4, 5]
     let allOptional: [Int?] = [1, nil, 3, 4, 5]
 
@@ -18,19 +18,19 @@ class EquatableFilterClosureTests: XCTestCase {
 
     func testEqualTo() {
         let filter = EquatableFilter.equalTo(3)
-        let result = all.filter(Closure.build(from: filter))
+        let result = all.filter(SendableClosure.build(from: filter))
         XCTAssertEqual(result, [3])
     }
 
     func testOptionalEqualTo() {
         let filter = EquatableFilter<Int?>.equalTo(3)
-        let result = allOptional.filter(Closure.build(from: filter))
+        let result = allOptional.filter(SendableClosure.build(from: filter))
         XCTAssertEqual(result, [3])
     }
 
     func testNone() {
         let filter = EquatableFilter<Int>.none
-        let result = all.filter(Closure.build(from: filter))
+        let result = all.filter(SendableClosure.build(from: filter))
         XCTAssertEqual(result, [1, 2, 3, 4, 5])
     }
 
@@ -38,19 +38,19 @@ class EquatableFilterClosureTests: XCTestCase {
 
     func testOptionalOrNil() {
         let filter = EquatableFilter<Int>.Optional.orNil(.none)
-        let result = allOptional.filter(Closure.build(from: filter))
+        let result = allOptional.filter(SendableClosure.build(from: filter))
         XCTAssertEqual(result, [1, nil, 3, 4, 5])
     }
 
     func testOptionalNotNil() {
         let filter = EquatableFilter<Int>.Optional.notNil(.none)
-        let result = allOptional.filter(Closure.build(from: filter))
+        let result = allOptional.filter(SendableClosure.build(from: filter))
         XCTAssertEqual(result, [1, 3, 4, 5])
     }
 
     func testOptionalIsNil() {
         let filter = EquatableFilter<Int>.Optional.isNil
-        let result = allOptional.filter(Closure.build(from: filter))
+        let result = allOptional.filter(SendableClosure.build(from: filter))
         XCTAssertEqual(result, [nil])
     }
 
@@ -61,7 +61,7 @@ class EquatableFilterClosureTests: XCTestCase {
             .equalTo(2),
             .equalTo(3)
         )
-        let result = all.filter(Closure.build(from: filter))
+        let result = all.filter(SendableClosure.build(from: filter))
         XCTAssertEqual(result, [])
     }
 
@@ -70,7 +70,7 @@ class EquatableFilterClosureTests: XCTestCase {
             .equalTo(2),
             .equalTo(3)
         ))
-        let result = allOptional.filter(Closure.build(from: filter))
+        let result = allOptional.filter(SendableClosure.build(from: filter))
         XCTAssertEqual(result, [nil])
     }
 
@@ -79,7 +79,7 @@ class EquatableFilterClosureTests: XCTestCase {
             .equalTo(2),
             .equalTo(3)
         )
-        let result = all.filter(Closure.build(from: filter))
+        let result = all.filter(SendableClosure.build(from: filter))
         XCTAssertEqual(result, [2, 3])
     }
 
@@ -88,7 +88,7 @@ class EquatableFilterClosureTests: XCTestCase {
             .equalTo(2),
             .equalTo(3)
         ))
-        let result = allOptional.filter(Closure.build(from: filter))
+        let result = allOptional.filter(SendableClosure.build(from: filter))
         XCTAssertEqual(result, [nil, 3])
     }
 
@@ -97,7 +97,7 @@ class EquatableFilterClosureTests: XCTestCase {
             .equalTo(2),
             .equalTo(3),
         ])
-        let result = all.filter(Closure.build(from: filter))
+        let result = all.filter(SendableClosure.build(from: filter))
         XCTAssertEqual(result, [])
     }
 
@@ -106,7 +106,7 @@ class EquatableFilterClosureTests: XCTestCase {
             .equalTo(2),
             .equalTo(3),
         ]))
-        let result = allOptional.filter(Closure.build(from: filter))
+        let result = allOptional.filter(SendableClosure.build(from: filter))
         XCTAssertEqual(result, [nil])
     }
 
@@ -115,7 +115,7 @@ class EquatableFilterClosureTests: XCTestCase {
             .equalTo(2),
             .equalTo(3),
         ])
-        let result = all.filter(Closure.build(from: filter))
+        let result = all.filter(SendableClosure.build(from: filter))
         XCTAssertEqual(result, [2, 3])
     }
 
@@ -124,7 +124,7 @@ class EquatableFilterClosureTests: XCTestCase {
             .equalTo(2),
             .equalTo(3),
         ]))
-        let result = allOptional.filter(Closure.build(from: filter))
+        let result = allOptional.filter(SendableClosure.build(from: filter))
         XCTAssertEqual(result, [nil, 3])
     }
 }
