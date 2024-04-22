@@ -26,6 +26,7 @@ extension OptionalAnyComparablePredicate {
     ///  - filter: ComparableFilter<Value>.Optional
     /// - Returns
     ///  - Output
+    @inlinable
     public static func build<Value>(from filter: ComparableFilter<Value>.Optional) -> Output where Value: Comparable {
         build(from: filter, on: \.self)
     }

@@ -25,6 +25,7 @@ extension OptionalComparablePredicate where Root == Value? {
     ///  - filter: ComparableFilter<Value>.Optional
     /// - Returns
     ///  - Output
+    @inlinable
     public static func build(from filter: ComparableFilter<Value>.Optional) -> Output {
         build(from: filter, on: \.self)
     }

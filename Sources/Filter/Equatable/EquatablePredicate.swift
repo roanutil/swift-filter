@@ -32,6 +32,7 @@ extension EquatablePredicate where Root == Value {
     ///  - filter: EquatableFilter<Value>
     /// - Returns
     ///  - Output
+    @inlinable
     public static func build(from filter: EquatableFilter<Value>) -> Output {
         build(from: filter, on: \.self)
     }

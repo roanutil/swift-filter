@@ -25,6 +25,7 @@ extension ComparablePredicate where Root == Value {
     ///  - filter: ComparableFilter<Value>
     /// - Returns
     ///  - Output
+    @inlinable
     public static func build(from filter: ComparableFilter<Value>) -> Output {
         build(from: filter, on: \.self)
     }

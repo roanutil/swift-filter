@@ -14,6 +14,7 @@ extension NSPredicate: OptionalAnyEquatablePredicate {
     ///
     /// - Parameter filter: An instance of EquatableFilter.Optional representing the logic of the resulting NSPredicate.
     /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
+    @inlinable
     public static func build<Root, Value>(
         from filter: EquatableFilter<Value>.Optional,
         on keyPath: KeyPath<Root, Value?>

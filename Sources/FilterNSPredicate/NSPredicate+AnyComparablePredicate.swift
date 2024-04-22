@@ -14,6 +14,7 @@ extension NSPredicate: AnyComparablePredicate {
     ///
     /// - Parameter filter: An instance of ComparableFilter representing the logic of the resulting NSPredicate.
     /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
+    @inlinable
     public static func build<Root, Value>(
         from filter: ComparableFilter<Value>,
         on keyPath: KeyPath<Root, Value>
@@ -47,6 +48,7 @@ extension NSPredicate: AnyComparablePredicate {
     /// - Parameter filter: An instance of ComparableFilter.Optional representing the logic of the resulting
     /// NSPredicate.
     /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
+    @inlinable
     public static func build<Root, Value>(
         from filter: ComparableFilter<Value>,
         on keyPath: KeyPath<Root, Value?>
