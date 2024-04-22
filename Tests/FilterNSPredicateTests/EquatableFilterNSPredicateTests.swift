@@ -45,7 +45,7 @@ class EquatableFilterNSPredicateTests: XCTestCase {
         let result = allOptional.filter(NSPredicate.build(from: filter).closure)
         XCTAssertEqual(result, [1, 3, 4, 5])
     }
-    
+
     func testOptionalNotNilWithSubFilter() {
         let filter = EquatableFilter<Int>.Optional.notNil(.orMulti([
             .equalTo(1),

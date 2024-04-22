@@ -129,7 +129,7 @@ class ComparableFilterClosureTests: XCTestCase {
         let result = allOptional.filter(Closure.build(from: filter))
         XCTAssertEqual(result, [1, 3, 4, 5])
     }
-    
+
     func testOptionalNotNilWithSubFilter() {
         let filter = ComparableFilter<Int>.Optional.notNil(.equatable(.orMulti([
             .equalTo(1),
