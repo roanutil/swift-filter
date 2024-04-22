@@ -14,7 +14,7 @@ jobs:
     runs-on: macos-13
     environment: default
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Format lint
         run: swiftformat --lint .
       - name: Lint
@@ -24,19 +24,13 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: macos-12
-            xcode: 13.2.1 # Swift 5.5.2
-          - os: macos-12
-            xcode: 13.4.1 # Swift 5.6
-          - os: macos-13
-            xcode: 14.2 # Swift 5.7
-          - os: macos-13
-            xcode: 14.3 # Swift 5.8
-          - os: macos-13
-            xcode: 15.0.1 # Swift 5.9
+          - os: macos-14
+            xcode: 15.2 # Swift 5.9
+          - os: macos-14
+            xcode: 15.3 # Swift 5.10
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Select Xcode ${{ matrix.xcode }}
         run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode }}.app
       - name: Run Tests
@@ -45,12 +39,13 @@ jobs:
         run: xcrun llvm-cov export -format="lcov" .build/debug/swift-filterPackageTests.xctest/Contents/MacOS/swift-filterPackageTests -instr-profile .build/debug/codecov/default.profdata > coverage_report.lcov
       - uses: codecov/codecov-action@v3
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true # optional (default = false)
   linux-test:
     runs-on: ubuntu-latest
     environment: default
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run Tests
         run: swift test --parallel

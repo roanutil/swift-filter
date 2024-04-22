@@ -21,8 +21,6 @@ extension NSPredicate: AnyEquatablePredicate {
         switch filter {
         case let .equalTo(value):
             return NSExpression(forKeyPath: keyPath).equalTo(NSExpression(forConstantValue: value))
-        case .none:
-            return NSPredicate(value: true)
         case let .or(lhs, rhs):
             return .or([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
         case let .orMulti(predicates):
@@ -47,8 +45,6 @@ extension NSPredicate: AnyEquatablePredicate {
         switch filter {
         case let .equalTo(value):
             return NSExpression(forKeyPath: keyPath).equalTo(NSExpression(forConstantValue: value))
-        case .none:
-            return NSPredicate(value: true)
         case let .or(lhs, rhs):
             return .or([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
         case let .orMulti(predicates):

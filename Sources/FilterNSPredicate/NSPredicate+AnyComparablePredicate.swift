@@ -9,8 +9,6 @@
 import Filter
 import Foundation
 
-// swiftlint:disable cyclomatic_complexity
-
 extension NSPredicate: AnyComparablePredicate {
     /// Creates a NSPredicate from a ComparableFilter
     ///
@@ -29,8 +27,6 @@ extension NSPredicate: AnyComparablePredicate {
             return NSExpression(forKeyPath: keyPath).greaterThan(NSExpression(forConstantValue: value))
         case let .greaterThanOrEqualTo(value):
             return NSExpression(forKeyPath: keyPath).greaterThanOrEqualTo(NSExpression(forConstantValue: value))
-        case .none:
-            return NSPredicate(value: true)
         case let .or(lhs, rhs):
             return .or([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
         case let .orMulti(predicates):
@@ -64,8 +60,6 @@ extension NSPredicate: AnyComparablePredicate {
             return NSExpression(forKeyPath: keyPath).greaterThan(NSExpression(forConstantValue: value))
         case let .greaterThanOrEqualTo(value):
             return NSExpression(forKeyPath: keyPath).greaterThanOrEqualTo(NSExpression(forConstantValue: value))
-        case .none:
-            return NSPredicate(value: true)
         case let .or(lhs, rhs):
             return .or([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
         case let .orMulti(predicates):
@@ -81,5 +75,3 @@ extension NSPredicate: AnyComparablePredicate {
         }
     }
 }
-
-// swiftlint:enable cyclomatic_complexity

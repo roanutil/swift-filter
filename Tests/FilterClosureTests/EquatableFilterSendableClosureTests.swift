@@ -28,24 +28,32 @@ class EquatableFilterSendableClosureTests: XCTestCase {
         XCTAssertEqual(result, [3])
     }
 
-    func testNone() {
-        let filter = EquatableFilter<Int>.none
-        let result = all.filter(SendableClosure.build(from: filter))
-        XCTAssertEqual(result, [1, 2, 3, 4, 5])
-    }
-
     // MARK: Optional Wrapper
 
     func testOptionalOrNil() {
-        let filter = EquatableFilter<Int>.Optional.orNil(.none)
+        let filter = EquatableFilter<Int>.Optional.orNil(.orMulti([
+            .equalTo(1),
+            .equalTo(4),
+            .equalTo(5),
+        ]))
         let result = allOptional.filter(SendableClosure.build(from: filter))
-        XCTAssertEqual(result, [1, nil, 3, 4, 5])
+        XCTAssertEqual(result, [1, nil, 4, 5])
     }
 
     func testOptionalNotNil() {
-        let filter = EquatableFilter<Int>.Optional.notNil(.none)
+        let filter = EquatableFilter<Int>.Optional.notNil(nil)
         let result = allOptional.filter(SendableClosure.build(from: filter))
         XCTAssertEqual(result, [1, 3, 4, 5])
+    }
+
+    func testOptionalNotNilWithSubFilter() {
+        let filter = EquatableFilter<Int>.Optional.notNil(.orMulti([
+            .equalTo(1),
+            .equalTo(4),
+            .equalTo(5),
+        ]))
+        let result = allOptional.filter(SendableClosure.build(from: filter))
+        XCTAssertEqual(result, [1, 4, 5])
     }
 
     func testOptionalIsNil() {

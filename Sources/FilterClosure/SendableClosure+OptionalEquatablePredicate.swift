@@ -25,7 +25,10 @@ extension SendableClosure: OptionalEquatablePredicate where Value: Equatable {
         case let .notNil(subFilter):
             return { value in
                 guard let value = value[keyPath: keyPath] else { return false }
-                return Closure<Value, Value>.build(from: subFilter)(value)
+                if let subFilter {
+                    return Closure<Value, Value>.build(from: subFilter)(value)
+                }
+                return true
             }
         case .isNil:
             return { $0[keyPath: keyPath] == nil }
