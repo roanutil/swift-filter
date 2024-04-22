@@ -27,6 +27,7 @@ extension AnyEquatablePredicate {
     ///  - filter: EquatableFilter<Value>
     /// - Returns
     ///  - Output
+    @inlinable
     public static func build<Value>(from filter: EquatableFilter<Value>) -> Output where Value: Equatable {
         build(from: filter, on: \.self)
     }

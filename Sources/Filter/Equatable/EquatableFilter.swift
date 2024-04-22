@@ -30,6 +30,7 @@ public enum EquatableFilter<T: Equatable>: Equatable {
         case isNil
 
         /// Returns the wrapped EquatableFilter from `self`.
+        @inlinable
         public var unwrapped: EquatableFilter<T>? {
             switch self {
             case let .orNil(unwrapped):

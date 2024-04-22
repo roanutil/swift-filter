@@ -15,6 +15,7 @@ extension NSExpression {
     /// - Parameter modifer: See NSComparisonPredicate. Default: `.direct`
     /// - Parameter type: See NSComparisonPredicate.
     /// - Parameter options: See NSComparisonPredicate. Default: `[]`
+    @usableFromInline
     func comparisonPredicate(
         _ rhs: NSExpression,
         modifier: NSComparisonPredicate.Modifier = .direct,
@@ -35,6 +36,7 @@ extension NSExpression {
     /// - Parameter rhs: Right hand side NSExpression. Corresponds to `self` in a NSComparisonPredicate.
     /// - Parameter modifer: See NSComparisonPredicate. Default: `.direct`
     /// - Parameter options: See NSComparisonPredicate. Default: `[]`
+    @inlinable
     public func lessThan(
         _ rhs: NSExpression,
         modifier: NSComparisonPredicate.Modifier = .direct,
@@ -48,6 +50,7 @@ extension NSExpression {
     /// - Parameter rhs: Right hand side NSExpression. Corresponds to `self` in a NSComparisonPredicate.
     /// - Parameter modifer: See NSComparisonPredicate. Default: `.direct`
     /// - Parameter options: See NSComparisonPredicate. Default: `[]`
+    @inlinable
     public func lessThanOrEqualTo(
         _ rhs: NSExpression,
         modifier: NSComparisonPredicate.Modifier = .direct,
@@ -61,6 +64,7 @@ extension NSExpression {
     /// - Parameter rhs: Right hand side NSExpression. Corresponds to `self` in a NSComparisonPredicate.
     /// - Parameter modifer: See NSComparisonPredicate. Default: `.direct`
     /// - Parameter options: See NSComparisonPredicate. Default: `[]`
+    @inlinable
     public func greaterThan(
         _ rhs: NSExpression,
         modifier: NSComparisonPredicate.Modifier = .direct,
@@ -74,6 +78,7 @@ extension NSExpression {
     /// - Parameter rhs: Right hand side NSExpression. Corresponds to `self` in a NSComparisonPredicate.
     /// - Parameter modifer: See NSComparisonPredicate. Default: `.direct`
     /// - Parameter options: See NSComparisonPredicate. Default: `[]`
+    @inlinable
     public func greaterThanOrEqualTo(
         _ rhs: NSExpression,
         modifier: NSComparisonPredicate.Modifier = .direct,

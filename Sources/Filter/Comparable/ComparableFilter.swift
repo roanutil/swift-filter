@@ -34,6 +34,7 @@ public enum ComparableFilter<T: Comparable>: Equatable {
         case isNil
 
         /// Returns the wrapped ComparableFilter from `self`.
+        @inlinable
         public var unwrapped: ComparableFilter<T>? {
             switch self {
             case let .orNil(unwrapped):

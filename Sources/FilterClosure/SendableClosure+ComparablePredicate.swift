@@ -13,6 +13,7 @@ extension SendableClosure: ComparablePredicate where Value: Comparable {
     /// Creates a closure `(Self) -> Bool` from a ComparableFilter
     ///
     /// - Parameter filter: An instance of ComparableFilter representing the logic of the resulting NSPredicate.
+    @inlinable
     public static func build(from filter: ComparableFilter<Value>,
                              on keyPath: KeyPath<Root, Value>) -> (@Sendable (Root) -> Bool)
     {

@@ -26,6 +26,7 @@ extension OptionalAnyEquatablePredicate {
     ///  - filter: EquatableFilter<Value>.Optional
     /// - Returns
     ///  - Output
+    @inlinable
     public static func build<Value>(from filter: EquatableFilter<Value>.Optional) -> Output where Value: Equatable {
         build(from: filter, on: \.self)
     }

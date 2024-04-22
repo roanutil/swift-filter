@@ -13,6 +13,7 @@ extension Closure: OptionalEquatablePredicate where Value: Equatable {
     /// Creates a closure `(Self) -> Bool` from a EquatableFilter
     ///
     /// - Parameter filter: An instance of EquatableFilter representing the logic of the resulting NSPredicate.
+    @inlinable
     public static func build(from filter: EquatableFilter<Value>.Optional,
                              on keyPath: KeyPath<Root, Value?>) -> ((Root) -> Bool)
     {

@@ -26,6 +26,7 @@ extension AnyComparablePredicate {
     ///  - filter: ComparableFilter<Value>
     /// - Returns
     ///  - Output
+    @inlinable
     public static func build<Value>(from filter: ComparableFilter<Value>) -> Output where Value: Comparable {
         build(from: filter, on: \.self)
     }

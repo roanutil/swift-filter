@@ -14,6 +14,7 @@ extension SendableClosure: OptionalComparablePredicate where Value: Comparable {
     ///
     /// - Parameter filter: An instance of ComparableFilter.Optional representing the logic of the resulting
     /// NSPredicate.
+    @inlinable
     public static func build(from filter: ComparableFilter<Value>.Optional,
                              on keyPath: KeyPath<Root, Value?>) -> (@Sendable (Root) -> Bool)
     {

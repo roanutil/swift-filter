@@ -25,6 +25,7 @@ extension OptionalEquatablePredicate where Root == Value? {
     ///  - filter: EquatableFilter<Value>.Optional
     /// - Returns
     ///  - Output
+    @inlinable
     public static func build(from filter: EquatableFilter<Value>.Optional) -> Output {
         build(from: filter, on: \.self)
     }

@@ -15,6 +15,7 @@ extension NSPredicate: OptionalAnyComparablePredicate {
     /// - Parameter filter: An instance of ComparableFilter.Optional representing the logic of the resulting
     /// NSPredicate.
     /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
+    @inlinable
     public static func build<Root, Value>(
         from filter: ComparableFilter<Value>.Optional,
         on keyPath: KeyPath<Root, Value?>
