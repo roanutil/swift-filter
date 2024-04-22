@@ -112,22 +112,20 @@ class ComparableFilterNSPredicateTests: XCTestCase {
         XCTAssertEqual(result, [1])
     }
 
-    func testNone() {
-        let filter = ComparableFilter<Int>.none
-        let result = all.filter(NSPredicate.build(from: filter).closure)
-        XCTAssertEqual(result, [1, 2, 3, 4, 5])
-    }
-
     // MARK: Optional Wrapper
 
     func testOptionalOrNil() {
-        let filter = ComparableFilter<Int>.Optional.orNil(.none)
+        let filter = ComparableFilter<Int>.Optional.orNil(.equatable(.orMulti([
+            .equalTo(1),
+            .equalTo(4),
+            .equalTo(5),
+        ])))
         let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-        XCTAssertEqual(result, [1, nil, 3, 4, 5])
+        XCTAssertEqual(result, [1, nil, 4, 5])
     }
 
     func testOptionalNotNil() {
-        let filter = ComparableFilter<Int>.Optional.notNil(.none)
+        let filter = ComparableFilter<Int>.Optional.notNil(nil)
         let result = allOptional.filter(NSPredicate.build(from: filter).closure)
         XCTAssertEqual(result, [1, 3, 4, 5])
     }

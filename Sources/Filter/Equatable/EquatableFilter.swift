@@ -17,7 +17,6 @@ import Foundation
 /// is maintained so that the outer most is evaluated first.
 public enum EquatableFilter<T: Equatable>: Equatable {
     case equalTo(T)
-    case none // Always evaluates to true
     indirect case or(Self, Self)
     indirect case orMulti([Self])
     indirect case and(Self, Self)
@@ -27,18 +26,18 @@ public enum EquatableFilter<T: Equatable>: Equatable {
     /// A wrapper for EquatableFilter when comparing an optional type.
     public enum Optional: Equatable {
         case orNil(EquatableFilter<T>)
-        case notNil(EquatableFilter<T>)
+        case notNil(EquatableFilter<T>?)
         case isNil
 
         /// Returns the wrapped EquatableFilter from `self`.
-        public var unwrapped: EquatableFilter<T> {
+        public var unwrapped: EquatableFilter<T>? {
             switch self {
             case let .orNil(unwrapped):
                 return unwrapped
             case let .notNil(unwrapped):
                 return unwrapped
             case .isNil:
-                return .none
+                return nil
             }
         }
     }

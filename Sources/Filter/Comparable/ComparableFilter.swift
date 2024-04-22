@@ -20,7 +20,6 @@ public enum ComparableFilter<T: Comparable>: Equatable {
     case lessThanOrEqualTo(T)
     case greaterThan(T)
     case greaterThanOrEqualTo(T)
-    case none // Always evaluates to true
     indirect case or(Self, Self)
     indirect case orMulti([Self])
     indirect case and(Self, Self)
@@ -31,18 +30,18 @@ public enum ComparableFilter<T: Comparable>: Equatable {
     /// A wrapper for ComparableFilter when comparing an optional type.
     public enum Optional: Equatable {
         case orNil(ComparableFilter<T>)
-        case notNil(ComparableFilter<T>)
+        case notNil(ComparableFilter<T>?)
         case isNil
 
         /// Returns the wrapped ComparableFilter from `self`.
-        public var unwrapped: ComparableFilter<T> {
+        public var unwrapped: ComparableFilter<T>? {
             switch self {
             case let .orNil(unwrapped):
                 return unwrapped
             case let .notNil(unwrapped):
                 return unwrapped
             case .isNil:
-                return .none
+                return nil
             }
         }
     }

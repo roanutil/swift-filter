@@ -9,8 +9,6 @@
 import Filter
 import Foundation
 
-// swiftlint:disable cyclomatic_complexity
-
 extension Closure: ComparablePredicate where Value: Comparable {
     /// Creates a closure `(Self) -> Bool` from a ComparableFilter
     ///
@@ -27,8 +25,6 @@ extension Closure: ComparablePredicate where Value: Comparable {
             return { $0[keyPath: keyPath] > bound }
         case let .greaterThanOrEqualTo(bound):
             return { $0[keyPath: keyPath] >= bound }
-        case .none:
-            return { _ in true }
         case let .or(lhs, rhs):
             let lhsClosure = Self.build(from: lhs, on: keyPath)
             let rhsClosure = Self.build(from: rhs, on: keyPath)
@@ -53,5 +49,3 @@ extension Closure: ComparablePredicate where Value: Comparable {
         }
     }
 }
-
-// swiftlint:enable cyclomatic_complexity

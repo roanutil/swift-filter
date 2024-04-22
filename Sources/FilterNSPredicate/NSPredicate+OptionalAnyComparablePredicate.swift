@@ -26,10 +26,15 @@ extension NSPredicate: OptionalAnyComparablePredicate {
                 build(from: subFilter, on: keyPath),
             ])
         case let .notNil(subFilter):
-            return NSPredicate.and([
-                .not(NSExpression(forKeyPath: keyPath).equalTo(NSExpression(forConstantValue: nil))),
-                build(from: subFilter, on: keyPath),
-            ])
+            let notNil: NSPredicate = .not(NSExpression(forKeyPath: keyPath)
+                .equalTo(NSExpression(forConstantValue: nil)))
+            if let subFilter {
+                return NSPredicate.and([
+                    notNil,
+                    build(from: subFilter, on: keyPath),
+                ])
+            }
+            return notNil
         case .isNil:
             return NSExpression(forKeyPath: keyPath).equalTo(NSExpression(forConstantValue: nil))
         }

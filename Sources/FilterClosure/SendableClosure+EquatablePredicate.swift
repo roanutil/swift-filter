@@ -19,8 +19,6 @@ extension SendableClosure: EquatablePredicate where Value: Equatable {
         switch filter {
         case let .equalTo(requiredValue):
             return { $0[keyPath: keyPath] == requiredValue }
-        case .none:
-            return { _ in true }
         case let .or(lhs, rhs):
             let lhsClosure = Self.build(from: lhs, on: keyPath)
             let rhsClosure = Self.build(from: rhs, on: keyPath)
