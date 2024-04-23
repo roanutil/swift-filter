@@ -1,4 +1,4 @@
-// NSPredicate+CompoundPredicate.swift
+// NSPredicate+AnyCompoundPredicate.swift
 // Filter
 //
 //

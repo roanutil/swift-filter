@@ -15,7 +15,7 @@ import Foundation
 /// a filter the outer most filters will be placed first in the array of NSPredicates. Similarly, when bulding a closure
 /// the structure
 /// is maintained so that the outer most is evaluated first.
-public struct EquatableFilter<T: Equatable>: Equatable, CompoundFilterable {
+public struct EquatableFilter<T: Equatable>: Equatable, CompoundFilterable, OptionalFilterable {
     public let equalTo: T
 
     @inlinable
@@ -30,32 +30,8 @@ public struct EquatableFilter<T: Equatable>: Equatable, CompoundFilterable {
     }
 
     // swiftlint:enable unneeded_synthesized_initializer
-
-    /// A wrapper for EquatableFilter when comparing an optional type.
-    public enum Optional: Equatable {
-        case orNil(EquatableFilter<T>)
-        case notNil(EquatableFilter<T>?)
-        case isNil
-
-        /// Returns the wrapped EquatableFilter from `self`.
-        @inlinable
-        public var unwrapped: EquatableFilter<T>? {
-            switch self {
-            case let .orNil(unwrapped):
-                return unwrapped
-            case let .notNil(unwrapped):
-                return unwrapped
-            case .isNil:
-                return nil
-            }
-        }
-    }
 }
 
 extension EquatableFilter: Hashable where T: Hashable {}
 
-extension EquatableFilter.Optional: Hashable where T: Hashable {}
-
 extension EquatableFilter: Sendable where T: Sendable {}
-
-extension EquatableFilter.Optional: Sendable where T: Sendable {}
