@@ -16,7 +16,7 @@ extension Closure: OptionalComparablePredicate where Value: Comparable {
     /// NSPredicate.
     @inlinable
     public static func build(from filter: ComparableFilter<Value>.Optional,
-                             on keyPath: KeyPath<Root, Value?>) -> ((Root) -> Bool)
+                             on keyPath: KeyPath<Root, Value?>) -> (@Sendable (Root) -> Bool)
     {
         switch filter {
         case let .orNil(subFilter):

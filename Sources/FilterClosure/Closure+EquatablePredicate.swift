@@ -15,7 +15,7 @@ extension Closure: EquatablePredicate where Value: Equatable {
     /// - Parameter filter: An instance of EquatableFilter representing the logic of the resulting NSPredicate.
     @inlinable
     public static func build(from filter: EquatableFilter<Value>,
-                             on keyPath: KeyPath<Root, Value>) -> ((Root) -> Bool)
+                             on keyPath: KeyPath<Root, Value>) -> (@Sendable (Root) -> Bool)
     {
         switch filter {
         case let .equalTo(requiredValue):
