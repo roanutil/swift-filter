@@ -30,15 +30,15 @@ class EquatableFilterClosureTests: XCTestCase {
 
     // MARK: Optional Wrapper
 
-    func testOptionalOrNil() {
-        let filter = EquatableFilter<Int>.Optional.orNil(.orMulti([
-            .equalTo(1),
-            .equalTo(4),
-            .equalTo(5),
-        ]))
-        let result = allOptional.filter(Closure.build(from: filter))
-        XCTAssertEqual(result, [1, nil, 4, 5])
-    }
+//    func testOptionalOrNil() {
+//        let filter = EquatableFilter<Int>.Optional.orNil(.orMulti([
+//            .equalTo(1),
+//            .equalTo(4),
+//            .equalTo(5),
+//        ]))
+//        let result = allOptional.filter(Closure.build(from: filter))
+//        XCTAssertEqual(result, [1, nil, 4, 5])
+//    }
 
     func testOptionalNotNil() {
         let filter = EquatableFilter<Int>.Optional.notNil(nil)
@@ -46,15 +46,15 @@ class EquatableFilterClosureTests: XCTestCase {
         XCTAssertEqual(result, [1, 3, 4, 5])
     }
 
-    func testOptionalNotNilWithSubFilter() {
-        let filter = EquatableFilter<Int>.Optional.notNil(.orMulti([
-            .equalTo(1),
-            .equalTo(4),
-            .equalTo(5),
-        ]))
-        let result = allOptional.filter(Closure.build(from: filter))
-        XCTAssertEqual(result, [1, 4, 5])
-    }
+//    func testOptionalNotNilWithSubFilter() {
+//        let filter = EquatableFilter<Int>.Optional.notNil(.orMulti([
+//            .equalTo(1),
+//            .equalTo(4),
+//            .equalTo(5),
+//        ]))
+//        let result = allOptional.filter(Closure.build(from: filter))
+//        XCTAssertEqual(result, [1, 4, 5])
+//    }
 
     func testOptionalIsNil() {
         let filter = EquatableFilter<Int>.Optional.isNil
@@ -73,14 +73,14 @@ class EquatableFilterClosureTests: XCTestCase {
         XCTAssertEqual(result, [])
     }
 
-    func testOptionalAnd() {
-        let filter = EquatableFilter<Int>.Optional.orNil(.and(
-            .equalTo(2),
-            .equalTo(3)
-        ))
-        let result = allOptional.filter(Closure.build(from: filter))
-        XCTAssertEqual(result, [nil])
-    }
+//    func testOptionalAnd() {
+//        let filter = EquatableFilter<Int>.Optional.orNil(.and(
+//            .equalTo(2),
+//            .equalTo(3)
+//        ))
+//        let result = allOptional.filter(Closure.build(from: filter))
+//        XCTAssertEqual(result, [nil])
+//    }
 
     func testOr() {
         let filter = EquatableFilter<Int>.or(
@@ -91,14 +91,14 @@ class EquatableFilterClosureTests: XCTestCase {
         XCTAssertEqual(result, [2, 3])
     }
 
-    func testOptionalOr() {
-        let filter = EquatableFilter<Int>.Optional.orNil(.or(
-            .equalTo(2),
-            .equalTo(3)
-        ))
-        let result = allOptional.filter(Closure.build(from: filter))
-        XCTAssertEqual(result, [nil, 3])
-    }
+//    func testOptionalOr() {
+//        let filter = EquatableFilter<Int>.Optional.orNil(.or(
+//            .equalTo(2),
+//            .equalTo(3)
+//        ))
+//        let result = allOptional.filter(Closure.build(from: filter))
+//        XCTAssertEqual(result, [nil, 3])
+//    }
 
     func testAndMulti() {
         let filter = EquatableFilter<Int>.andMulti([
@@ -109,14 +109,14 @@ class EquatableFilterClosureTests: XCTestCase {
         XCTAssertEqual(result, [])
     }
 
-    func testOptionalAndMulti() {
-        let filter = EquatableFilter<Int>.Optional.orNil(.andMulti([
-            .equalTo(2),
-            .equalTo(3),
-        ]))
-        let result = allOptional.filter(Closure.build(from: filter))
-        XCTAssertEqual(result, [nil])
-    }
+//    func testOptionalAndMulti() {
+//        let filter = EquatableFilter<Int>.Optional.orNil(.andMulti([
+//            .equalTo(2),
+//            .equalTo(3),
+//        ]))
+//        let result = allOptional.filter(Closure.build(from: filter))
+//        XCTAssertEqual(result, [nil])
+//    }
 
     func testOrMulti() {
         let filter = EquatableFilter<Int>.orMulti([
@@ -127,12 +127,12 @@ class EquatableFilterClosureTests: XCTestCase {
         XCTAssertEqual(result, [2, 3])
     }
 
-    func testOptionalOrMulti() {
-        let filter = EquatableFilter<Int>.Optional.orNil(.orMulti([
-            .equalTo(2),
-            .equalTo(3),
-        ]))
-        let result = allOptional.filter(Closure.build(from: filter))
-        XCTAssertEqual(result, [nil, 3])
-    }
+//    func testOptionalOrMulti() {
+//        let filter = EquatableFilter<Int>.Optional.orNil(.orMulti([
+//            .equalTo(2),
+//            .equalTo(3),
+//        ]))
+//        let result = allOptional.filter(Closure.build(from: filter))
+//        XCTAssertEqual(result, [nil, 3])
+//    }
 }

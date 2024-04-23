@@ -19,20 +19,7 @@ extension NSPredicate: AnyEquatablePredicate {
         from filter: EquatableFilter<Value>,
         on keyPath: KeyPath<Root, Value>
     ) -> NSPredicate where Value: Equatable {
-        switch filter {
-        case let .equalTo(value):
-            return NSExpression(forKeyPath: keyPath).equalTo(NSExpression(forConstantValue: value))
-        case let .or(lhs, rhs):
-            return .or([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
-        case let .orMulti(predicates):
-            return .or(predicates.map { build(from: $0, on: keyPath) })
-        case let .and(lhs, rhs):
-            return .and([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
-        case let .andMulti(predicates):
-            return .and(predicates.map { build(from: $0, on: keyPath) })
-        case let .not(inverted):
-            return .not(build(from: inverted, on: keyPath))
-        }
+        NSExpression(forKeyPath: keyPath).equalTo(NSExpression(forConstantValue: filter.equalTo))
     }
 
     /// Creates a NSPredicate from a EquatableFilter that is wrapped by EquatableFilter.Optional
@@ -44,19 +31,6 @@ extension NSPredicate: AnyEquatablePredicate {
         from filter: EquatableFilter<Value>,
         on keyPath: KeyPath<Root, Value?>
     ) -> NSPredicate where Value: Equatable {
-        switch filter {
-        case let .equalTo(value):
-            return NSExpression(forKeyPath: keyPath).equalTo(NSExpression(forConstantValue: value))
-        case let .or(lhs, rhs):
-            return .or([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
-        case let .orMulti(predicates):
-            return .or(predicates.map { build(from: $0, on: keyPath) })
-        case let .and(lhs, rhs):
-            return .and([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
-        case let .andMulti(predicates):
-            return .and(predicates.map { build(from: $0, on: keyPath) })
-        case let .not(inverted):
-            return .not(build(from: inverted, on: keyPath))
-        }
+        NSExpression(forKeyPath: keyPath).equalTo(NSExpression(forConstantValue: filter.equalTo))
     }
 }

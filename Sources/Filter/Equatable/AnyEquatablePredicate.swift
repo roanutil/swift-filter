@@ -9,7 +9,7 @@
 import Foundation
 
 /// Builds predicates where the output is type-erased of the incoming `Root` and `Value` types.
-public protocol AnyEquatablePredicate {
+public protocol AnyEquatablePredicate<Output> {
     associatedtype Output
     /// Builds a predicate of type `Output` for a given property on a root type.
     /// - Parameters

@@ -15,13 +15,21 @@ import Foundation
 /// a filter the outer most filters will be placed first in the array of NSPredicates. Similarly, when bulding a closure
 /// the structure
 /// is maintained so that the outer most is evaluated first.
-public enum EquatableFilter<T: Equatable>: Equatable {
-    case equalTo(T)
-    indirect case or(Self, Self)
-    indirect case orMulti([Self])
-    indirect case and(Self, Self)
-    indirect case andMulti([Self])
-    indirect case not(Self)
+public struct EquatableFilter<T: Equatable>: Equatable, CompoundFilterable {
+    public let equalTo: T
+
+    @inlinable
+    public static func equalTo(_ value: T) -> Self {
+        self.init(equalTo: value)
+    }
+
+    // swiftlint:disable unneeded_synthesized_initializer
+    @usableFromInline
+    init(equalTo: T) {
+        self.equalTo = equalTo
+    }
+
+    // swiftlint:enable unneeded_synthesized_initializer
 
     /// A wrapper for EquatableFilter when comparing an optional type.
     public enum Optional: Equatable {

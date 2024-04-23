@@ -28,16 +28,6 @@ extension NSPredicate: AnyComparablePredicate {
             return NSExpression(forKeyPath: keyPath).greaterThan(NSExpression(forConstantValue: value))
         case let .greaterThanOrEqualTo(value):
             return NSExpression(forKeyPath: keyPath).greaterThanOrEqualTo(NSExpression(forConstantValue: value))
-        case let .or(lhs, rhs):
-            return .or([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
-        case let .orMulti(predicates):
-            return .or(predicates.map { build(from: $0, on: keyPath) })
-        case let .and(lhs, rhs):
-            return .and([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
-        case let .andMulti(predicates):
-            return .and(predicates.map { build(from: $0, on: keyPath) })
-        case let .not(inverted):
-            return .not(build(from: inverted, on: keyPath))
         case let .equatable(equatable):
             return Self.build(from: equatable, on: keyPath)
         }
@@ -62,16 +52,6 @@ extension NSPredicate: AnyComparablePredicate {
             return NSExpression(forKeyPath: keyPath).greaterThan(NSExpression(forConstantValue: value))
         case let .greaterThanOrEqualTo(value):
             return NSExpression(forKeyPath: keyPath).greaterThanOrEqualTo(NSExpression(forConstantValue: value))
-        case let .or(lhs, rhs):
-            return .or([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
-        case let .orMulti(predicates):
-            return .or(predicates.map { build(from: $0, on: keyPath) })
-        case let .and(lhs, rhs):
-            return .and([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
-        case let .andMulti(predicates):
-            return .and(predicates.map { build(from: $0, on: keyPath) })
-        case let .not(inverted):
-            return .not(build(from: inverted, on: keyPath))
         case let .equatable(equatable):
             return Self.build(from: equatable, on: keyPath)
         }
