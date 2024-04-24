@@ -9,14 +9,21 @@
 import Foundation
 
 /// Builds predicates where the output is type constrained by the incoming `Root` and `Value` types.
-public protocol ComparablePredicate: EquatablePredicate where Value: Comparable {
+public protocol ComparablePredicate<Root, Value> where Value: Comparable {
+    /// The predicate this type builds
+    associatedtype Output
+    /// Root type being filtered
+    associatedtype Root
+    /// Property type on `Root` being filtered
+    associatedtype Value
+
     /// Builds a predicate of type `Output` for a given property on a root type.
     /// - Parameters
     ///  - filter: ComparableFilter<Value>
     ///  - keyPath: KeyPath<Root, Value>
     /// - Returns
     ///  - Output
-    static func build(from filter: ComparableFilter<Value>, on keyPath: KeyPath<Root, Value>) -> Output
+    static func buildComparable(from filter: ComparableFilter<Value>, on keyPath: KeyPath<Root, Value>) -> Output
 }
 
 extension ComparablePredicate where Root == Value {
@@ -26,7 +33,7 @@ extension ComparablePredicate where Root == Value {
     /// - Returns
     ///  - Output
     @inlinable
-    public static func build(from filter: ComparableFilter<Value>) -> Output {
-        build(from: filter, on: \.self)
+    public static func buildComparable(from filter: ComparableFilter<Value>) -> Output {
+        buildComparable(from: filter, on: \.self)
     }
 }

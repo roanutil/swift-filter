@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum CompoundFilter<T>: OptionalFilterable {
+public enum CompoundFilter<T> {
     case or(T, T)
     case orMulti([T])
     case and(T, T)

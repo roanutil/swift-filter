@@ -7,7 +7,7 @@
 // Copyright © 2024 Andrew Roan
 
 import Filter
-import FilterClosure
+import FilterNSPredicate
 import XCTest
 
 class EquatableFilterNSPredicateTests: XCTestCase {
@@ -17,7 +17,7 @@ class EquatableFilterNSPredicateTests: XCTestCase {
     // MARK: Equatable
 
     func testEqualTo() {
-        let filter = EquatableFilter.equalTo(3)
+        let filter = EquatableFilter<Int>.equalTo(3)
         let result = all.filter(NSPredicate.build(from: filter).closure)
         XCTAssertEqual(result, [3])
     }
@@ -31,7 +31,7 @@ class EquatableFilterNSPredicateTests: XCTestCase {
     // MARK: Optional Wrapper
 
 //    func testOptionalOrNil() {
-//        let filter = EquatableFilter<Int>.Optional.orNil(.orMulti([
+//        let filter = EquatableFilter<Int?>.orNil(.orMulti([
 //            .equalTo(1),
 //            .equalTo(4),
 //            .equalTo(5),
@@ -41,13 +41,13 @@ class EquatableFilterNSPredicateTests: XCTestCase {
 //    }
 //
 //    func testOptionalNotNil() {
-//        let filter = EquatableFilter<Int>.Optional.notNil(nil)
+//        let filter = EquatableFilter<Int?>.notNil(nil)
 //        let result = allOptional.filter(NSPredicate.build(from: filter).closure)
 //        XCTAssertEqual(result, [1, 3, 4, 5])
 //    }
 //
 //    func testOptionalNotNilWithSubFilter() {
-//        let filter = EquatableFilter<Int>.Optional.notNil(.orMulti([
+//        let filter = EquatableFilter<Int?>.notNil(.orMulti([
 //            .equalTo(1),
 //            .equalTo(4),
 //            .equalTo(5),
@@ -57,7 +57,7 @@ class EquatableFilterNSPredicateTests: XCTestCase {
 //    }
 //
 //    func testOptionalIsNil() {
-//        let filter = EquatableFilter<Int>.Optional.isNil
+//        let filter = EquatableFilter<Int?>.isNil
 //        let result = allOptional.filter(NSPredicate.build(from: filter).closure)
 //        XCTAssertEqual(result, [nil])
 //    }
@@ -75,7 +75,7 @@ class EquatableFilterNSPredicateTests: XCTestCase {
     }
 
 //    func testOptionalAnd() {
-//        let filter = EquatableFilter<Int>.Optional.orNil(.and(
+//        let filter = EquatableFilter<Int?>.orNil(.and(
 //            .equalTo(2),
 //            .equalTo(3)
 //        ))
@@ -94,7 +94,7 @@ class EquatableFilterNSPredicateTests: XCTestCase {
     }
 
 //    func testOptionalOr() {
-//        let filter = EquatableFilter<Int>.Optional.orNil(.or(
+//        let filter = EquatableFilter<Int?>.orNil(.or(
 //            .equalTo(2),
 //            .equalTo(3)
 //        ))
@@ -113,7 +113,7 @@ class EquatableFilterNSPredicateTests: XCTestCase {
     }
 
 //    func testOptionalAndMulti() {
-//        let filter = EquatableFilter<Int>.Optional.orNil(.andMulti([
+//        let filter = EquatableFilter<Int?>.orNil(.andMulti([
 //            .equalTo(2),
 //            .equalTo(3),
 //        ]))
@@ -132,7 +132,7 @@ class EquatableFilterNSPredicateTests: XCTestCase {
     }
 
 //    func testOptionalOrMulti() {
-//        let filter = EquatableFilter<Int>.Optional.orNil(.orMulti([
+//        let filter = EquatableFilter<Int?>.orNil(.orMulti([
 //            .equalTo(2),
 //            .equalTo(3),
 //        ]))

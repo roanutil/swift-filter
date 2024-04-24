@@ -15,7 +15,7 @@ import Foundation
 /// a filter the outer most filters will be placed first in the array of NSPredicates. Similarly, when bulding a closure
 /// the structure
 /// is maintained so that the outer most is evaluated first.
-public enum ComparableFilter<T: Comparable>: Equatable, CompoundFilterable, OptionalFilterable {
+public enum ComparableFilter<T: Comparable>: Equatable, CompoundFilterable {
     case lessThan(T)
     case lessThanOrEqualTo(T)
     case greaterThan(T)

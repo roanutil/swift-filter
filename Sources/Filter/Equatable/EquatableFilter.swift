@@ -15,7 +15,7 @@ import Foundation
 /// a filter the outer most filters will be placed first in the array of NSPredicates. Similarly, when bulding a closure
 /// the structure
 /// is maintained so that the outer most is evaluated first.
-public struct EquatableFilter<T: Equatable>: Equatable, CompoundFilterable, OptionalFilterable {
+public struct EquatableFilter<T: Equatable>: Equatable, CompoundFilterable {
     public let equalTo: T
 
     @inlinable

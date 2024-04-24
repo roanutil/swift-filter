@@ -6,17 +6,17 @@
 //
 // Copyright © 2024 Andrew Roan
 
-//// AnyOptionalPredicate.swift
-//// Filter
-////
-////
-//// MIT License
-////
-//// Copyright © 2024 Andrew Roan
+// AnyOptionalPredicate.swift
+// Filter
 //
-// import Foundation
 //
-///// Builds predicates where the output is type-erased of the incoming `Root` and `Value` types.
+// MIT License
+//
+// Copyright © 2024 Andrew Roan
+
+import Foundation
+
+/// Builds predicates where the output is type-erased of the incoming `Root` and `Value` types.
 // public protocol AnyOptionalPredicate {
 //    associatedtype Output
 //    /// Builds a predicate of type `Output` for a given property on a root type.
@@ -31,7 +31,7 @@
 //        buildWrapped: (_ from: Wrapped, _ on: KeyPath<Root, Value?>) -> Output
 //    ) -> Output
 // }
-//
+
 // extension AnyOptionalPredicate where Self: AnyEquatablePredicate {
 //    @inlinable
 //    public static func build<Root, Value>(
