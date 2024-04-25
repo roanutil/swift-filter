@@ -14,7 +14,7 @@ extension Closure: ComparablePredicate where Value: Comparable {
     ///
     /// - Parameter filter: An instance of ComparableFilter representing the logic of the resulting NSPredicate.
     @inlinable
-    public static func buildComparable(
+    public static func build(
         from filter: ComparableFilter<Value>,
         on keyPath: KeyPath<Root, Value>
     ) -> (@Sendable (Root) -> Bool) {
@@ -28,7 +28,7 @@ extension Closure: ComparablePredicate where Value: Comparable {
         case let .greaterThanOrEqualTo(bound):
             return { $0[keyPath: keyPath] >= bound }
         case let .equatable(equatable):
-            return Self.buildEquatable(from: equatable, on: keyPath)
+            return Self.build(from: equatable, on: keyPath)
         }
     }
 }

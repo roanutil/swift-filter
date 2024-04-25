@@ -1,4 +1,4 @@
-// CompoundComparableFilterClosureTests.swift
+// CompoundComparableFilterNSPredicate.swift
 // Filter
 //
 //
@@ -7,10 +7,10 @@
 // Copyright © 2024 Andrew Roan
 
 import Filter
-import FilterClosure
+import FilterNSPredicate
 import XCTest
 
-final class CompoundComparableFilterClosureTests: XCTestCase {
+final class CompoundComparableFilterNSPredicateTests: XCTestCase {
     let all: [Int] = [1, 2, 3, 4, 5]
     let allOptional: [Int?] = [1, nil, 3, 4, 5]
 
@@ -19,7 +19,7 @@ final class CompoundComparableFilterClosureTests: XCTestCase {
             .lessThan(4),
             .greaterThan(2)
         )
-        let result = all.filter(Closure.build(from: filter))
+        let result = all.filter(NSPredicate.build(from: filter).closure)
         XCTAssertEqual(result, [3])
     }
 
@@ -28,13 +28,13 @@ final class CompoundComparableFilterClosureTests: XCTestCase {
             .lessThanOrEqualTo(5),
             .greaterThanOrEqualTo(1),
         ])
-        let result = all.filter(Closure.build(from: filter))
+        let result = all.filter(NSPredicate.build(from: filter).closure)
         XCTAssertEqual(result, [1, 2, 3, 4, 5])
     }
 
     func testNot() {
         let filter = ComparableFilter<Int>.not(.greaterThan(3))
-        let result = all.filter(Closure.build(from: filter))
+        let result = all.filter(NSPredicate.build(from: filter).closure)
         XCTAssertEqual(result, [1, 2, 3])
     }
 
@@ -43,7 +43,7 @@ final class CompoundComparableFilterClosureTests: XCTestCase {
             .equatable(.equalTo(1)),
             .equatable(.equalTo(4))
         )
-        let result = all.filter(Closure.build(from: filter))
+        let result = all.filter(NSPredicate.build(from: filter).closure)
         XCTAssertEqual(result, [1, 4])
     }
 
@@ -53,7 +53,7 @@ final class CompoundComparableFilterClosureTests: XCTestCase {
             .equatable(.equalTo(3)),
             .greaterThanOrEqualTo(4),
         ])
-        let result = all.filter(Closure.build(from: filter))
+        let result = all.filter(NSPredicate.build(from: filter).closure)
         XCTAssertEqual(result, [1, 2, 3, 4, 5])
     }
 }

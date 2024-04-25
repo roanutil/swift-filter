@@ -23,7 +23,7 @@ public protocol CompoundPredicate<Root, Value> {
     ///  - keyPath: KeyPath<Root, Value>
     /// - Returns
     ///  - Output
-    static func buildCompound<Wrapped>(
+    static func build<Wrapped>(
         from filter: CompoundFilter<Wrapped>,
         on keyPath: KeyPath<Root, Value>,
         buildWrapped: (_ from: Wrapped, _ on: KeyPath<Root, Value>) -> Output
@@ -32,34 +32,34 @@ public protocol CompoundPredicate<Root, Value> {
 
 extension CompoundPredicate where Self: EquatablePredicate, Value: Equatable {
     @inlinable
-    public static func buildCompound(
+    public static func build(
         from filter: CompoundFilter<EquatableFilter<Value>>,
         on keyPath: KeyPath<Root, Value>
     ) -> Output {
-        buildCompound(from: filter, on: keyPath, buildWrapped: buildEquatable(from:on:))
+        build(from: filter, on: keyPath, buildWrapped: build(from:on:))
     }
 
     @inlinable
-    public static func buildCompound(
+    public static func build(
         from filter: CompoundFilter<EquatableFilter<Value>>
     ) -> Output where Root == Value {
-        buildCompound(from: filter, on: \Value.self, buildWrapped: buildEquatable(from:on:))
+        build(from: filter, on: \Value.self, buildWrapped: build(from:on:))
     }
 }
 
 extension CompoundPredicate where Self: ComparablePredicate, Value: Comparable {
     @inlinable
-    public static func buildCompound(
+    public static func build(
         from filter: CompoundFilter<ComparableFilter<Value>>,
         on keyPath: KeyPath<Root, Value>
     ) -> Output {
-        buildCompound(from: filter, on: keyPath, buildWrapped: buildComparable(from:on:))
+        build(from: filter, on: keyPath, buildWrapped: build(from:on:))
     }
 
     @inlinable
-    public static func buildCompound(
+    public static func build(
         from filter: CompoundFilter<ComparableFilter<Value>>
     ) -> Output where Root == Value {
-        buildCompound(from: filter, on: \Value.self, buildWrapped: buildComparable(from:on:))
+        build(from: filter, on: \Value.self, buildWrapped: build(from:on:))
     }
 }

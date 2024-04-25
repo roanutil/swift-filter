@@ -10,7 +10,7 @@ import Filter
 import Foundation
 
 extension Closure: CompoundPredicate {
-    public static func buildCompound<Wrapped>(
+    public static func build<Wrapped>(
         from filter: Filter.CompoundFilter<Wrapped>,
         on keyPath: KeyPath<Root, Value>,
         buildWrapped: (Wrapped, KeyPath<Root, Value>) -> (@Sendable (Root) -> Bool)
