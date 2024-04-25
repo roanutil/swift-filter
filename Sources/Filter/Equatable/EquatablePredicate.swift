@@ -23,7 +23,9 @@ public protocol EquatablePredicate<Root, Value> where Value: Equatable {
     ///  - keyPath: KeyPath<Root, Value>
     /// - Returns
     ///  - Output
-    static func build(from filter: EquatableFilter<Value>, on keyPath: KeyPath<Root, Value>) -> Output
+    static func build(from filter: EquatableFilter<Value>, extract: @escaping (Root) -> Value) -> Output
+    
+    static func build(from filter: EquatableFilter<Optional<Value>>, extract: @escaping (Root) -> Optional<Value>) -> Output
 }
 
 extension EquatablePredicate where Root == Value {
@@ -34,6 +36,11 @@ extension EquatablePredicate where Root == Value {
     ///  - Output
     @inlinable
     public static func build(from filter: EquatableFilter<Value>) -> Output {
-        build(from: filter, on: \.self)
+        build(from: filter, extract: { $0 })
+    }
+    
+    @inlinable
+    public static func build(from filter: EquatableFilter<Optional<Value>>) -> Output {
+        build(from: filter, extract: { $0 })
     }
 }

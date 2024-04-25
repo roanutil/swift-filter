@@ -16,19 +16,19 @@ extension Closure: ComparablePredicate where Value: Comparable {
     @inlinable
     public static func build(
         from filter: ComparableFilter<Value>,
-        on keyPath: KeyPath<Root, Value>
+        extract: @escaping (Root) -> Value
     ) -> (@Sendable (Root) -> Bool) {
         switch filter {
         case let .lessThan(bound):
-            return { $0[keyPath: keyPath] < bound }
+            return { extract($0) < bound }
         case let .lessThanOrEqualTo(bound):
-            return { $0[keyPath: keyPath] <= bound }
+            return { extract($0) <= bound }
         case let .greaterThan(bound):
-            return { $0[keyPath: keyPath] > bound }
+            return { extract($0) > bound }
         case let .greaterThanOrEqualTo(bound):
-            return { $0[keyPath: keyPath] >= bound }
+            return { extract($0) >= bound }
         case let .equatable(equatable):
-            return Self.build(from: equatable, on: keyPath)
+            return Self.build(from: equatable, extract: extract)
         }
     }
 }
