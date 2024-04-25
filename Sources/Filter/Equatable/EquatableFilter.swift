@@ -28,7 +28,6 @@ public struct EquatableFilter<T: Equatable>: Equatable, CompoundFilterable {
     init(equalTo: T) {
         self.equalTo = equalTo
     }
-
     // swiftlint:enable unneeded_synthesized_initializer
 }
 

@@ -16,10 +16,10 @@ final class ComparableFilterClosureTests: XCTestCase {
 
     // MARK: Comparable
 
-    func testLessThan() {
-        let filter = ComparableFilter<Int>.lessThan(3)
+    func testEquatable() {
+        let filter = ComparableFilter<Int>.equatable(.equalTo(3))
         let result = all.filter(Closure.buildComparable(from: filter))
-        XCTAssertEqual(result, [1, 2])
+        XCTAssertEqual(result, [3])
     }
 
     func testGreaterThan() {
@@ -28,24 +28,21 @@ final class ComparableFilterClosureTests: XCTestCase {
         XCTAssertEqual(result, [4, 5])
     }
 
-    func testLessThanOrEqualTo() {
-        let filter = ComparableFilter<Int>.lessThanOrEqualTo(3)
-        let result = all.filter(Closure.buildComparable(from: filter))
-        XCTAssertEqual(result, [1, 2, 3])
-    }
-
     func testGreaterThanOrEqualTo() {
         let filter = ComparableFilter<Int>.greaterThanOrEqualTo(3)
         let result = all.filter(Closure.buildComparable(from: filter))
         XCTAssertEqual(result, [3, 4, 5])
     }
 
-    func testOrMulti() {
-        let filter = ComparableFilter<Int>.orMulti([
-            .lessThan(2),
-            .greaterThanOrEqualTo(4),
-        ])
-        let result = all.filter(Closure.buildCompound(from: filter))
-        XCTAssertEqual(result, [1, 4, 5])
+    func testLessThan() {
+        let filter = ComparableFilter<Int>.lessThan(3)
+        let result = all.filter(Closure.buildComparable(from: filter))
+        XCTAssertEqual(result, [1, 2])
+    }
+
+    func testLessThanOrEqualTo() {
+        let filter = ComparableFilter<Int>.lessThanOrEqualTo(3)
+        let result = all.filter(Closure.buildComparable(from: filter))
+        XCTAssertEqual(result, [1, 2, 3])
     }
 }

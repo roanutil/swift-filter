@@ -12,8 +12,8 @@ import Foundation
 extension Closure: CompoundPredicate {
     public static func buildCompound<Wrapped>(
         from filter: Filter.CompoundFilter<Wrapped>,
-        on keyPath: KeyPath<Root, Value?>,
-        buildWrapped: (Wrapped, KeyPath<Root, Value?>) -> (@Sendable (Root) -> Bool)
+        on keyPath: KeyPath<Root, Value>,
+        buildWrapped: (Wrapped, KeyPath<Root, Value>) -> (@Sendable (Root) -> Bool)
     ) -> (@Sendable (Root) -> Bool) {
         switch filter {
         case let .and(lhs, rhs):

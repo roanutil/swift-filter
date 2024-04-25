@@ -6,193 +6,49 @@
 //
 // Copyright © 2024 Andrew Roan
 
-//// ComparableFilterNSPredicateTests.swift
-//// Filter
-////
-////
-//// MIT License
-////
-//// Copyright © 2024 Andrew Roan
+// ComparableFilterNSPredicateTests.swift
+// Filter
 //
-// import Filter
-// import FilterNSPredicate
-// import XCTest
 //
-// class ComparableFilterNSPredicateTests: XCTestCase {
-//    let all: [Int] = [1, 2, 3, 4, 5]
-//    let allOptional: [Int?] = [1, nil, 3, 4, 5]
+// MIT License
 //
-//    // MARK: Comparable
-//
-//    func testLessThan() {
-//        let filter = ComparableFilter<Int>.lessThan(3)
-//        let result = all.filter(NSPredicate.build(from: filter).closure)
-//        XCTAssertEqual(result, [1, 2])
-//    }
-//
-//    func testOptionalLessThan() {
-//        let filter = ComparableFilter<Int>.notNil(.lessThan(3))
-//        let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-//        XCTAssertEqual(result, [1])
-//    }
-//
-//    func testGreaterThan() {
-//        let filter = ComparableFilter<Int>.greaterThan(3)
-//        let result = all.filter(NSPredicate.build(from: filter).closure)
-//        XCTAssertEqual(result, [4, 5])
-//    }
-//
-//    func testOptionalGreaterThan() {
-//        let filter = ComparableFilter<Int?>.notNil(.greaterThan(3))
-//        let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-//        XCTAssertEqual(result, [4, 5])
-//    }
-//
-//    func testLessThanOrEqualTo() {
-//        let filter = ComparableFilter<Int>.lessThanOrEqualTo(3)
-//        let result = all.filter(NSPredicate.build(from: filter).closure)
-//        XCTAssertEqual(result, [1, 2, 3])
-//    }
-//
-//    func testOptionalLessThanOrEqualTo() {
-//        let filter = ComparableFilter<Int?>.notNil(.lessThanOrEqualTo(3))
-//        let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-//        XCTAssertEqual(result, [1, 3])
-//    }
-//
-//    func testGreaterThanOrEqualTo() {
-//        let filter = ComparableFilter<Int>.greaterThanOrEqualTo(3)
-//        let result = all.filter(NSPredicate.build(from: filter).closure)
-//        XCTAssertEqual(result, [3, 4, 5])
-//    }
-//
-//    func testOptionalGreaterThanOrEqualTo() {
-//        let filter = ComparableFilter<Int?>.notNil(.greaterThanOrEqualTo(3))
-//        let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-//        XCTAssertEqual(result, [3, 4, 5])
-//    }
-//
-//    func testNotLessThan() {
-//        let filter = ComparableFilter<Int>.not(.lessThan(3))
-//        let result = all
-//            .filter(NSPredicate.build(from: filter, on: \Int.self, buildWrapped: NSPredicate.build(from:on:)).closure)
-//        XCTAssertEqual(result, [3, 4, 5])
-//    }
-//
-////    func testOptionalNotLessThan() {
-////        let filter = ComparableFilter<Int?>.notNil(.not(.lessThan(3)))
-////        let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-////        XCTAssertEqual(result, [3, 4, 5])
-////    }
-//
-//    // MARK: Optional Wrapper
-//
-////    func testOptionalOrNil() {
-////        let filter = ComparableFilter<Int?>.orNil(.equatable(.orMulti([
-////            .equalTo(1),
-////            .equalTo(4),
-////            .equalTo(5),
-////        ])))
-////        let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-////        XCTAssertEqual(result, [1, nil, 4, 5])
-////    }
-////
-////    func testOptionalNotNil() {
-////        let filter = ComparableFilter<Int?>.notNil(nil)
-////        let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-////        XCTAssertEqual(result, [1, 3, 4, 5])
-////    }
-////
-////    func testOptionalNotNilWithSubFilter() {
-////        let filter = ComparableFilter<Int?>.notNil(.equatable(.orMulti([
-////            .equalTo(1),
-////            .equalTo(4),
-////            .equalTo(5),
-////        ])))
-////        let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-////        XCTAssertEqual(result, [1, 4, 5])
-////    }
-////
-////    func testOptionalIsNil() {
-////        let filter = ComparableFilter<Int?>.isNil
-////        let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-////        XCTAssertEqual(result, [nil])
-////    }
-//
-//    // MARK: Compound
-//
-//    func testAnd() {
-//        let filter = ComparableFilter<Int>.and(
-//            .lessThan(4),
-//            .greaterThanOrEqualTo(2)
-//        )
-//        let result = all.filter(NSPredicate.build(from: filter).closure)
-//        XCTAssertEqual(result, [2, 3])
-//    }
-//
-////    func testOptionalAnd() {
-////        let filter = ComparableFilter<Int?>.notNil(.and(
-////            .lessThan(4),
-////            .greaterThanOrEqualTo(2)
-////        ))
-////        let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-////        XCTAssertEqual(result, [3])
-////    }
-//
-//    func testOr() {
-//        let filter = ComparableFilter<Int>.or(
-//            .lessThan(2),
-//            .greaterThanOrEqualTo(4)
-//        )
-//        let result = all
-//            .filter(NSPredicate.build(from: filter, on: \Int.self, buildWrapped: NSPredicate.build(from:on:)).closure)
-//        XCTAssertEqual(result, [1, 4, 5])
-//    }
-//
-////    func testOptionalOr() {
-////        let filter = ComparableFilter<Int?>.notNil(.or(
-////            .lessThan(2),
-////            .greaterThanOrEqualTo(4)
-////        ))
-////        let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-////        XCTAssertEqual(result, [1, 4, 5])
-////    }
-//
-//    func testAndMulti() {
-//        let filter = ComparableFilter<Int>.andMulti([
-//            .lessThan(4),
-//            .greaterThanOrEqualTo(2),
-//        ])
-//        let result = all
-//            .filter(NSPredicate.build(from: filter, on: \Int.self, buildWrapped: NSPredicate.build(from:on:)).closure)
-//        XCTAssertEqual(result, [2, 3])
-//    }
-//
-////    func testOptionalAndMulti() {
-////        let filter = ComparableFilter<Int?>.notNil(.andMulti([
-////            .lessThan(4),
-////            .greaterThanOrEqualTo(2),
-////        ]))
-////        let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-////        XCTAssertEqual(result, [3])
-////    }
-//
-//    func testOrMulti() {
-//        let filter = ComparableFilter<Int>.orMulti([
-//            .lessThan(2),
-//            .greaterThanOrEqualTo(4),
-//        ])
-//        let result = all
-//            .filter(NSPredicate.build(from: filter, on: \Int.self, buildWrapped: NSPredicate.build(from:on:)).closure)
-//        XCTAssertEqual(result, [1, 4, 5])
-//    }
-//
-////    func testOptionalOrMulti() {
-////        let filter = ComparableFilter<Int?>.notNil(.orMulti([
-////            .lessThan(2),
-////            .greaterThanOrEqualTo(4),
-////        ]))
-////        let result = allOptional.filter(NSPredicate.build(from: filter).closure)
-////        XCTAssertEqual(result, [1, 4, 5])
-////    }
-// }
+// Copyright © 2024 Andrew Roan
+
+import Filter
+import FilterNSPredicate
+import XCTest
+
+class ComparableFilterNSPredicateTests: XCTestCase {
+    let all: [Int] = [1, 2, 3, 4, 5]
+    let allOptional: [Int?] = [1, nil, 3, 4, 5]
+
+    func testEquatable() {
+        let filter = ComparableFilter<Int>.equatable(.equalTo(3))
+        let result = all.filter(NSPredicate.build(from: filter).closure)
+        XCTAssertEqual(result, [3])
+    }
+
+    func testGreaterThan() {
+        let filter = ComparableFilter<Int>.greaterThan(3)
+        let result = all.filter(NSPredicate.build(from: filter).closure)
+        XCTAssertEqual(result, [4, 5])
+    }
+
+    func testGreaterThanOrEqualTo() {
+        let filter = ComparableFilter<Int>.greaterThanOrEqualTo(3)
+        let result = all.filter(NSPredicate.build(from: filter).closure)
+        XCTAssertEqual(result, [3, 4, 5])
+    }
+
+    func testLessThan() {
+        let filter = ComparableFilter<Int>.lessThan(3)
+        let result = all.filter(NSPredicate.build(from: filter).closure)
+        XCTAssertEqual(result, [1, 2])
+    }
+
+    func testLessThanOrEqualTo() {
+        let filter = ComparableFilter<Int>.lessThanOrEqualTo(3)
+        let result = all.filter(NSPredicate.build(from: filter).closure)
+        XCTAssertEqual(result, [1, 2, 3])
+    }
+}

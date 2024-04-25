@@ -63,37 +63,3 @@ extension CompoundPredicate where Self: ComparablePredicate, Value: Comparable {
         buildCompound(from: filter, on: \Value.self, buildWrapped: buildComparable(from:on:))
     }
 }
-
-// extension CompoundPredicate where Self: OptionalPredicate, Self: EquatablePredicate {
-//    @inlinable
-//    public static func build(
-//        from filter: CompoundFilter<OptionalFilter<EquatableFilter<Value>>>,
-//        on keyPath: KeyPath<Root, Value>
-//    ) -> Output {
-//        build(from: filter, on: keyPath, buildWrapped: build(from:on:))
-//    }
-//
-//    @inlinable
-//    public static func build(
-//        from filter: CompoundFilter<OptionalFilter<EquatableFilter<Value>>>
-//    ) -> Output where Root == Value {
-//        build(from: filter, on: \Value.self, buildWrapped: build(from:on:))
-//    }
-// }
-//
-// extension CompoundPredicate where Self: OptionalPredicate, Self: ComparablePredicate {
-//    @inlinable
-//    public static func build(
-//        from filter: CompoundFilter<OptionalFilter<ComparableFilter<Value>>>,
-//        on keyPath: KeyPath<Root, Value>
-//    ) -> Output {
-//        build(from: filter, on: keyPath, buildWrapped: build(from:on:))
-//    }
-//
-//    @inlinable
-//    public static func build(
-//        from filter: CompoundFilter<OptionalFilter<ComparableFilter<Value>>>
-//    ) -> Output where Root == Value {
-//        build(from: filter, on: \Value.self, buildWrapped: build(from:on:))
-//    }
-// }

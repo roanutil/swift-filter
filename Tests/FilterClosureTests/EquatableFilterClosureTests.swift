@@ -17,15 +17,8 @@ final class EquatableFilterClosureTests: XCTestCase {
     // MARK: Equatable
 
     func testEqualTo() {
-        let filter = EquatableFilter.equalTo(3)
-        let result = all.filter(Closure.buildEquatable(from: filter))
+        let filter = EquatableFilter<Int>.equalTo(3)
+        let result = all.filter(Closure<Int, Int>.buildEquatable(from: filter))
         XCTAssertEqual(result, [3])
     }
-
-//    func testOrMulti() {
-//        let _filter: EquatableFilter<Int> = .equalTo(1)
-//        let filter = EquatableFilter<Int>.orMulti([_filter])
-//        let result = all.filter(Closure.buildCompound(from: filter))
-//        XCTAssertEqual(result, [1, 4, 5])
-//    }
 }
