@@ -8,9 +8,9 @@
 
 import Foundation
 
-public enum CollectionFilter<S>: Equatable where S: Collection, S: Equatable, S.Element: Equatable {
-    case isIn(S)
-    case sequence(SequenceFilter<S>)
+public enum CollectionFilter<C>: Equatable where C: Collection, C: Equatable, C.Element: Equatable {
+    case isIn(C)
+    case sequence(SequenceFilter<C>)
     indirect case or(Self, Self)
     indirect case orMulti([Self])
     indirect case and(Self, Self)
@@ -19,13 +19,13 @@ public enum CollectionFilter<S>: Equatable where S: Collection, S: Equatable, S.
 
     /// A wrapper for CollectionFilter when comparing an optional type.
     public enum Optional: Equatable {
-        case orNil(CollectionFilter<S>)
-        case notNil(CollectionFilter<S>?)
+        case orNil(CollectionFilter<C>)
+        case notNil(CollectionFilter<C>?)
         case isNil
 
         /// Returns the wrapped CollectionFilter from `self`.
         @inlinable
-        public var unwrapped: CollectionFilter<S>? {
+        public var unwrapped: CollectionFilter<C>? {
             switch self {
             case let .orNil(unwrapped):
                 return unwrapped
@@ -38,14 +38,14 @@ public enum CollectionFilter<S>: Equatable where S: Collection, S: Equatable, S.
     }
 
     public enum Element: Equatable {
-        case equatable(EquatableFilter<S.Element>)
+        case equatable(EquatableFilter<C.Element>)
     }
 }
 
-extension CollectionFilter: Hashable where S: Hashable, S.Element: Hashable {}
+extension CollectionFilter: Hashable where C: Hashable, C.Element: Hashable {}
 
-extension CollectionFilter.Optional: Hashable where S: Hashable, S.Element: Hashable {}
+extension CollectionFilter.Optional: Hashable where C: Hashable, C.Element: Hashable {}
 
-extension CollectionFilter: Sendable where S: Sendable, S.Element: Sendable {}
+extension CollectionFilter: Sendable where C: Sendable, C.Element: Sendable {}
 
-extension CollectionFilter.Optional: Sendable where S: Sendable, S.Element: Sendable {}
+extension CollectionFilter.Optional: Sendable where C: Sendable, C.Element: Sendable {}
