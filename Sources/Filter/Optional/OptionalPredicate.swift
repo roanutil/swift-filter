@@ -12,6 +12,7 @@ import Foundation
 public protocol OptionalPredicate<Root, Value> {
     /// The predicate this type builds
     associatedtype Output
+    associatedtype WrappedOutput
     /// Root type being filtered
     associatedtype Root
     /// Property type on `Root` being filtered
@@ -26,7 +27,7 @@ public protocol OptionalPredicate<Root, Value> {
     static func build<Wrapped>(
         from filter: OptionalFilter<Wrapped>,
         extract: @escaping (Root) -> Value?,
-        buildWrapped: @escaping (_ from: Wrapped, _ extract: @escaping (Root) -> Value?) -> Output
+        buildWrapped: @escaping (_ from: Wrapped) -> WrappedOutput
     ) -> Output
 }
 
@@ -36,7 +37,7 @@ extension OptionalPredicate where Self: EquatablePredicate {
         from filter: OptionalFilter<EquatableFilter<Value>>,
         extract: @escaping (Root) -> Value?
     ) -> Output {
-        build(from: filter, extract: extract, buildWrapped: build(from:extract:))
+        build(from: filter, extract: extract, buildWrapped: build(from:))
     }
 }
 

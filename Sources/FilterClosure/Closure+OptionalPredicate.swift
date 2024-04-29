@@ -13,25 +13,28 @@ extension Closure: OptionalPredicate {
     public static func build<Wrapped>(
         from filter: OptionalFilter<Wrapped>,
         extract: @escaping (Root) -> Value?,
-        buildWrapped: @escaping (_ from: Wrapped, _ extract: @escaping (Root) -> Value?) -> (@Sendable (Root) -> Bool)
+        buildWrapped: @escaping (_ from: Wrapped) -> (@Sendable (Value) -> Bool)
     ) -> (@Sendable (Root) -> Bool) {
         switch filter {
         case let .orNil(subFilter):
             { root in
-                buildWrapped(subFilter, keyPath)(root)
+                guard let value = extract(root) else {
+                    return true
+                }
+                return buildWrapped(subFilter)(value)
             }
         case let .notNil(subFilter):
             { root in
-                guard root[keyPath: keyPath] != nil else {
+                guard let value = extract(root) else {
                     return false
                 }
                 if let subFilter {
-                    return buildWrapped(subFilter, keyPath)(root)
+                    return buildWrapped(subFilter)(value)
                 }
                 return true
             }
         case .isNil:
-            { $0[keyPath: keyPath] == nil }
+            { extract($0) == nil }
         }
     }
 }
