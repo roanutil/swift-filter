@@ -27,11 +27,42 @@ public enum ComparableFilter<T: Comparable>: Equatable {
     indirect case not(Self)
     case equatable(EquatableFilter<T>)
 
+    @inlinable
+    public func values() -> [T] {
+        switch self {
+        case let .and(lhs, rhs), let .or(lhs, rhs):
+            lhs.values() + rhs.values()
+        case let .andMulti(filters), let .orMulti(filters):
+            filters.flatMap { $0.values() }
+        case let .equatable(filter):
+            filter.values()
+        case let .lessThan(value),
+             let .lessThanOrEqualTo(value),
+             let .greaterThan(value),
+             let .greaterThanOrEqualTo(value):
+            [value]
+        case let .not(filter):
+            filter.values()
+        }
+    }
+
     /// A wrapper for ComparableFilter when comparing an optional type.
     public enum Optional: Equatable {
         case orNil(ComparableFilter<T>)
         case notNil(ComparableFilter<T>?)
         case isNil
+
+        @inlinable
+        public func values() -> [T] {
+            switch self {
+            case let .orNil(filter):
+                filter.values()
+            case let .notNil(filter):
+                filter?.values() ?? []
+            case .isNil:
+                []
+            }
+        }
 
         /// Returns the wrapped ComparableFilter from `self`.
         @inlinable

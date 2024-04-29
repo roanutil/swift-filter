@@ -23,11 +23,37 @@ public enum EquatableFilter<T: Equatable>: Equatable {
     indirect case andMulti([Self])
     indirect case not(Self)
 
+    @inlinable
+    public func values() -> [T] {
+        switch self {
+        case let .and(lhs, rhs), let .or(lhs, rhs):
+            lhs.values() + rhs.values()
+        case let .andMulti(filters), let .orMulti(filters):
+            filters.flatMap { $0.values() }
+        case let .equalTo(value):
+            [value]
+        case let .not(filter):
+            filter.values()
+        }
+    }
+
     /// A wrapper for EquatableFilter when comparing an optional type.
     public enum Optional: Equatable {
         case orNil(EquatableFilter<T>)
         case notNil(EquatableFilter<T>?)
         case isNil
+
+        @inlinable
+        public func values() -> [T] {
+            switch self {
+            case let .orNil(filter):
+                filter.values()
+            case let .notNil(filter):
+                filter?.values() ?? []
+            case .isNil:
+                []
+            }
+        }
 
         /// Returns the wrapped EquatableFilter from `self`.
         @inlinable
