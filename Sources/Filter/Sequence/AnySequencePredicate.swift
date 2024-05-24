@@ -6,29 +6,33 @@
 //
 // Copyright © 2024 Andrew Roan
 
-import Foundation
-
 /// Builds predicates where the output is type-erased of the incoming `Root` and `Value` types.
-public protocol AnySequencePredicate {
+public protocol AnySequencePredicate<Accessor, Output> {
+    associatedtype Accessor
     associatedtype Output
     /// Builds a predicate of type `Output` for a given property on a root type.
     /// - Parameters
-    ///  - filter: SequenceFilter<Value>
+    ///  - filter: EquatableFilter<Value>
     ///  - keyPath: KeyPath<Root, Value>
     /// - Returns
     ///  - Output
-    static func build<Root, Value>(from filter: SequenceFilter<Value>, on keyPath: KeyPath<Root, Value>) -> Output
-        where Value: Sequence
+    static func build<Value>(from filter: SequenceFilter<Value>, accessor: Accessor) -> Output
+        where Value: Equatable
 }
 
 extension AnySequencePredicate {
     /// Builds a predicate of type `Output` for a given `Value` type.
     /// - Parameters
-    ///  - filter: SequenceFilter<Value>
+    ///  - filter: EquatableFilter<Value>
     /// - Returns
     ///  - Output
     @inlinable
-    public static func build<Value>(from filter: SequenceFilter<Value>) -> Output where Value: Sequence {
-        build(from: filter, on: \.self)
+    public static func build<Value>(from filter: SequenceFilter<Value>) -> Output where Value: Equatable,
+        Accessor == KeyPath<
+            Value,
+            Value
+        >
+    {
+        build(from: filter, accessor: \.self)
     }
 }

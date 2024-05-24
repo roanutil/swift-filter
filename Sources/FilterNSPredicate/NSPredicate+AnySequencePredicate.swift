@@ -15,30 +15,29 @@ extension NSPredicate: AnySequencePredicate {
     /// - Parameter filter: An instance of SequenceFilter representing the logic of the resulting NSPredicate.
     /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
     @inlinable
-    public static func build<Root, Value>(
+    public static func build<Value>(
         from filter: SequenceFilter<Value>,
-        on keyPath: KeyPath<Root, Value>
+        accessor: NSExpression
     ) -> NSPredicate where Value: Sequence, Value: Equatable, Value.Element: Equatable {
-        NSExpression(forKeyPath: keyPath).comparisonPredicate(
+        accessor.comparisonPredicate(
             NSExpression(forConstantValue: [filter.contains]),
             modifier: .any,
             type: .in
         )
     }
 
-    /// Creates a NSPredicate from a EquatableFilter that is wrapped by SequenceFilter.Optional
-    ///
-    /// - Parameter filter: An instance of SequenceFilter representing the logic of the resulting NSPredicate.
-    /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
     @inlinable
     public static func build<Root, Value>(
         from filter: SequenceFilter<Value>,
-        on keyPath: KeyPath<Root, Value?>
-    ) -> NSPredicate where Value: Sequence, Value: Equatable, Value.Element: Equatable {
-        NSExpression(forKeyPath: keyPath).comparisonPredicate(
-            NSExpression(forConstantValue: [filter.contains]),
-            modifier: .any,
-            type: .in
-        )
+        on keyPath: KeyPath<Root, Value>
+    ) -> NSPredicate where Value: Equatable {
+        build(from: filter, accessor: NSExpression(forKeyPath: keyPath))
+    }
+
+    @inlinable
+    public static func build<Value>(
+        from filter: SequenceFilter<Value>
+    ) -> NSPredicate where Value: Equatable {
+        build(from: filter, on: \Value.self)
     }
 }

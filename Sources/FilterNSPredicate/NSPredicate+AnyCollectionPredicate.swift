@@ -15,40 +15,34 @@ extension NSPredicate: AnyCollectionPredicate {
     /// - Parameter filter: An instance of SequenceFilter representing the logic of the resulting NSPredicate.
     /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
     @inlinable
-    public static func build<Root, Value>(
+    public static func build<Value>(
         from filter: CollectionFilter<Value>,
-        on keyPath: KeyPath<Root, Value>
-    ) -> NSPredicate where Value: Sequence, Value: Equatable, Value.Element: Equatable {
+        accessor: NSExpression
+    ) -> NSPredicate where Value: Collection, Value: Equatable, Value.Element: Equatable {
         switch filter {
-        case let .isIn(values):
-            NSExpression(forKeyPath: keyPath).comparisonPredicate(
-                NSExpression(forConstantValue: values),
-                modifier: .all,
+        case let .isIn(isIn):
+            accessor.comparisonPredicate(
+                NSExpression(forConstantValue: [isIn]),
+                modifier: .any,
                 type: .in
             )
-        case let .sequence(sequenceFilter):
-            build(from: sequenceFilter, on: keyPath)
+        case let .sequence(subFilter):
+            build(from: subFilter, accessor: accessor)
         }
     }
 
-    /// Creates a NSPredicate from a EquatableFilter that is wrapped by SequenceFilter.Optional
-    ///
-    /// - Parameter filter: An instance of SequenceFilter representing the logic of the resulting NSPredicate.
-    /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
     @inlinable
     public static func build<Root, Value>(
         from filter: CollectionFilter<Value>,
-        on keyPath: KeyPath<Root, Value?>
-    ) -> NSPredicate where Value: Sequence, Value: Equatable, Value.Element: Equatable {
-        switch filter {
-        case let .isIn(values):
-            NSExpression(forKeyPath: keyPath).comparisonPredicate(
-                NSExpression(forConstantValue: values),
-                modifier: .all,
-                type: .in
-            )
-        case let .sequence(sequenceFilter):
-            build(from: sequenceFilter, on: keyPath)
-        }
+        on keyPath: KeyPath<Root, Value>
+    ) -> NSPredicate where Value: Collection, Value: Equatable {
+        build(from: filter, accessor: NSExpression(forKeyPath: keyPath))
+    }
+
+    @inlinable
+    public static func build<Value>(
+        from filter: CollectionFilter<Value>
+    ) -> NSPredicate where Value: Collection, Value: Equatable {
+        build(from: filter, on: \Value.self)
     }
 }

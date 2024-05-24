@@ -42,3 +42,23 @@ extension AnyCompoundPredicate where Self: AnyComparablePredicate {
         build(from: filter, accessor: accessor, buildWrapped: build(from:accessor:))
     }
 }
+
+extension AnyCompoundPredicate where Self: AnySequencePredicate {
+    @inlinable
+    public static func build<Value>(
+        from filter: CompoundFilter<SequenceFilter<Value>>,
+        accessor: Accessor
+    ) -> Output {
+        build(from: filter, accessor: accessor, buildWrapped: build(from:accessor:))
+    }
+}
+
+extension AnyCompoundPredicate where Self: AnyCollectionPredicate {
+    @inlinable
+    public static func build<Value>(
+        from filter: CompoundFilter<CollectionFilter<Value>>,
+        accessor: Accessor
+    ) -> Output {
+        build(from: filter, accessor: accessor, buildWrapped: build(from:accessor:))
+    }
+}

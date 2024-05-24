@@ -43,6 +43,26 @@ extension AnyOptionalPredicate where Self: AnyComparablePredicate {
     }
 }
 
+extension AnyOptionalPredicate where Self: AnySequencePredicate {
+    @inlinable
+    public static func build<Value>(
+        from filter: OptionalFilter<SequenceFilter<Value>>,
+        accessor: Accessor
+    ) -> Output {
+        build(from: filter, accessor: accessor, buildWrapped: build(from:accessor:))
+    }
+}
+
+extension AnyOptionalPredicate where Self: AnyCollectionPredicate {
+    @inlinable
+    public static func build<Value>(
+        from filter: OptionalFilter<CollectionFilter<Value>>,
+        accessor: Accessor
+    ) -> Output {
+        build(from: filter, accessor: accessor, buildWrapped: build(from:accessor:))
+    }
+}
+
 extension AnyOptionalPredicate where Self: AnyCompoundPredicate, Self: AnyEquatablePredicate {
     @inlinable
     public static func build<Value>(
@@ -57,6 +77,26 @@ extension AnyOptionalPredicate where Self: AnyCompoundPredicate, Self: AnyCompar
     @inlinable
     public static func build<Value>(
         from filter: OptionalFilter<CompoundFilter<ComparableFilter<Value>>>,
+        accessor: Accessor
+    ) -> Output {
+        build(from: filter, accessor: accessor, buildWrapped: build(from:accessor:))
+    }
+}
+
+extension AnyOptionalPredicate where Self: AnyCompoundPredicate, Self: AnySequencePredicate {
+    @inlinable
+    public static func build<Value>(
+        from filter: OptionalFilter<CompoundFilter<SequenceFilter<Value>>>,
+        accessor: Accessor
+    ) -> Output {
+        build(from: filter, accessor: accessor, buildWrapped: build(from:accessor:))
+    }
+}
+
+extension AnyOptionalPredicate where Self: AnyCompoundPredicate, Self: AnyCollectionPredicate {
+    @inlinable
+    public static func build<Value>(
+        from filter: OptionalFilter<CompoundFilter<CollectionFilter<Value>>>,
         accessor: Accessor
     ) -> Output {
         build(from: filter, accessor: accessor, buildWrapped: build(from:accessor:))
