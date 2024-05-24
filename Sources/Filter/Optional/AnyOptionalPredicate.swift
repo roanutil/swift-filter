@@ -7,7 +7,8 @@
 // Copyright © 2024 Andrew Roan
 
 /// Builds predicates where the output is type-erased of the incoming `Root` and `Value` types.
-public protocol AnyOptionalPredicate {
+public protocol AnyOptionalPredicate<Accessor, Output> {
+    associatedtype Accessor
     associatedtype Output
     /// Builds a predicate of type `Output` for a given property on a root type.
     /// - Parameters
@@ -15,69 +16,49 @@ public protocol AnyOptionalPredicate {
     ///  - keyPath: KeyPath<Root, Value>
     /// - Returns
     ///  - Output
-    static func build<Root, Value, Wrapped>(
+    static func build<Wrapped>(
         from filter: OptionalFilter<Wrapped>,
-        on keyPath: KeyPath<Root, Value?>,
-        buildWrapped: (_ from: Wrapped, _ on: KeyPath<Root, Value>) -> Output
+        accessor: Accessor,
+        buildWrapped: (_ from: Wrapped, _ accessor: Accessor) -> Output
     ) -> Output
 }
 
 extension AnyOptionalPredicate where Self: AnyEquatablePredicate {
     @inlinable
-    public static func build<Root, Value>(
+    public static func build<Value>(
         from filter: OptionalFilter<EquatableFilter<Value>>,
-        on keyPath: KeyPath<Root, Value?>
+        accessor: Accessor
     ) -> Output {
-        build(from: filter, on: keyPath, buildWrapped: build(from:on:))
-    }
-
-    @inlinable
-    public static func build<Value>(from filter: OptionalFilter<EquatableFilter<Value>>) -> Output {
-        build(from: filter, on: \Value.self, buildWrapped: build(from:on:))
+        build(from: filter, accessor: accessor, buildWrapped: build(from:accessor:))
     }
 }
 
 extension AnyOptionalPredicate where Self: AnyComparablePredicate {
     @inlinable
-    public static func build<Root, Value>(
+    public static func build<Value>(
         from filter: OptionalFilter<ComparableFilter<Value>>,
-        on keyPath: KeyPath<Root, Value?>
+        accessor: Accessor
     ) -> Output {
-        build(from: filter, on: keyPath, buildWrapped: build(from:on:))
-    }
-
-    @inlinable
-    public static func build<Value>(from filter: OptionalFilter<ComparableFilter<Value>>) -> Output {
-        build(from: filter, on: \Value.self, buildWrapped: build(from:on:))
+        build(from: filter, accessor: accessor, buildWrapped: build(from:accessor:))
     }
 }
 
 extension AnyOptionalPredicate where Self: AnyCompoundPredicate, Self: AnyEquatablePredicate {
     @inlinable
-    public static func build<Root, Value>(
+    public static func build<Value>(
         from filter: OptionalFilter<CompoundFilter<EquatableFilter<Value>>>,
-        on keyPath: KeyPath<Root, Value?>
+        accessor: Accessor
     ) -> Output {
-        build(from: filter, on: keyPath, buildWrapped: build(from:on:))
-    }
-
-    @inlinable
-    public static func build<Value>(from filter: OptionalFilter<CompoundFilter<EquatableFilter<Value>>>) -> Output {
-        build(from: filter, on: \Value.self, buildWrapped: build(from:on:))
+        build(from: filter, accessor: accessor, buildWrapped: build(from:accessor:))
     }
 }
 
 extension AnyOptionalPredicate where Self: AnyCompoundPredicate, Self: AnyComparablePredicate {
     @inlinable
-    public static func build<Root, Value>(
+    public static func build<Value>(
         from filter: OptionalFilter<CompoundFilter<ComparableFilter<Value>>>,
-        on keyPath: KeyPath<Root, Value?>
+        accessor: Accessor
     ) -> Output {
-        build(from: filter, on: keyPath, buildWrapped: build(from:on:))
-    }
-
-    @inlinable
-    public static func build<Value>(from filter: OptionalFilter<CompoundFilter<ComparableFilter<Value>>>) -> Output {
-        build(from: filter, on: \Value.self, buildWrapped: build(from:on:))
+        build(from: filter, accessor: accessor, buildWrapped: build(from:accessor:))
     }
 }

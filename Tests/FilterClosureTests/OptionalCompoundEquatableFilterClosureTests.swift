@@ -10,6 +10,7 @@ import Filter
 import FilterClosure
 import XCTest
 
+// swiftlint:disable:next type_name
 final class OptionalCompoundEquatableFilterClosureTests: XCTestCase {
     let values: [Int?] = [1, nil, 3, 4, 5]
 

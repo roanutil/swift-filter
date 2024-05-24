@@ -15,45 +15,36 @@ extension NSPredicate: AnyComparablePredicate {
     /// - Parameter filter: An instance of ComparableFilter representing the logic of the resulting NSPredicate.
     /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
     @inlinable
-    public static func build<Root, Value>(
+    public static func build<Value>(
         from filter: ComparableFilter<Value>,
-        on keyPath: KeyPath<Root, Value>
+        accessor: NSExpression
     ) -> NSPredicate where Value: Comparable {
         switch filter {
         case let .lessThan(value):
-            return NSExpression(forKeyPath: keyPath).lessThan(NSExpression(forConstantValue: value))
+            return accessor.lessThan(NSExpression(forConstantValue: value))
         case let .lessThanOrEqualTo(value):
-            return NSExpression(forKeyPath: keyPath).lessThanOrEqualTo(NSExpression(forConstantValue: value))
+            return accessor.lessThanOrEqualTo(NSExpression(forConstantValue: value))
         case let .greaterThan(value):
-            return NSExpression(forKeyPath: keyPath).greaterThan(NSExpression(forConstantValue: value))
+            return accessor.greaterThan(NSExpression(forConstantValue: value))
         case let .greaterThanOrEqualTo(value):
-            return NSExpression(forKeyPath: keyPath).greaterThanOrEqualTo(NSExpression(forConstantValue: value))
+            return accessor.greaterThanOrEqualTo(NSExpression(forConstantValue: value))
         case let .equatable(equatable):
-            return Self.build(from: equatable, on: keyPath)
+            return Self.build(from: equatable, accessor: accessor)
         }
     }
 
-    /// Creates a NSPredicate from a ComparableFilter.Optional
-    ///
-    /// - Parameter filter: An instance of ComparableFilter.Optional representing the logic of the resulting
-    /// NSPredicate.
-    /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
     @inlinable
     public static func build<Root, Value>(
         from filter: ComparableFilter<Value>,
-        on keyPath: KeyPath<Root, Value?>
-    ) -> NSPredicate where Value: Comparable {
-        switch filter {
-        case let .lessThan(value):
-            return NSExpression(forKeyPath: keyPath).lessThan(NSExpression(forConstantValue: value))
-        case let .lessThanOrEqualTo(value):
-            return NSExpression(forKeyPath: keyPath).lessThanOrEqualTo(NSExpression(forConstantValue: value))
-        case let .greaterThan(value):
-            return NSExpression(forKeyPath: keyPath).greaterThan(NSExpression(forConstantValue: value))
-        case let .greaterThanOrEqualTo(value):
-            return NSExpression(forKeyPath: keyPath).greaterThanOrEqualTo(NSExpression(forConstantValue: value))
-        case let .equatable(equatable):
-            return Self.build(from: equatable, on: keyPath)
-        }
+        on keyPath: KeyPath<Root, Value>
+    ) -> NSPredicate where Value: Equatable {
+        build(from: filter, accessor: NSExpression(forKeyPath: keyPath))
+    }
+
+    @inlinable
+    public static func build<Value>(
+        from filter: ComparableFilter<Value>
+    ) -> NSPredicate where Value: Equatable {
+        build(from: filter, on: \Value.self)
     }
 }

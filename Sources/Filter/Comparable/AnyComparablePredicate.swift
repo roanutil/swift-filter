@@ -14,7 +14,7 @@ public protocol AnyComparablePredicate: AnyEquatablePredicate {
     ///  - keyPath: KeyPath<Root, Value>
     /// - Returns
     ///  - Output
-    static func build<Root, Value>(from filter: ComparableFilter<Value>, on keyPath: KeyPath<Root, Value>) -> Output
+    static func build<Value>(from filter: ComparableFilter<Value>, accessor: Accessor) -> Output
         where Value: Comparable
 }
 
@@ -25,7 +25,12 @@ extension AnyComparablePredicate {
     /// - Returns
     ///  - Output
     @inlinable
-    public static func build<Value>(from filter: ComparableFilter<Value>) -> Output where Value: Comparable {
-        build(from: filter, on: \.self)
+    public static func build<Value>(from filter: ComparableFilter<Value>) -> Output where Value: Comparable,
+        Accessor == KeyPath<
+            Value,
+            Value
+        >
+    {
+        build(from: filter, accessor: \.self)
     }
 }

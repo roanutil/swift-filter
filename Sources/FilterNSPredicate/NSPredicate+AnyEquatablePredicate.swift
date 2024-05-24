@@ -15,22 +15,25 @@ extension NSPredicate: AnyEquatablePredicate {
     /// - Parameter filter: An instance of EquatableFilter representing the logic of the resulting NSPredicate.
     /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
     @inlinable
+    public static func build<Value>(
+        from filter: EquatableFilter<Value>,
+        accessor: NSExpression
+    ) -> NSPredicate where Value: Equatable {
+        accessor.equalTo(NSExpression(forConstantValue: filter.equalTo))
+    }
+
+    @inlinable
     public static func build<Root, Value>(
         from filter: EquatableFilter<Value>,
         on keyPath: KeyPath<Root, Value>
     ) -> NSPredicate where Value: Equatable {
-        NSExpression(forKeyPath: keyPath).equalTo(NSExpression(forConstantValue: filter.equalTo))
+        build(from: filter, accessor: NSExpression(forKeyPath: keyPath))
     }
 
-    /// Creates a NSPredicate from a EquatableFilter that is wrapped by EquatableFilter.Optional
-    ///
-    /// - Parameter filter: An instance of EquatableFilter representing the logic of the resulting NSPredicate.
-    /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
     @inlinable
-    public static func build<Root, Value>(
-        from filter: EquatableFilter<Value>,
-        on keyPath: KeyPath<Root, Value?>
+    public static func build<Value>(
+        from filter: EquatableFilter<Value>
     ) -> NSPredicate where Value: Equatable {
-        NSExpression(forKeyPath: keyPath).equalTo(NSExpression(forConstantValue: filter.equalTo))
+        build(from: filter, on: \Value.self)
     }
 }

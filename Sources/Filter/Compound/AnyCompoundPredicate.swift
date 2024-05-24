@@ -7,7 +7,8 @@
 // Copyright © 2024 Andrew Roan
 
 /// Builds predicates where the output is type-erased of the incoming `Root` and `Value` types.
-public protocol AnyCompoundPredicate {
+public protocol AnyCompoundPredicate<Accessor, Output> {
+    associatedtype Accessor
     associatedtype Output
     /// Builds a predicate of type `Output` for a given property on a root type.
     /// - Parameters
@@ -15,39 +16,29 @@ public protocol AnyCompoundPredicate {
     ///  - keyPath: KeyPath<Root, Value>
     /// - Returns
     ///  - Output
-    static func build<Root, Value, Wrapped>(
+    static func build<Wrapped>(
         from filter: CompoundFilter<Wrapped>,
-        on keyPath: KeyPath<Root, Value>,
-        buildWrapped: (_ from: Wrapped, _ on: KeyPath<Root, Value>) -> Output
+        accessor: Accessor,
+        buildWrapped: (_ from: Wrapped, _ accessor: Accessor) -> Output
     ) -> Output
 }
 
 extension AnyCompoundPredicate where Self: AnyEquatablePredicate {
     @inlinable
-    public static func build<Root, Value>(
+    public static func build<Value>(
         from filter: CompoundFilter<EquatableFilter<Value>>,
-        on _: KeyPath<Root, Value>
+        accessor: Accessor
     ) -> Output {
-        build(from: filter, on: \Value.self, buildWrapped: build(from:on:))
-    }
-
-    @inlinable
-    public static func build<Value>(from filter: CompoundFilter<EquatableFilter<Value>>) -> Output {
-        build(from: filter, on: \Value.self, buildWrapped: build(from:on:))
+        build(from: filter, accessor: accessor, buildWrapped: build(from:accessor:))
     }
 }
 
 extension AnyCompoundPredicate where Self: AnyComparablePredicate {
     @inlinable
-    public static func build<Root, Value>(
+    public static func build<Value>(
         from filter: CompoundFilter<ComparableFilter<Value>>,
-        on keyPath: KeyPath<Root, Value>
+        accessor: Accessor
     ) -> Output {
-        build(from: filter, on: keyPath, buildWrapped: build(from:on:))
-    }
-
-    @inlinable
-    public static func build<Value>(from filter: CompoundFilter<ComparableFilter<Value>>) -> Output {
-        build(from: filter, on: \Value.self, buildWrapped: build(from:on:))
+        build(from: filter, accessor: accessor, buildWrapped: build(from:accessor:))
     }
 }
