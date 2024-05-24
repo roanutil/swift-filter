@@ -31,17 +31,17 @@ public protocol OptionalPredicate<Root, Value> {
     ) -> Output
 }
 
-extension OptionalPredicate where Self: EquatablePredicate {
-    @inlinable
-    public static func build(
-        from filter: OptionalFilter<EquatableFilter<Value>>,
-        extract: @escaping (Root) -> Value?
-    ) -> Output {
-        build(from: filter, extract: extract, buildWrapped: build(from:))
-    }
-}
+// extension OptionalPredicate where Self: EquatablePredicate {
+//    @inlinable
+//    public static func build(
+//        from filter: OptionalFilter<EquatableFilter<Value>>,
+//        extract: @escaping (Root) -> Value?
+//    ) -> Output {
+//        build(from: filter, extract: extract, buildWrapped: build(from:))
+//    }
+// }
 
-//extension OptionalPredicate where Self: CompoundPredicate, Self: EquatablePredicate {
+// extension OptionalPredicate where Self: CompoundPredicate, Self: EquatablePredicate {
 //    @inlinable
 //    public static func build(
 //        from filter: OptionalFilter<CompoundFilter<EquatableFilter<Value>>>,
@@ -49,4 +49,4 @@ extension OptionalPredicate where Self: EquatablePredicate {
 //    ) -> Output {
 //        build(from: filter, on: keyPath, buildWrapped: build(from:on:))
 //    }
-//}
+// }

@@ -1,9 +1,10 @@
+// Closure+OptionalPredicate.swift
+// Filter
 //
-//  File.swift
-//  
 //
-//  Created by andrew on 4/24/24.
+// MIT License
 //
+// Copyright © 2024 Andrew Roan
 
 import Filter
 import Foundation

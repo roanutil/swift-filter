@@ -41,7 +41,7 @@ extension NSPredicate: AnyComparablePredicate {
     @inlinable
     public static func build<Root, Value>(
         from filter: ComparableFilter<Value>,
-        on keyPath: KeyPath<Root, Optional<Value>>
+        on keyPath: KeyPath<Root, Value?>
     ) -> NSPredicate where Value: Comparable {
         switch filter {
         case let .lessThan(value):

@@ -23,7 +23,7 @@ public protocol ComparablePredicate<Root, Value> where Value: Comparable {
     ///  - keyPath: KeyPath<Root, Value>
     /// - Returns
     ///  - Output
-    static func build(from filter: ComparableFilter<Value>, extract: @escaping (Root) -> Value) -> Output
+    static func build(from filter: ComparableFilter<Value>, on keyPath: KeyPath<Root, Value>) -> Output
 }
 
 extension ComparablePredicate where Root == Value {
@@ -34,6 +34,6 @@ extension ComparablePredicate where Root == Value {
     ///  - Output
     @inlinable
     public static func build(from filter: ComparableFilter<Value>) -> Output {
-        build(from: filter, extract: { $0 })
+        build(from: filter, on: \Root.self)
     }
 }

@@ -16,16 +16,16 @@ extension Closure: EquatablePredicate where Value: Equatable {
     @inlinable
     public static func build(
         from filter: EquatableFilter<Value>,
-        extract: @escaping (Root) -> Value
+        on keyPath: KeyPath<Root, Value>
     ) -> (@Sendable (Root) -> Bool) {
-        { extract($0) == filter.equalTo }
+        { $0[keyPath: keyPath] == filter.equalTo }
     }
-    
+
     @inlinable
     public static func build(
         from filter: EquatableFilter<Value?>,
-        extract: @escaping (Root) -> Value?
+        on keyPath: KeyPath<Root, Value>
     ) -> (@Sendable (Root) -> Bool) {
-        { extract($0) == filter.equalTo }
+        { $0[keyPath: keyPath] == filter.equalTo }
     }
 }

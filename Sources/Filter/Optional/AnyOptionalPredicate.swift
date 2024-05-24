@@ -9,7 +9,7 @@
 import Foundation
 
 /// Builds predicates where the output is type-erased of the incoming `Root` and `Value` types.
-//public protocol AnyOptionalPredicate {
+// public protocol AnyOptionalPredicate {
 //    associatedtype Output
 //    /// Builds a predicate of type `Output` for a given property on a root type.
 //    /// - Parameters
@@ -22,9 +22,9 @@ import Foundation
 //        on keyPath: KeyPath<Root, Optional<Value>>,
 //        buildWrapped: (_ from: Wrapped, _ on: KeyPath<Root, Optional<Value>>) -> Output
 //    ) -> Output
-//}
+// }
 //
-//extension AnyOptionalPredicate where Self: AnyEquatablePredicate {
+// extension AnyOptionalPredicate where Self: AnyEquatablePredicate {
 //    @inlinable
 //    public static func build<Root, Value>(
 //        from filter: OptionalFilter<EquatableFilter<Value>>,
@@ -37,9 +37,9 @@ import Foundation
 //    public static func build<Value>(from filter: OptionalFilter<EquatableFilter<Value?>>) -> Output {
 //        build(from: filter, on: \Value.self, buildWrapped: build(from:on:))
 //    }
-//}
+// }
 //
-//extension AnyOptionalPredicate where Self: AnyComparablePredicate {
+// extension AnyOptionalPredicate where Self: AnyComparablePredicate {
 //    @inlinable
 //    public static func build<Root, Value>(
 //        from filter: OptionalFilter<ComparableFilter<Value>>,
@@ -52,4 +52,4 @@ import Foundation
 //    public static func build<Value>(from filter: OptionalFilter<ComparableFilter<Value>>) -> Output {
 //        build(from: filter, on: \Value.self, buildWrapped: build(from:on:))
 //    }
-//}
+// }

@@ -29,7 +29,7 @@ extension NSPredicate: AnyEquatablePredicate {
     @inlinable
     public static func build<Root, Value>(
         from filter: EquatableFilter<Value>,
-        on keyPath: KeyPath<Root, Optional<Value>>
+        on keyPath: KeyPath<Root, Value?>
     ) -> NSPredicate where Value: Equatable {
         NSExpression(forKeyPath: keyPath).equalTo(NSExpression(forConstantValue: filter.equalTo))
     }

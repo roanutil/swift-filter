@@ -6,8 +6,6 @@
 //
 // Copyright © 2024 Andrew Roan
 
-import Foundation
-
 public protocol CompoundFilterable {}
 
 extension CompoundFilterable {
