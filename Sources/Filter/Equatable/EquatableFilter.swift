@@ -6,8 +6,6 @@
 //
 // Copyright © 2024 Andrew Roan
 
-import Foundation
-
 /// A type that models basic ways of equating values.
 ///
 /// When using indirect cases for compound statements it is best to place more simple operations
@@ -15,6 +13,7 @@ import Foundation
 /// a filter the outer most filters will be placed first in the array of NSPredicates. Similarly, when bulding a closure
 /// the structure
 /// is maintained so that the outer most is evaluated first.
+@frozen
 public struct EquatableFilter<T: Equatable>: Equatable, CompoundFilterable {
     public let equalTo: T
 

@@ -6,8 +6,7 @@
 //
 // Copyright © 2024 Andrew Roan
 
-import Foundation
-
+@frozen
 public enum OptionalFilter<T>: CompoundFilterable {
     case orNil(T)
     case notNil(T?)

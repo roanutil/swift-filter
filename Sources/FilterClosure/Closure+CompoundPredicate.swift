@@ -7,7 +7,6 @@
 // Copyright © 2024 Andrew Roan
 
 import Filter
-import Foundation
 
 extension Closure: CompoundPredicate {
     public static func build<Wrapped>(

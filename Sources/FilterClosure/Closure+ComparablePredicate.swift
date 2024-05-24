@@ -7,7 +7,6 @@
 // Copyright © 2024 Andrew Roan
 
 import Filter
-import Foundation
 
 extension Closure: ComparablePredicate where Value: Comparable {
     /// Creates a closure `(Self) -> Bool` from a ComparableFilter

@@ -6,6 +6,7 @@
 //
 // Copyright © 2024 Andrew Roan
 
+@frozen
 public enum CompoundFilter<T> {
     case or(T, T)
     case orMulti([T])

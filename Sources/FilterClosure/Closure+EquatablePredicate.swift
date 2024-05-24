@@ -7,7 +7,6 @@
 // Copyright © 2024 Andrew Roan
 
 import Filter
-import Foundation
 
 extension Closure: EquatablePredicate where Value: Equatable {
     /// Creates a closure `(Self) -> Bool` from a EquatableFilter

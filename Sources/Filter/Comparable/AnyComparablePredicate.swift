@@ -6,8 +6,6 @@
 //
 // Copyright © 2024 Andrew Roan
 
-import Foundation
-
 /// Builds predicates where the output is type-erased of the incoming `Root` and `Value` types.
 public protocol AnyComparablePredicate: AnyEquatablePredicate {
     /// Builds a predicate of type `Output` for a given property on a root type.
