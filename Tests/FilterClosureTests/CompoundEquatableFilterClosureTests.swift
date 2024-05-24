@@ -11,15 +11,14 @@ import FilterClosure
 import XCTest
 
 final class CompoundEquatableFilterClosureTests: XCTestCase {
-    let all: [Int] = [1, 2, 3, 4, 5]
-    let allOptional: [Int?] = [1, nil, 3, 4, 5]
+    let values: [Int] = [1, 2, 3, 4, 5]
 
     func testAnd() {
         let filter = EquatableFilter<Int>.and(
             .equalTo(1),
             .equalTo(4)
         )
-        let result = all.filter(Closure.build(from: filter))
+        let result = values.filter(Closure.build(from: filter))
         XCTAssertEqual(result, [])
     }
 
@@ -29,13 +28,13 @@ final class CompoundEquatableFilterClosureTests: XCTestCase {
             .equalTo(4),
             .equalTo(5),
         ])
-        let result = all.filter(Closure.build(from: filter))
+        let result = values.filter(Closure.build(from: filter))
         XCTAssertEqual(result, [])
     }
 
     func testNot() {
         let filter = EquatableFilter<Int>.not(.equalTo(1))
-        let result = all.filter(Closure.build(from: filter))
+        let result = values.filter(Closure.build(from: filter))
         XCTAssertEqual(result, [2, 3, 4, 5])
     }
 
@@ -44,7 +43,7 @@ final class CompoundEquatableFilterClosureTests: XCTestCase {
             .equalTo(1),
             .equalTo(4)
         )
-        let result = all.filter(Closure.build(from: filter))
+        let result = values.filter(Closure.build(from: filter))
         XCTAssertEqual(result, [1, 4])
     }
 
@@ -54,7 +53,7 @@ final class CompoundEquatableFilterClosureTests: XCTestCase {
             .equalTo(4),
             .equalTo(5),
         ])
-        let result = all.filter(Closure.build(from: filter))
+        let result = values.filter(Closure.build(from: filter))
         XCTAssertEqual(result, [1, 4, 5])
     }
 }

@@ -11,24 +11,23 @@ import FilterClosure
 import XCTest
 
 final class OptionalComparableFilterClosureTests: XCTestCase {
-    let all: [Int] = [1, 2, 3, 4, 5]
-    let allOptional: [Int?] = [1, nil, 3, 4, 5]
+    let values: [Int?] = [1, nil, 3, 4, 5]
 
     func testIsNil() {
         let filter = ComparableFilter<Int>.isNil()
-        let result = allOptional.filter(Closure.build(from: filter, on: \Int?.self))
+        let result = values.filter(Closure.build(from: filter, on: \Int?.self))
         XCTAssertEqual(result, [nil])
     }
 
     func testNotNil() {
         let filter = ComparableFilter<Int>.notNil(nil)
-        let result = allOptional.filter(Closure.build(from: filter, on: \Int?.self))
+        let result = values.filter(Closure.build(from: filter, on: \Int?.self))
         XCTAssertEqual(result, [1, 3, 4, 5])
     }
 
     func testOrNil() {
         let filter = ComparableFilter<Int>.orNil(.lessThan(5))
-        let result = allOptional.filter(Closure.build(from: filter, on: \Int?.self))
+        let result = values.filter(Closure.build(from: filter, on: \Int?.self))
         XCTAssertEqual(result, [1, nil, 3, 4])
     }
 }
