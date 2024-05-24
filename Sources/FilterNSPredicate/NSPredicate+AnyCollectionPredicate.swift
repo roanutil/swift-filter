@@ -28,16 +28,6 @@ extension NSPredicate: AnyCollectionPredicate {
             )
         case let .sequence(sequenceFilter):
             build(from: sequenceFilter, on: keyPath)
-        case let .or(lhs, rhs):
-            .or([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
-        case let .orMulti(predicates):
-            .or(predicates.map { build(from: $0, on: keyPath) })
-        case let .and(lhs, rhs):
-            .and([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
-        case let .andMulti(predicates):
-            .and(predicates.map { build(from: $0, on: keyPath) })
-        case let .not(inverted):
-            .not(build(from: inverted, on: keyPath))
         }
     }
 
@@ -59,16 +49,6 @@ extension NSPredicate: AnyCollectionPredicate {
             )
         case let .sequence(sequenceFilter):
             build(from: sequenceFilter, on: keyPath)
-        case let .or(lhs, rhs):
-            .or([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
-        case let .orMulti(predicates):
-            .or(predicates.map { build(from: $0, on: keyPath) })
-        case let .and(lhs, rhs):
-            .and([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
-        case let .andMulti(predicates):
-            .and(predicates.map { build(from: $0, on: keyPath) })
-        case let .not(inverted):
-            .not(build(from: inverted, on: keyPath))
         }
     }
 }

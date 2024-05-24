@@ -43,14 +43,14 @@ extension NSPredicate: AnyCompoundPredicate {
     public static func build<Root, Value>(
         from filter: CompoundFilter<EquatableFilter<Value>>,
         on keyPath: KeyPath<Root, Value>
-    ) -> Output {
+    ) -> NSPredicate {
         build(from: filter, on: keyPath, buildWrapped: build(from:accessor:))
     }
 
     @inlinable
     public static func build<Value>(
         from filter: CompoundFilter<EquatableFilter<Value>>
-    ) -> Output {
+    ) -> NSPredicate {
         build(from: filter, on: \Value.self, buildWrapped: build(from:accessor:))
     }
 
@@ -58,7 +58,7 @@ extension NSPredicate: AnyCompoundPredicate {
     public static func build<Root, Value>(
         from filter: CompoundFilter<ComparableFilter<Value>>,
         on keyPath: KeyPath<Root, Value>
-    ) -> Output {
+    ) -> NSPredicate {
         build(from: filter, on: keyPath, buildWrapped: build(from:accessor:))
     }
 

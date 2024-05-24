@@ -8,44 +8,86 @@
 
 import Foundation
 
+@frozen
 public enum CollectionFilter<C>: Equatable where C: Collection, C: Equatable, C.Element: Equatable {
     case isIn(C)
     case sequence(SequenceFilter<C>)
-    indirect case or(Self, Self)
-    indirect case orMulti([Self])
-    indirect case and(Self, Self)
-    indirect case andMulti([Self])
-    indirect case not(Self)
 
-    /// A wrapper for CollectionFilter when comparing an optional type.
-    public enum Optional: Equatable {
-        case orNil(CollectionFilter<C>)
-        case notNil(CollectionFilter<C>?)
-        case isNil
+    // MARK: Compound
 
-        /// Returns the wrapped CollectionFilter from `self`.
-        @inlinable
-        public var unwrapped: CollectionFilter<C>? {
-            switch self {
-            case let .orNil(unwrapped):
-                return unwrapped
-            case let .notNil(unwrapped):
-                return unwrapped
-            case .isNil:
-                return nil
-            }
-        }
+    @inlinable
+    public func and(_ rhs: Self) -> CompoundFilter<Self> {
+        .and(self, rhs)
     }
 
-    public enum Element: Equatable {
-        case equatable(EquatableFilter<C.Element>)
+    @inlinable
+    public static func and(_ lhs: Self, _ rhs: Self) -> CompoundFilter<Self> {
+        .and(lhs, rhs)
+    }
+
+    @inlinable
+    public static func andMulti(_ filters: [Self]) -> CompoundFilter<Self> {
+        .andMulti(filters)
+    }
+
+    @inlinable
+    public func not() -> CompoundFilter<Self> {
+        .not(self)
+    }
+
+    @inlinable
+    public static func not(_ filter: Self) -> CompoundFilter<Self> {
+        .not(filter)
+    }
+
+    @inlinable
+    public static func or(_ lhs: Self, _ rhs: Self) -> CompoundFilter<Self> {
+        .or(lhs, rhs)
+    }
+
+    @inlinable
+    public func or(_ rhs: Self) -> CompoundFilter<Self> {
+        .or(self, rhs)
+    }
+
+    @inlinable
+    public static func orMulti(_ filters: [Self]) -> CompoundFilter<Self> {
+        .orMulti(filters)
+    }
+
+    // MARK: Optional
+
+    @inlinable
+    public func isNil() -> OptionalFilter<Self> {
+        .isNil
+    }
+
+    @inlinable
+    public static func isNil() -> OptionalFilter<Self> {
+        .isNil
+    }
+
+    @inlinable
+    public func notNil() -> OptionalFilter<Self> {
+        .notNil(self)
+    }
+
+    @inlinable
+    public static func notNil(_ filter: Self?) -> OptionalFilter<Self> {
+        .notNil(filter)
+    }
+
+    @inlinable
+    public func orNil() -> OptionalFilter<Self> {
+        .orNil(self)
+    }
+
+    @inlinable
+    public static func orNil(_ filter: Self) -> OptionalFilter<Self> {
+        .orNil(filter)
     }
 }
 
 extension CollectionFilter: Hashable where C: Hashable, C.Element: Hashable {}
 
-extension CollectionFilter.Optional: Hashable where C: Hashable, C.Element: Hashable {}
-
 extension CollectionFilter: Sendable where C: Sendable, C.Element: Sendable {}
-
-extension CollectionFilter.Optional: Sendable where C: Sendable, C.Element: Sendable {}

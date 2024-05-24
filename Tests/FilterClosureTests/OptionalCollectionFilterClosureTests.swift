@@ -1,4 +1,4 @@
-// CollectionFilterClosureTests.swift
+// OptionalCollectionFilterClosureTests.swift
 // Filter
 //
 //
@@ -10,10 +10,10 @@ import Filter
 import FilterClosure
 import XCTest
 
-class CollectionFilterClosureTests: XCTestCase {
-    let all: [[Int]] = [
+class OptionalCollectionFilterClosureTests: XCTestCase {
+    let all: [[Int]?] = [
         [1],
-        [1, 2],
+        nil,
         [1, 2, 3],
         [1, 2, 3, 4],
         [1, 2, 3, 4, 5],
@@ -21,28 +21,36 @@ class CollectionFilterClosureTests: XCTestCase {
 
     // MARK: Collection
 
-    func testIsIn() {
-        let filter = CollectionFilter<[Int]>.isIn([1, 2, 3])
+    func testIsNil() {
+        let filter = CollectionFilter<[Int]>.isIn([1, 2, 3]).isNil()
+        let result = all.filter(Closure.build(from: filter, on: \.self))
+        XCTAssertEqual(
+            result,
+            [nil]
+        )
+    }
+
+    func testNotNil() {
+        let filter = CollectionFilter<[Int]>.isIn([1, 2, 3]).notNil()
         let result = all.filter(Closure.build(from: filter, on: \.self))
         XCTAssertEqual(
             result,
             [
                 [1],
-                [1, 2],
                 [1, 2, 3],
             ]
         )
     }
 
-    func testSequence() {
-        let filter = CollectionFilter<[Int]>.sequence(.contains(3))
+    func testOrNil() {
+        let filter = CollectionFilter<[Int]>.isIn([1, 2, 3]).orNil()
         let result = all.filter(Closure.build(from: filter, on: \.self))
         XCTAssertEqual(
             result,
             [
+                [1],
+                nil,
                 [1, 2, 3],
-                [1, 2, 3, 4],
-                [1, 2, 3, 4, 5],
             ]
         )
     }

@@ -8,65 +8,95 @@
 
 import Foundation
 
-public enum SequenceFilter<S>: Equatable where S: Sequence, S: Equatable, S.Element: Equatable {
-    case contains(S.Element)
-    indirect case or(Self, Self)
-    indirect case orMulti([Self])
-    indirect case and(Self, Self)
-    indirect case andMulti([Self])
-    indirect case not(Self)
+@frozen
+public struct SequenceFilter<S>: Equatable where S: Sequence, S: Equatable, S.Element: Equatable {
+    public let contains: S.Element
 
     @inlinable
-    public func values() -> [S.Element] {
-        switch self {
-        case let .and(lhs, rhs), let .or(lhs, rhs):
-            lhs.values() + rhs.values()
-        case let .andMulti(filters), let .orMulti(filters):
-            filters.flatMap { $0.values() }
-        case let .contains(value):
-            [value]
-        case let .not(filter):
-            filter.values()
-        }
+    public init(contains: S.Element) {
+        self.contains = contains
     }
 
-    /// A wrapper for SequenceFilter when comparing an optional type.
-    public enum Optional: Equatable {
-        case orNil(SequenceFilter<S>)
-        case notNil(SequenceFilter<S>?)
-        case isNil
+    @inlinable
+    public static func contains(_ value: S.Element) -> Self {
+        self.init(contains: value)
+    }
 
-        @inlinable
-        public func values() -> [S.Element] {
-            switch self {
-            case let .orNil(filter):
-                filter.values()
-            case let .notNil(filter):
-                filter?.values() ?? []
-            case .isNil:
-                []
-            }
-        }
+    // MARK: Compound
 
-        /// Returns the wrapped SequenceFilter from `self`.
-        @inlinable
-        public var unwrapped: SequenceFilter<S>? {
-            switch self {
-            case let .orNil(unwrapped):
-                return unwrapped
-            case let .notNil(unwrapped):
-                return unwrapped
-            case .isNil:
-                return nil
-            }
-        }
+    @inlinable
+    public func and(_ rhs: Self) -> CompoundFilter<Self> {
+        .and(self, rhs)
+    }
+
+    @inlinable
+    public static func and(_ lhs: Self, _ rhs: Self) -> CompoundFilter<Self> {
+        .and(lhs, rhs)
+    }
+
+    @inlinable
+    public static func andMulti(_ filters: [Self]) -> CompoundFilter<Self> {
+        .andMulti(filters)
+    }
+
+    @inlinable
+    public func not() -> CompoundFilter<Self> {
+        .not(self)
+    }
+
+    @inlinable
+    public static func not(_ filter: Self) -> CompoundFilter<Self> {
+        .not(filter)
+    }
+
+    @inlinable
+    public static func or(_ lhs: Self, _ rhs: Self) -> CompoundFilter<Self> {
+        .or(lhs, rhs)
+    }
+
+    @inlinable
+    public func or(_ rhs: Self) -> CompoundFilter<Self> {
+        .or(self, rhs)
+    }
+
+    @inlinable
+    public static func orMulti(_ filters: [Self]) -> CompoundFilter<Self> {
+        .orMulti(filters)
+    }
+
+    // MARK: Optional
+
+    @inlinable
+    public func isNil() -> OptionalFilter<Self> {
+        .isNil
+    }
+
+    @inlinable
+    public static func isNil() -> OptionalFilter<Self> {
+        .isNil
+    }
+
+    @inlinable
+    public func notNil() -> OptionalFilter<Self> {
+        .notNil(self)
+    }
+
+    @inlinable
+    public static func notNil(_ filter: Self?) -> OptionalFilter<Self> {
+        .notNil(filter)
+    }
+
+    @inlinable
+    public func orNil() -> OptionalFilter<Self> {
+        .orNil(self)
+    }
+
+    @inlinable
+    public static func orNil(_ filter: Self) -> OptionalFilter<Self> {
+        .orNil(filter)
     }
 }
 
 extension SequenceFilter: Hashable where S: Hashable, S.Element: Hashable {}
 
-extension SequenceFilter.Optional: Hashable where S: Hashable, S.Element: Hashable {}
-
 extension SequenceFilter: Sendable where S: Sendable, S.Element: Sendable {}
-
-extension SequenceFilter.Optional: Sendable where S: Sendable, S.Element: Sendable {}

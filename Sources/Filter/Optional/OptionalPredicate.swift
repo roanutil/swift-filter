@@ -48,6 +48,26 @@ extension OptionalPredicate where Self: ComparablePredicate {
     }
 }
 
+extension OptionalPredicate where Self: SequencePredicate {
+    @inlinable
+    public static func build(
+        from filter: OptionalFilter<SequenceFilter<Value>>,
+        on keyPath: KeyPath<Root, Value?>
+    ) -> Output {
+        build(from: filter, on: keyPath, buildWrapped: build(from:on:))
+    }
+}
+
+extension OptionalPredicate where Self: CollectionPredicate {
+    @inlinable
+    public static func build(
+        from filter: OptionalFilter<CollectionFilter<Value>>,
+        on keyPath: KeyPath<Root, Value?>
+    ) -> Output {
+        build(from: filter, on: keyPath, buildWrapped: build(from:on:))
+    }
+}
+
 extension OptionalPredicate where Self: CompoundPredicate, Self: EquatablePredicate {
     @inlinable
     public static func build(
@@ -62,6 +82,26 @@ extension OptionalPredicate where Self: CompoundPredicate, Self: ComparablePredi
     @inlinable
     public static func build(
         from filter: OptionalFilter<CompoundFilter<ComparableFilter<Value>>>,
+        on keyPath: KeyPath<Root, Value?>
+    ) -> Output {
+        build(from: filter, on: keyPath, buildWrapped: build(from:on:))
+    }
+}
+
+extension OptionalPredicate where Self: CompoundPredicate, Self: SequencePredicate {
+    @inlinable
+    public static func build(
+        from filter: OptionalFilter<CompoundFilter<SequenceFilter<Value>>>,
+        on keyPath: KeyPath<Root, Value?>
+    ) -> Output {
+        build(from: filter, on: keyPath, buildWrapped: build(from:on:))
+    }
+}
+
+extension OptionalPredicate where Self: CompoundPredicate, Self: CollectionPredicate {
+    @inlinable
+    public static func build(
+        from filter: OptionalFilter<CompoundFilter<CollectionFilter<Value>>>,
         on keyPath: KeyPath<Root, Value?>
     ) -> Output {
         build(from: filter, on: keyPath, buildWrapped: build(from:on:))

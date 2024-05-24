@@ -60,14 +60,14 @@ extension NSPredicate: AnyOptionalPredicate {
     public static func build<Root, Value>(
         from filter: OptionalFilter<CompoundFilter<EquatableFilter<Value>>>,
         on keyPath: KeyPath<Root, Value?>
-    ) -> Output {
+    ) -> NSPredicate {
         build(from: filter, on: keyPath, buildWrapped: build(from:accessor:))
     }
 
     @inlinable
     public static func build<Value>(
         from filter: OptionalFilter<CompoundFilter<EquatableFilter<Value>>>
-    ) -> Output {
+    ) -> NSPredicate {
         build(from: filter, on: \Value.self, buildWrapped: build(from:accessor:))
     }
 
@@ -75,14 +75,14 @@ extension NSPredicate: AnyOptionalPredicate {
     public static func build<Root, Value>(
         from filter: OptionalFilter<ComparableFilter<Value>>,
         on keyPath: KeyPath<Root, Value?>
-    ) -> Output {
+    ) -> NSPredicate {
         build(from: filter, on: keyPath, buildWrapped: build(from:accessor:))
     }
 
     @inlinable
     public static func build<Value>(
         from filter: OptionalFilter<ComparableFilter<Value>>
-    ) -> Output {
+    ) -> NSPredicate {
         build(from: filter, on: \Value.self, buildWrapped: build(from:accessor:))
     }
 
@@ -90,14 +90,14 @@ extension NSPredicate: AnyOptionalPredicate {
     public static func build<Root, Value>(
         from filter: OptionalFilter<CompoundFilter<ComparableFilter<Value>>>,
         on keyPath: KeyPath<Root, Value?>
-    ) -> Output {
+    ) -> NSPredicate {
         build(from: filter, on: keyPath, buildWrapped: build(from:accessor:))
     }
 
     @inlinable
     public static func build<Value>(
         from filter: OptionalFilter<CompoundFilter<ComparableFilter<Value>>>
-    ) -> Output {
+    ) -> NSPredicate {
         build(from: filter, on: \Value.self, buildWrapped: build(from:accessor:))
     }
 }

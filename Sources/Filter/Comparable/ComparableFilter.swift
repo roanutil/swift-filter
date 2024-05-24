@@ -21,6 +21,19 @@ public enum ComparableFilter<T: Comparable>: Equatable {
     case lessThan(T)
     case lessThanOrEqualTo(T)
 
+    @inlinable
+    public func value() -> T {
+        switch self {
+        case let .equatable(filter):
+            filter.equalTo
+        case let .lessThan(value),
+             let .lessThanOrEqualTo(value),
+             let .greaterThan(value),
+             let .greaterThanOrEqualTo(value):
+            value
+        }
+    }
+
     // MARK: Compound
 
     @inlinable
