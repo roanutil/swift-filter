@@ -10,7 +10,7 @@ import Filter
 import FilterNSPredicate
 import XCTest
 
-class EquatableFilterNSPredicateTests: XCTestCase {
+final class EquatableFilterNSPredicateTests: XCTestCase {
     let all: [Int] = [1, 2, 3, 4, 5]
     let allOptional: [Int?] = [1, nil, 3, 4, 5]
 

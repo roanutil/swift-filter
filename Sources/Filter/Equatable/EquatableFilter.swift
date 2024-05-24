@@ -14,20 +14,92 @@
 /// the structure
 /// is maintained so that the outer most is evaluated first.
 @frozen
-public struct EquatableFilter<T: Equatable>: Equatable, CompoundFilterable {
+public struct EquatableFilter<T: Equatable>: Equatable {
     public let equalTo: T
+
+    @inlinable
+    public init(equalTo: T) {
+        self.equalTo = equalTo
+    }
 
     @inlinable
     public static func equalTo(_ value: T) -> Self {
         self.init(equalTo: value)
     }
 
-    // swiftlint:disable unneeded_synthesized_initializer
-    @usableFromInline
-    init(equalTo: T) {
-        self.equalTo = equalTo
+    // MARK: Compound
+
+    @inlinable
+    public func and(_ rhs: Self) -> CompoundFilter<Self> {
+        .and(self, rhs)
     }
-    // swiftlint:enable unneeded_synthesized_initializer
+
+    @inlinable
+    public static func and(_ lhs: Self, _ rhs: Self) -> CompoundFilter<Self> {
+        .and(lhs, rhs)
+    }
+
+    @inlinable
+    public static func andMulti(_ filters: [Self]) -> CompoundFilter<Self> {
+        .andMulti(filters)
+    }
+
+    @inlinable
+    public func not() -> CompoundFilter<Self> {
+        .not(self)
+    }
+
+    @inlinable
+    public static func not(_ filter: Self) -> CompoundFilter<Self> {
+        .not(filter)
+    }
+
+    @inlinable
+    public static func or(_ lhs: Self, _ rhs: Self) -> CompoundFilter<Self> {
+        .or(lhs, rhs)
+    }
+
+    @inlinable
+    public func or(_ rhs: Self) -> CompoundFilter<Self> {
+        .or(self, rhs)
+    }
+
+    @inlinable
+    public static func orMulti(_ filters: [Self]) -> CompoundFilter<Self> {
+        .orMulti(filters)
+    }
+
+    // MARK: Optional
+
+    @inlinable
+    public func isNil() -> OptionalFilter<Self> {
+        .isNil
+    }
+
+    @inlinable
+    public static func isNil() -> OptionalFilter<Self> {
+        .isNil
+    }
+
+    @inlinable
+    public func notNil() -> OptionalFilter<Self> {
+        .notNil(self)
+    }
+
+    @inlinable
+    public static func notNil(_ filter: Self?) -> OptionalFilter<Self> {
+        .notNil(filter)
+    }
+
+    @inlinable
+    public func orNil() -> OptionalFilter<Self> {
+        .orNil(self)
+    }
+
+    @inlinable
+    public static func orNil(_ filter: Self) -> OptionalFilter<Self> {
+        .orNil(filter)
+    }
 }
 
 extension EquatableFilter: Hashable where T: Hashable {}
