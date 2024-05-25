@@ -24,48 +24,6 @@ public enum OptionalFilter<T> {
             return nil
         }
     }
-
-    // MARK: Compound
-
-    @inlinable
-    public func and(_ rhs: Self) -> CompoundFilter<Self> {
-        .and(self, rhs)
-    }
-
-    @inlinable
-    public static func and(_ lhs: Self, _ rhs: Self) -> CompoundFilter<Self> {
-        .and(lhs, rhs)
-    }
-
-    @inlinable
-    public static func andMulti(_ filters: [Self]) -> CompoundFilter<Self> {
-        .andMulti(filters)
-    }
-
-    @inlinable
-    public func not() -> CompoundFilter<Self> {
-        .not(self)
-    }
-
-    @inlinable
-    public static func not(_ filter: Self) -> CompoundFilter<Self> {
-        .not(filter)
-    }
-
-    @inlinable
-    public static func or(_ lhs: Self, _ rhs: Self) -> CompoundFilter<Self> {
-        .or(lhs, rhs)
-    }
-
-    @inlinable
-    public func or(_ rhs: Self) -> CompoundFilter<Self> {
-        .or(self, rhs)
-    }
-
-    @inlinable
-    public static func orMulti(_ filters: [Self]) -> CompoundFilter<Self> {
-        .orMulti(filters)
-    }
 }
 
 extension OptionalFilter: Equatable where T: Equatable {}
