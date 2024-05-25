@@ -22,6 +22,10 @@ public struct SequenceFilter<S>: Equatable where S: Sequence, S: Equatable, S.El
         self.init(contains: value)
     }
 
+    public typealias Compound = CompoundFilter<Self>
+    public typealias Optional = OptionalFilter<Self>
+    public typealias OptionalCompount = OptionalFilter<CompoundFilter<Self>>
+
     // MARK: Compound
 
     @inlinable

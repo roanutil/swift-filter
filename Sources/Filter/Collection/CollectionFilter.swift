@@ -13,6 +13,10 @@ public enum CollectionFilter<C>: Equatable where C: Collection, C: Equatable, C.
     case isIn(C)
     case sequence(SequenceFilter<C>)
 
+    public typealias Compound = CompoundFilter<Self>
+    public typealias Optional = OptionalFilter<Self>
+    public typealias OptionalCompound = OptionalFilter<CompoundFilter<Self>>
+
     // MARK: Compound
 
     @inlinable

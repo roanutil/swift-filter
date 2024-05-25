@@ -14,6 +14,8 @@ public enum CompoundFilter<T> {
     case or(T, T)
     case orMulti([T])
 
+    public typealias Optional = OptionalFilter<Self>
+
     @inlinable
     public static func isNil() -> OptionalFilter<Self> {
         .isNil

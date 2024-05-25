@@ -27,6 +27,10 @@ public struct EquatableFilter<T: Equatable>: Equatable {
         self.init(equalTo: value)
     }
 
+    public typealias Compound = CompoundFilter<Self>
+    public typealias Optional = OptionalFilter<Self>
+    public typealias OptionalCompount = OptionalFilter<CompoundFilter<Self>>
+
     // MARK: Compound
 
     @inlinable

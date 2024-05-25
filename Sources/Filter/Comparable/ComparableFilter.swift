@@ -34,6 +34,10 @@ public enum ComparableFilter<T: Comparable>: Equatable {
         }
     }
 
+    public typealias Compound = CompoundFilter<Self>
+    public typealias Optional = OptionalFilter<Self>
+    public typealias OptionalCompound = OptionalFilter<CompoundFilter<Self>>
+
     // MARK: Compound
 
     @inlinable
