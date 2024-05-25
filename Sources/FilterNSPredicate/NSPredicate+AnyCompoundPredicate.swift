@@ -27,6 +27,8 @@ extension NSPredicate: AnyCompoundPredicate {
             buildWrapped(lhs, accessor).or(buildWrapped(rhs, accessor))
         case let .orMulti(filters):
             .or(filters.map { buildWrapped($0, accessor) })
+        case let .passthrough(filter):
+            buildWrapped(filter, accessor)
         }
     }
 

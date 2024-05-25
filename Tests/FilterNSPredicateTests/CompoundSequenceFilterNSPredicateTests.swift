@@ -109,4 +109,19 @@ final class CompoundSequenceFilterNSPredicateTests: XCTestCase {
             ]
         )
     }
+
+    func testPassthrough() {
+        let filter = CompoundFilter<SequenceFilter<[Int]>>.passthrough(.contains(3))
+        let result = values.filter(NSPredicate.build(from: filter).closure)
+        XCTAssertEqual(
+            result,
+            [
+                [1, 2, 3],
+                [1, 2, 3, 4],
+                [1, 2, 3, 4, 5],
+                [2, 3, 4, 5],
+                [3, 4, 5],
+            ]
+        )
+    }
 }

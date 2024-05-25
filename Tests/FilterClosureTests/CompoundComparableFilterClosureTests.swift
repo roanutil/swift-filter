@@ -55,4 +55,10 @@ final class CompoundComparableFilterClosureTests: XCTestCase {
         let result = values.filter(Closure.build(from: filter))
         XCTAssertEqual(result, [1, 2, 3, 4, 5])
     }
+
+    func testPassthrough() {
+        let filter = CompoundFilter<ComparableFilter<Int>>.passthrough(.lessThan(3))
+        let result = values.filter(Closure.build(from: filter))
+        XCTAssertEqual(result, [1, 2])
+    }
 }

@@ -37,6 +37,8 @@ extension Closure: CompoundPredicate {
             return { value in
                 predicates.contains { $0(value) }
             }
+        case let .passthrough(filter):
+            return buildWrapped(filter, keyPath)
         }
     }
 }

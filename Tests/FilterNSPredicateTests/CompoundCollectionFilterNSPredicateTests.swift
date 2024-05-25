@@ -101,4 +101,16 @@ final class CompoundCollectionFilterNSPredicateTests: XCTestCase {
             ]
         )
     }
+
+    func testPassthrough() {
+        let filter = CompoundFilter<CollectionFilter<[Int]>>.passthrough(.isIn([1, 2]))
+        let result = values.filter(NSPredicate.build(from: filter).closure)
+        XCTAssertEqual(
+            result,
+            [
+                [1],
+                [1, 2],
+            ]
+        )
+    }
 }

@@ -56,4 +56,10 @@ final class CompoundEquatableFilterNSPredicateTests: XCTestCase {
         let result = values.filter(NSPredicate.build(from: filter).closure)
         XCTAssertEqual(result, [1, 4, 5])
     }
+
+    func testPassthrough() {
+        let filter = CompoundFilter<ComparableFilter<Int>>.passthrough(.equalTo(3))
+        let result = values.filter(NSPredicate.build(from: filter).closure)
+        XCTAssertEqual(result, [3])
+    }
 }

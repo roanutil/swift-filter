@@ -109,4 +109,19 @@ final class CompoundSequenceFilterClosureTests: XCTestCase {
             ]
         )
     }
+
+    func testPassthrough() {
+        let filter = CompoundFilter<SequenceFilter<[Int]>>.passthrough(.contains(3))
+        let result = values.filter(Closure.build(from: filter))
+        XCTAssertEqual(
+            result,
+            [
+                [1, 2, 3],
+                [1, 2, 3, 4],
+                [1, 2, 3, 4, 5],
+                [2, 3, 4, 5],
+                [3, 4, 5],
+            ]
+        )
+    }
 }

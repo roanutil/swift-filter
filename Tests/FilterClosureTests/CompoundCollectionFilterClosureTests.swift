@@ -101,4 +101,16 @@ final class CompoundCollectionFilterClosureTests: XCTestCase {
             ]
         )
     }
+
+    func testPassthrough() {
+        let filter = CompoundFilter<CollectionFilter<[Int]>>.passthrough(.isIn([1, 2]))
+        let result = values.filter(Closure.build(from: filter))
+        XCTAssertEqual(
+            result,
+            [
+                [1],
+                [1, 2],
+            ]
+        )
+    }
 }

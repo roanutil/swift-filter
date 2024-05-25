@@ -13,6 +13,7 @@ public enum CompoundFilter<T> {
     case not(T)
     case or(T, T)
     case orMulti([T])
+    case passthrough(T)
 
     public typealias Optional = OptionalFilter<Self>
 
