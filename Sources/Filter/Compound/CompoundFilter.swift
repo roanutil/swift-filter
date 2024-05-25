@@ -15,6 +15,24 @@ public enum CompoundFilter<T> {
     case orMulti([T])
     case passthrough(T)
 
+    @inlinable
+    public func values() -> [T] {
+        switch self {
+        case let .and(lhs, rhs):
+            [lhs, rhs]
+        case let .andMulti(values):
+            values
+        case let .not(value):
+            [value]
+        case let .or(lhs, rhs):
+            [lhs, rhs]
+        case let .orMulti(values):
+            values
+        case let .passthrough(value):
+            [value]
+        }
+    }
+
     public typealias Optional = OptionalFilter<Self>
 
     @inlinable
