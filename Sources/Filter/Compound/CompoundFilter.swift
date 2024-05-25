@@ -46,3 +46,9 @@ public enum CompoundFilter<T> {
         .orNil(filter)
     }
 }
+
+extension CompoundFilter: Equatable where T: Equatable {}
+
+extension CompoundFilter: Hashable where T: Hashable {}
+
+extension CompoundFilter: Sendable where T: Sendable {}
