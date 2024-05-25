@@ -10,7 +10,7 @@ import Filter
 import FilterClosure
 import XCTest
 
-class OptionalCollectionFilterClosureTests: XCTestCase {
+final class OptionalCollectionFilterClosureTests: XCTestCase {
     let all: [[Int]?] = [
         [1],
         nil,

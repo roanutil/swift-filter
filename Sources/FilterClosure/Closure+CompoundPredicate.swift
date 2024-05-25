@@ -9,6 +9,7 @@
 import Filter
 
 extension Closure: CompoundPredicate {
+    @inlinable
     public static func build<Wrapped>(
         from filter: Filter.CompoundFilter<Wrapped>,
         on keyPath: KeyPath<Root, Value>,

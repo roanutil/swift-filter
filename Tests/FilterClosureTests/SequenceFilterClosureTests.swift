@@ -10,7 +10,7 @@ import Filter
 import FilterClosure
 import XCTest
 
-class SequenceFilterClosureTests: XCTestCase {
+final class SequenceFilterClosureTests: XCTestCase {
     let all: [[Int]] = [
         [1],
         [1, 2],

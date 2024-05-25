@@ -1,4 +1,4 @@
-// CompoundComparableFilterClosureTests.swift
+// CompoundComparableFilterNSPredicateTests.swift
 // Filter
 //
 //

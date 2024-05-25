@@ -10,7 +10,8 @@ import Filter
 import FilterClosure
 import XCTest
 
-class OptionalCompoundSequenceFilterClosureTests: XCTestCase {
+// swiftlint:disable:next type_name
+final class OptionalCompoundSequenceFilterClosureTests: XCTestCase {
     let all: [[Int]?] = [
         [1],
         nil,

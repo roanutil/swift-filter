@@ -1,4 +1,4 @@
-// OptionalCompoundEquatableFilterClosureTests.swift
+// OptionalComparableFilterNSPredicateTests.swift
 // Filter
 //
 //
@@ -10,25 +10,24 @@ import Filter
 import FilterNSPredicate
 import XCTest
 
-// swiftlint:disable:next type_name
-final class OptionalCompoundEquatableFilterNSPredicateTests: XCTestCase {
+final class OptionalComparableFilterNSPredicateTests: XCTestCase {
     let values: [Int?] = [1, nil, 3, 4, 5]
 
     func testIsNil() {
-        let filter = EquatableFilter<Int>.not(.equalTo(3)).isNil()
+        let filter = ComparableFilter<Int>.isNil()
         let result = values.filter(NSPredicate.build(from: filter, on: \Int?.self).closure)
         XCTAssertEqual(result, [nil])
     }
 
     func testNotNil() {
-        let filter = EquatableFilter<Int>.not(.equalTo(3)).notNil()
+        let filter = ComparableFilter<Int>.notNil(nil)
         let result = values.filter(NSPredicate.build(from: filter, on: \Int?.self).closure)
-        XCTAssertEqual(result, [1, 4, 5])
+        XCTAssertEqual(result, [1, 3, 4, 5])
     }
 
     func testOrNil() {
-        let filter = EquatableFilter<Int>.not(.equalTo(3)).orNil()
+        let filter = ComparableFilter<Int>.orNil(.lessThan(5))
         let result = values.filter(NSPredicate.build(from: filter, on: \Int?.self).closure)
-        XCTAssertEqual(result, [1, nil, 4, 5])
+        XCTAssertEqual(result, [1, nil, 3, 4])
     }
 }

@@ -20,10 +20,10 @@ extension NSPredicate: AnyCollectionPredicate {
         accessor: NSExpression
     ) -> NSPredicate where Value: Collection, Value: Equatable, Value.Element: Equatable {
         switch filter {
-        case let .isIn(isIn):
+        case let .isIn(values):
             accessor.comparisonPredicate(
-                NSExpression(forConstantValue: [isIn]),
-                modifier: .any,
+                NSExpression(forConstantValue: values),
+                modifier: .all,
                 type: .in
             )
         case let .sequence(subFilter):

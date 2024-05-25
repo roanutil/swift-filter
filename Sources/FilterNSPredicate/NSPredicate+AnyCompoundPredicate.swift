@@ -68,4 +68,34 @@ extension NSPredicate: AnyCompoundPredicate {
     ) -> Output {
         build(from: filter, on: \Value.self, buildWrapped: build(from:accessor:))
     }
+
+    @inlinable
+    public static func build<Root, Value>(
+        from filter: CompoundFilter<SequenceFilter<Value>>,
+        on keyPath: KeyPath<Root, Value>
+    ) -> NSPredicate {
+        build(from: filter, on: keyPath, buildWrapped: build(from:accessor:))
+    }
+
+    @inlinable
+    public static func build<Value>(
+        from filter: CompoundFilter<SequenceFilter<Value>>
+    ) -> NSPredicate {
+        build(from: filter, on: \Value.self, buildWrapped: build(from:accessor:))
+    }
+
+    @inlinable
+    public static func build<Root, Value>(
+        from filter: CompoundFilter<CollectionFilter<Value>>,
+        on keyPath: KeyPath<Root, Value>
+    ) -> NSPredicate {
+        build(from: filter, on: keyPath, buildWrapped: build(from:accessor:))
+    }
+
+    @inlinable
+    public static func build<Value>(
+        from filter: CompoundFilter<CollectionFilter<Value>>
+    ) -> Output {
+        build(from: filter, on: \Value.self, buildWrapped: build(from:accessor:))
+    }
 }
