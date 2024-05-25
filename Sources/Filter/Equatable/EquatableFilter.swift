@@ -29,7 +29,7 @@ public struct EquatableFilter<T: Equatable>: Equatable {
 
     public typealias Compound = CompoundFilter<Self>
     public typealias Optional = OptionalFilter<Self>
-    public typealias OptionalCompount = OptionalFilter<CompoundFilter<Self>>
+    public typealias OptionalCompound = OptionalFilter<CompoundFilter<Self>>
 
     // MARK: Compound
 

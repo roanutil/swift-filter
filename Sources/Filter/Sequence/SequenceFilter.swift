@@ -24,7 +24,7 @@ public struct SequenceFilter<S>: Equatable where S: Sequence, S: Equatable, S.El
 
     public typealias Compound = CompoundFilter<Self>
     public typealias Optional = OptionalFilter<Self>
-    public typealias OptionalCompount = OptionalFilter<CompoundFilter<Self>>
+    public typealias OptionalCompound = OptionalFilter<CompoundFilter<Self>>
 
     // MARK: Compound
 
