@@ -38,6 +38,22 @@ public enum ComparableFilter<T: Comparable>: Equatable {
     public typealias Optional = OptionalFilter<Self>
     public typealias OptionalCompound = OptionalFilter<CompoundFilter<Self>>
 
+    @inlinable
+    public func map<U>(_ transform: (T) throws -> U) rethrows -> ComparableFilter<U> {
+        switch self {
+        case let .equatable(equatable):
+            try .equatable(equatable.map(transform))
+        case let .greaterThan(value):
+            try .greaterThan(transform(value))
+        case let .greaterThanOrEqualTo(value):
+            try .greaterThanOrEqualTo(transform(value))
+        case let .lessThan(value):
+            try .lessThan(transform(value))
+        case let .lessThanOrEqualTo(value):
+            try .lessThanOrEqualTo(transform(value))
+        }
+    }
+
     // MARK: Compound
 
     @inlinable

@@ -15,6 +15,12 @@ var products: [Product] = [
 
 var targets: [Target] = [
     .target(name: "Filter"),
+    .testTarget(
+        name: "FilterTests",
+        dependencies: [
+            "Filter",
+        ]
+    ),
     .target(
         name: "FilterClosure",
         dependencies: [

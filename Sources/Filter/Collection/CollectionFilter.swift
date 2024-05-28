@@ -6,8 +6,6 @@
 //
 // Copyright © 2024 Andrew Roan
 
-import Foundation
-
 @frozen
 public enum CollectionFilter<C>: Equatable where C: Collection, C: Equatable, C.Element: Equatable {
     case isIn(C)

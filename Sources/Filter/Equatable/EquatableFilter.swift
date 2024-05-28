@@ -31,6 +31,11 @@ public struct EquatableFilter<T: Equatable>: Equatable {
     public typealias Optional = OptionalFilter<Self>
     public typealias OptionalCompound = OptionalFilter<CompoundFilter<Self>>
 
+    @inlinable
+    public func map<U>(_ transform: (T) throws -> U) rethrows -> EquatableFilter<U> {
+        try .equalTo(transform(equalTo))
+    }
+
     // MARK: Compound
 
     @inlinable

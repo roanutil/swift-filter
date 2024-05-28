@@ -19,14 +19,26 @@ extension NSPredicate: AnyCompoundPredicate {
         switch filter {
         case let .and(lhs, rhs):
             buildWrapped(lhs, accessor).and(buildWrapped(rhs, accessor))
+        case let .andNested(lhs, rhs):
+            build(from: lhs, accessor: accessor, buildWrapped: buildWrapped)
+                .and(build(from: rhs, accessor: accessor, buildWrapped: buildWrapped))
         case let .andMulti(filters):
             .and(filters.map { buildWrapped($0, accessor) })
+        case let .andMultiNested(filters):
+            .and(filters.map { build(from: $0, accessor: accessor, buildWrapped: buildWrapped) })
         case let .not(filter):
             .not(buildWrapped(filter, accessor))
+        case let .notNested(filter):
+            .not(build(from: filter, accessor: accessor, buildWrapped: buildWrapped))
         case let .or(lhs, rhs):
             buildWrapped(lhs, accessor).or(buildWrapped(rhs, accessor))
+        case let .orNested(lhs, rhs):
+            build(from: lhs, accessor: accessor, buildWrapped: buildWrapped)
+                .or(build(from: rhs, accessor: accessor, buildWrapped: buildWrapped))
         case let .orMulti(filters):
             .or(filters.map { buildWrapped($0, accessor) })
+        case let .orMultiNested(filters):
+            .or(filters.map { build(from: $0, accessor: accessor, buildWrapped: buildWrapped) })
         case let .passthrough(filter):
             buildWrapped(filter, accessor)
         }

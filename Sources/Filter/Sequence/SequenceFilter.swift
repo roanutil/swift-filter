@@ -6,8 +6,6 @@
 //
 // Copyright © 2024 Andrew Roan
 
-import Foundation
-
 @frozen
 public struct SequenceFilter<S>: Equatable where S: Sequence, S: Equatable, S.Element: Equatable {
     public let contains: S.Element
@@ -25,6 +23,13 @@ public struct SequenceFilter<S>: Equatable where S: Sequence, S: Equatable, S.El
     public typealias Compound = CompoundFilter<Self>
     public typealias Optional = OptionalFilter<Self>
     public typealias OptionalCompound = OptionalFilter<CompoundFilter<Self>>
+
+    @inlinable
+    public func map<U>(_ transform: (S.Element) throws -> U.Element) rethrows -> SequenceFilter<U> where U: Sequence,
+        U.Element: Equatable
+    {
+        try .contains(transform(contains))
+    }
 
     // MARK: Compound
 

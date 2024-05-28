@@ -6,8 +6,6 @@
 //
 // Copyright © 2024 Andrew Roan
 
-import Foundation
-
 /// Builds predicates where the output is type constrained by the incoming `Root` and `Value` types.
 public protocol SequencePredicate {
     /// The predicate this type builds

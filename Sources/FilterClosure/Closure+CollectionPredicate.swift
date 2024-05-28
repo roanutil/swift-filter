@@ -7,7 +7,6 @@
 // Copyright © 2024 Andrew Roan
 
 import Filter
-import Foundation
 
 extension Closure: CollectionPredicate where Value: Collection, Value: Equatable, Value.Element: Equatable {
     /// Creates a closure `(Self) -> Bool` from a CollectionFilter

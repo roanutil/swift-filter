@@ -37,6 +37,27 @@ final class CompoundCollectionFilterNSPredicateTests: XCTestCase {
         )
     }
 
+    func testAndNested() {
+        let filter = CollectionFilter<[Int]>.or(
+            .isIn([1]),
+            .isIn([1, 2])
+        )
+        .and(
+            .or(
+                .isIn([1, 2, 3]),
+                .isIn([1, 2, 3, 4])
+            )
+        )
+        let result = values.filter(NSPredicate.build(from: filter).closure)
+        XCTAssertEqual(
+            result,
+            [
+                [1],
+                [1, 2],
+            ]
+        )
+    }
+
     func testAndMulti() {
         let filter = CollectionFilter<[Int]>.andMulti([
             .isIn([1]),
@@ -48,6 +69,26 @@ final class CompoundCollectionFilterNSPredicateTests: XCTestCase {
             result,
             [
                 [1],
+            ]
+        )
+    }
+
+    func testAndMultiNested() {
+        let filter = CollectionFilter<[Int]>.Compound.andMulti([
+            .not(.isIn([1])),
+            .not(.isIn([5])),
+        ])
+        let result = values.filter(NSPredicate.build(from: filter).closure)
+        XCTAssertEqual(
+            result,
+            [
+                [1, 2],
+                [1, 2, 3],
+                [1, 2, 3, 4],
+                [1, 2, 3, 4, 5],
+                [2, 3, 4, 5],
+                [3, 4, 5],
+                [4, 5],
             ]
         )
     }
@@ -70,6 +111,18 @@ final class CompoundCollectionFilterNSPredicateTests: XCTestCase {
         )
     }
 
+    func testNotNested() {
+        let filter = CollectionFilter<[Int]>.not(.isIn([5]))
+            .not()
+        let result = values.filter(NSPredicate.build(from: filter).closure)
+        XCTAssertEqual(
+            result,
+            [
+                [5],
+            ]
+        )
+    }
+
     func testOr() {
         let filter = CollectionFilter<[Int]>.or(
             .isIn([1]),
@@ -80,6 +133,29 @@ final class CompoundCollectionFilterNSPredicateTests: XCTestCase {
             result,
             [
                 [1],
+                [5],
+            ]
+        )
+    }
+
+    func testOrNested() {
+        let filter = CollectionFilter<[Int]>.or(
+            .isIn([1]),
+            .isIn([5])
+        )
+        .or(
+            .or(
+                .isIn([1, 2]),
+                .isIn([4, 5])
+            )
+        )
+        let result = values.filter(NSPredicate.build(from: filter).closure)
+        XCTAssertEqual(
+            result,
+            [
+                [1],
+                [1, 2],
+                [4, 5],
                 [5],
             ]
         )
@@ -97,6 +173,33 @@ final class CompoundCollectionFilterNSPredicateTests: XCTestCase {
             [
                 [1],
                 [1, 2],
+                [5],
+            ]
+        )
+    }
+
+    func testOrMultiNested() {
+        let filter = CollectionFilter<[Int]>.Compound.orMulti([
+            .orMulti([
+                .isIn([1]),
+                .isIn([1, 2]),
+                .isIn([1, 2, 3]),
+            ]),
+            .orMulti([
+                .isIn([3, 4, 5]),
+                .isIn([4, 5]),
+                .isIn([5]),
+            ]),
+        ])
+        let result = values.filter(NSPredicate.build(from: filter).closure)
+        XCTAssertEqual(
+            result,
+            [
+                [1],
+                [1, 2],
+                [1, 2, 3],
+                [3, 4, 5],
+                [4, 5],
                 [5],
             ]
         )
