@@ -17,7 +17,6 @@ public protocol AnySequencePredicate<Accessor, Output> {
     /// - Returns
     ///  - Output
     static func build<Value>(from filter: SequenceFilter<Value>, accessor: Accessor) -> Output
-        where Value: Equatable
 }
 
 extension AnySequencePredicate {
@@ -27,12 +26,10 @@ extension AnySequencePredicate {
     /// - Returns
     ///  - Output
     @inlinable
-    public static func build<Value>(from filter: SequenceFilter<Value>) -> Output where Value: Equatable,
-        Accessor == KeyPath<
-            Value,
-            Value
-        >
-    {
+    public static func build<Value>(from filter: SequenceFilter<Value>) -> Output where Accessor == KeyPath<
+        Value,
+        Value
+    > {
         build(from: filter, accessor: \.self)
     }
 }

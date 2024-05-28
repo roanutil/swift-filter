@@ -7,7 +7,7 @@
 // Copyright © 2024 Andrew Roan
 
 @frozen
-public struct SequenceFilter<S>: Equatable where S: Sequence, S: Equatable, S.Element: Equatable {
+public struct SequenceFilter<S> where S: Sequence {
     public let contains: S.Element
 
     @inlinable
@@ -25,9 +25,7 @@ public struct SequenceFilter<S>: Equatable where S: Sequence, S: Equatable, S.El
     public typealias OptionalCompound = OptionalFilter<CompoundFilter<Self>>
 
     @inlinable
-    public func map<U>(_ transform: (S.Element) throws -> U.Element) rethrows -> SequenceFilter<U> where U: Sequence,
-        U.Element: Equatable
-    {
+    public func map<U>(_ transform: (S.Element) throws -> U.Element) rethrows -> SequenceFilter<U> where U: Sequence {
         try .contains(transform(contains))
     }
 
@@ -105,6 +103,8 @@ public struct SequenceFilter<S>: Equatable where S: Sequence, S: Equatable, S.El
         .orNil(filter)
     }
 }
+
+extension SequenceFilter: Equatable where S: Equatable, S.Element: Equatable {}
 
 extension SequenceFilter: Hashable where S: Hashable, S.Element: Hashable {}
 

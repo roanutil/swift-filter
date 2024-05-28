@@ -18,7 +18,7 @@ extension NSPredicate: AnySequencePredicate {
     public static func build<Value>(
         from filter: SequenceFilter<Value>,
         accessor: NSExpression
-    ) -> NSPredicate where Value: Sequence, Value: Equatable, Value.Element: Equatable {
+    ) -> NSPredicate where Value: Sequence {
         accessor.comparisonPredicate(
             NSExpression(forConstantValue: [filter.contains]),
             modifier: .any,

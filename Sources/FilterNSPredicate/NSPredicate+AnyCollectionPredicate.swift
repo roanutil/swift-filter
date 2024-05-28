@@ -18,7 +18,7 @@ extension NSPredicate: AnyCollectionPredicate {
     public static func build<Value>(
         from filter: CollectionFilter<Value>,
         accessor: NSExpression
-    ) -> NSPredicate where Value: Collection, Value: Equatable, Value.Element: Equatable {
+    ) -> NSPredicate where Value: Collection {
         switch filter {
         case let .isIn(values):
             accessor.comparisonPredicate(
@@ -35,7 +35,7 @@ extension NSPredicate: AnyCollectionPredicate {
     public static func build<Root, Value>(
         from filter: CollectionFilter<Value>,
         on keyPath: KeyPath<Root, Value>
-    ) -> NSPredicate where Value: Collection, Value: Equatable {
+    ) -> NSPredicate where Value: Collection {
         build(from: filter, accessor: NSExpression(forKeyPath: keyPath))
     }
 

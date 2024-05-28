@@ -28,7 +28,7 @@ public protocol CompoundPredicate<Root, Value> {
     ) -> Output
 }
 
-extension CompoundPredicate where Self: EquatablePredicate, Value: Equatable {
+extension CompoundPredicate where Self: EquatablePredicate {
     @inlinable
     public static func build(
         from filter: CompoundFilter<EquatableFilter<Value>>,
@@ -62,7 +62,7 @@ extension CompoundPredicate where Self: ComparablePredicate, Value: Comparable {
     }
 }
 
-extension CompoundPredicate where Self: SequencePredicate, Value: Sequence, Value.Element: Equatable {
+extension CompoundPredicate where Self: SequencePredicate, Value: Sequence {
     @inlinable
     public static func build(
         from filter: CompoundFilter<SequenceFilter<Value>>,
@@ -79,7 +79,7 @@ extension CompoundPredicate where Self: SequencePredicate, Value: Sequence, Valu
     }
 }
 
-extension CompoundPredicate where Self: CollectionPredicate, Value: Collection, Value.Element: Equatable {
+extension CompoundPredicate where Self: CollectionPredicate, Value: Collection {
     @inlinable
     public static func build(
         from filter: CompoundFilter<CollectionFilter<Value>>,

@@ -7,7 +7,7 @@
 // Copyright © 2024 Andrew Roan
 
 @frozen
-public enum CollectionFilter<C>: Equatable where C: Collection, C: Equatable, C.Element: Equatable {
+public enum CollectionFilter<C> where C: Collection {
     case isIn(C)
     case sequence(SequenceFilter<C>)
 
@@ -20,8 +20,7 @@ public enum CollectionFilter<C>: Equatable where C: Collection, C: Equatable, C.
         _ transform: (C) throws -> U,
         sequence sequenceTransform: (C.Element) throws -> U.Element
     ) rethrows -> CollectionFilter<U>
-        where U: Collection,
-        U.Element: Equatable
+        where U: Collection
     {
         switch self {
         case let .isIn(value):
@@ -105,6 +104,8 @@ public enum CollectionFilter<C>: Equatable where C: Collection, C: Equatable, C.
         .orNil(filter)
     }
 }
+
+extension CollectionFilter: Equatable where C: Equatable, C.Element: Equatable {}
 
 extension CollectionFilter: Hashable where C: Hashable, C.Element: Hashable {}
 
