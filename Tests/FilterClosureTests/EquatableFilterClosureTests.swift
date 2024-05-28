@@ -10,7 +10,7 @@ import Filter
 import FilterClosure
 import XCTest
 
-final class EquatableFilterClosureTests: XCTestCase {
+final class EquatableFilterClosureTests: XCTestCase, ClosureTestCase {
     let values: [Int] = [1, 2, 3, 4, 5]
 
     // MARK: Equatable

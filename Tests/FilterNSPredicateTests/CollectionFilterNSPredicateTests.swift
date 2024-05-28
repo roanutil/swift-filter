@@ -10,8 +10,8 @@ import Filter
 import FilterNSPredicate
 import XCTest
 
-final class CollectionFilterNSPredicateTests: XCTestCase {
-    let all: [[Int]] = [
+final class CollectionFilterNSPredicateTests: XCTestCase, NSPredicateTestCase {
+    let values: [[Int]] = [
         [1],
         [1, 2],
         [1, 2, 3],
@@ -23,7 +23,7 @@ final class CollectionFilterNSPredicateTests: XCTestCase {
 
     func testIsIn() {
         let filter = CollectionFilter<[Int]>.isIn([1, 2, 3])
-        let result = all.filter(NSPredicate.build(from: filter).closure)
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -36,7 +36,7 @@ final class CollectionFilterNSPredicateTests: XCTestCase {
 
     func testSequence() {
         let filter = CollectionFilter<[Int]>.sequence(.contains(3))
-        let result = all.filter(NSPredicate.build(from: filter).closure)
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [

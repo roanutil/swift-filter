@@ -10,7 +10,7 @@ import Filter
 import FilterNSPredicate
 import XCTest
 
-final class CompoundComparableFilterNSPredicateTests: XCTestCase {
+final class CompoundComparableFilterNSPredicateTests: XCTestCase, NSPredicateTestCase {
     let values: [Int] = [1, 2, 3, 4, 5]
 
     func testAnd() {
@@ -18,7 +18,7 @@ final class CompoundComparableFilterNSPredicateTests: XCTestCase {
             .lessThan(4),
             .greaterThan(2)
         )
-        let result = values.filter(NSPredicate.build(from: filter).closure)
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(result, [3])
     }
 
@@ -27,13 +27,13 @@ final class CompoundComparableFilterNSPredicateTests: XCTestCase {
             .lessThanOrEqualTo(5),
             .greaterThanOrEqualTo(1),
         ])
-        let result = values.filter(NSPredicate.build(from: filter).closure)
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(result, [1, 2, 3, 4, 5])
     }
 
     func testNot() {
         let filter = ComparableFilter<Int>.not(.greaterThan(3))
-        let result = values.filter(NSPredicate.build(from: filter).closure)
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(result, [1, 2, 3])
     }
 
@@ -42,7 +42,7 @@ final class CompoundComparableFilterNSPredicateTests: XCTestCase {
             .equatable(.equalTo(1)),
             .equatable(.equalTo(4))
         )
-        let result = values.filter(NSPredicate.build(from: filter).closure)
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(result, [1, 4])
     }
 
@@ -52,13 +52,13 @@ final class CompoundComparableFilterNSPredicateTests: XCTestCase {
             .equatable(.equalTo(3)),
             .greaterThanOrEqualTo(4),
         ])
-        let result = values.filter(NSPredicate.build(from: filter).closure)
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(result, [1, 2, 3, 4, 5])
     }
 
     func testPassthrough() {
         let filter = CompoundFilter<ComparableFilter<Int>>.passthrough(.lessThan(3))
-        let result = values.filter(NSPredicate.build(from: filter).closure)
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(result, [1, 2])
     }
 }

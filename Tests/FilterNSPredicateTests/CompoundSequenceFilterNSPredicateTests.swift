@@ -10,7 +10,7 @@ import Filter
 import FilterNSPredicate
 import XCTest
 
-final class CompoundSequenceFilterNSPredicateTests: XCTestCase {
+final class CompoundSequenceFilterNSPredicateTests: XCTestCase, NSPredicateTestCase {
     let values: [[Int]] = [
         [1],
         [1, 2],
@@ -28,7 +28,7 @@ final class CompoundSequenceFilterNSPredicateTests: XCTestCase {
             .contains(3),
             .contains(5)
         )
-        let result = values.filter(NSPredicate.build(from: filter).closure)
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -45,7 +45,7 @@ final class CompoundSequenceFilterNSPredicateTests: XCTestCase {
             .contains(3),
             .contains(5),
         ])
-        let result = values.filter(NSPredicate.build(from: filter).closure)
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -57,7 +57,7 @@ final class CompoundSequenceFilterNSPredicateTests: XCTestCase {
 
     func testNot() {
         let filter = SequenceFilter<[Int]>.not(.contains(3))
-        let result = values.filter(NSPredicate.build(from: filter).closure)
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -74,7 +74,7 @@ final class CompoundSequenceFilterNSPredicateTests: XCTestCase {
             .contains(3),
             .contains(5)
         )
-        let result = values.filter(NSPredicate.build(from: filter).closure)
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -95,7 +95,7 @@ final class CompoundSequenceFilterNSPredicateTests: XCTestCase {
             .contains(2),
             .contains(3),
         ])
-        let result = values.filter(NSPredicate.build(from: filter).closure)
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -112,7 +112,7 @@ final class CompoundSequenceFilterNSPredicateTests: XCTestCase {
 
     func testPassthrough() {
         let filter = CompoundFilter<SequenceFilter<[Int]>>.passthrough(.contains(3))
-        let result = values.filter(NSPredicate.build(from: filter).closure)
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [

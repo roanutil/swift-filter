@@ -10,7 +10,7 @@ import Filter
 import FilterClosure
 import XCTest
 
-final class CompoundComparableFilterClosureTests: XCTestCase {
+final class CompoundComparableFilterClosureTests: XCTestCase, ClosureTestCase {
     let values: [Int] = [1, 2, 3, 4, 5]
 
     func testAnd() {
@@ -18,7 +18,7 @@ final class CompoundComparableFilterClosureTests: XCTestCase {
             .lessThan(4),
             .greaterThan(2)
         )
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(result, [3])
     }
 
@@ -33,7 +33,7 @@ final class CompoundComparableFilterClosureTests: XCTestCase {
                 .greaterThan(4)
             )
         )
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [1, 5]
@@ -45,7 +45,7 @@ final class CompoundComparableFilterClosureTests: XCTestCase {
             .lessThanOrEqualTo(5),
             .greaterThanOrEqualTo(1),
         ])
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(result, [1, 2, 3, 4, 5])
     }
 
@@ -60,7 +60,7 @@ final class CompoundComparableFilterClosureTests: XCTestCase {
                 .greaterThan(4)
             ),
         ])
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [1, 5]
@@ -69,13 +69,13 @@ final class CompoundComparableFilterClosureTests: XCTestCase {
 
     func testNot() {
         let filter = ComparableFilter<Int>.not(.greaterThan(3))
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(result, [1, 2, 3])
     }
 
     func testNotNested() {
         let filter = ComparableFilter<Int>.Compound.not(.not(.greaterThan(3)))
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(result, [4, 5])
     }
 
@@ -84,7 +84,7 @@ final class CompoundComparableFilterClosureTests: XCTestCase {
             .equatable(.equalTo(1)),
             .equatable(.equalTo(4))
         )
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(result, [1, 4])
     }
 
@@ -99,7 +99,7 @@ final class CompoundComparableFilterClosureTests: XCTestCase {
                 .greaterThan(4)
             )
         )
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [1, 2, 4, 5]
@@ -112,7 +112,7 @@ final class CompoundComparableFilterClosureTests: XCTestCase {
             .equatable(.equalTo(3)),
             .greaterThanOrEqualTo(4),
         ])
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(result, [1, 2, 3, 4, 5])
     }
 
@@ -127,13 +127,13 @@ final class CompoundComparableFilterClosureTests: XCTestCase {
                 .greaterThan(3)
             ),
         ])
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(result, [2, 4])
     }
 
     func testPassthrough() {
         let filter = CompoundFilter<ComparableFilter<Int>>.passthrough(.lessThan(3))
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(result, [1, 2])
     }
 }

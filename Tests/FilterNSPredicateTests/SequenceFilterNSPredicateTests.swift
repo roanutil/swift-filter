@@ -10,8 +10,8 @@ import Filter
 import FilterNSPredicate
 import XCTest
 
-final class SequenceFilterNSPredicateTests: XCTestCase {
-    let all: [[Int]] = [
+final class SequenceFilterNSPredicateTests: XCTestCase, NSPredicateTestCase {
+    let values: [[Int]] = [
         [1],
         [1, 2],
         [1, 2, 3],
@@ -23,7 +23,7 @@ final class SequenceFilterNSPredicateTests: XCTestCase {
 
     func testContains() {
         let filter = SequenceFilter<[Int]>.contains(5)
-        let result = all.filter(NSPredicate.build(from: filter).closure)
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(result, [[1, 2, 3, 4, 5]])
     }
 }

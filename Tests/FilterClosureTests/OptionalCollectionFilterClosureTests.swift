@@ -10,8 +10,8 @@ import Filter
 import FilterClosure
 import XCTest
 
-final class OptionalCollectionFilterClosureTests: XCTestCase {
-    let all: [[Int]?] = [
+final class OptionalCollectionFilterClosureTests: XCTestCase, ClosureTestCase {
+    let values: [[Int]?] = [
         [1],
         nil,
         [1, 2, 3],
@@ -23,7 +23,7 @@ final class OptionalCollectionFilterClosureTests: XCTestCase {
 
     func testIsNil() {
         let filter = CollectionFilter<[Int]>.isIn([1, 2, 3]).isNil()
-        let result = all.filter(Closure.build(from: filter, on: \.self))
+        let result = values.filter(predicateType().build(from: filter, on: \.self))
         XCTAssertEqual(
             result,
             [nil]
@@ -32,7 +32,7 @@ final class OptionalCollectionFilterClosureTests: XCTestCase {
 
     func testNotNil() {
         let filter = CollectionFilter<[Int]>.isIn([1, 2, 3]).notNil()
-        let result = all.filter(Closure.build(from: filter, on: \.self))
+        let result = values.filter(predicateType().build(from: filter, on: \.self))
         XCTAssertEqual(
             result,
             [
@@ -44,7 +44,7 @@ final class OptionalCollectionFilterClosureTests: XCTestCase {
 
     func testOrNil() {
         let filter = CollectionFilter<[Int]>.isIn([1, 2, 3]).orNil()
-        let result = all.filter(Closure.build(from: filter, on: \.self))
+        let result = values.filter(predicateType().build(from: filter, on: \.self))
         XCTAssertEqual(
             result,
             [

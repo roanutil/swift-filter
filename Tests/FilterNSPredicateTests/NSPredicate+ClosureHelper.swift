@@ -13,3 +13,9 @@ extension NSPredicate {
         { value in self.evaluate(with: value) }
     }
 }
+
+extension Sequence {
+    func filter(_ isIncluded: NSPredicate) -> [Self.Element] {
+        filter(isIncluded.closure)
+    }
+}

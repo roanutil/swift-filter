@@ -11,8 +11,8 @@ import FilterClosure
 import XCTest
 
 // swiftlint:disable:next type_name
-final class OptionalCompoundSequenceFilterClosureTests: XCTestCase {
-    let all: [[Int]?] = [
+final class OptionalCompoundSequenceFilterClosureTests: XCTestCase, ClosureTestCase {
+    let values: [[Int]?] = [
         [1],
         nil,
         [1, 2, 3],
@@ -24,7 +24,7 @@ final class OptionalCompoundSequenceFilterClosureTests: XCTestCase {
 
     func testIsNil() {
         let filter = SequenceFilter<[Int]>.contains(5).not().isNil()
-        let result = all.filter(Closure.build(from: filter, on: \.self))
+        let result = values.filter(predicateType().build(from: filter, on: \.self))
         XCTAssertEqual(
             result,
             [nil]
@@ -33,7 +33,7 @@ final class OptionalCompoundSequenceFilterClosureTests: XCTestCase {
 
     func testNotNil() {
         let filter = SequenceFilter<[Int]>.contains(5).not().notNil()
-        let result = all.filter(Closure.build(from: filter, on: \.self))
+        let result = values.filter(predicateType().build(from: filter, on: \.self))
         XCTAssertEqual(
             result,
             [
@@ -46,7 +46,7 @@ final class OptionalCompoundSequenceFilterClosureTests: XCTestCase {
 
     func testOrNil() {
         let filter = SequenceFilter<[Int]>.contains(5).not().orNil()
-        let result = all.filter(Closure.build(from: filter, on: \.self))
+        let result = values.filter(predicateType().build(from: filter, on: \.self))
         XCTAssertEqual(
             result,
             [

@@ -10,8 +10,8 @@ import Filter
 import FilterClosure
 import XCTest
 
-final class CollectionFilterClosureTests: XCTestCase {
-    let all: [[Int]] = [
+final class CollectionFilterClosureTests: XCTestCase, ClosureTestCase {
+    let values: [[Int]] = [
         [1],
         [1, 2],
         [1, 2, 3],
@@ -23,7 +23,7 @@ final class CollectionFilterClosureTests: XCTestCase {
 
     func testIsIn() {
         let filter = CollectionFilter<[Int]>.isIn([1, 2, 3])
-        let result = all.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -36,7 +36,7 @@ final class CollectionFilterClosureTests: XCTestCase {
 
     func testSequence() {
         let filter = CollectionFilter<[Int]>.sequence(.contains(3))
-        let result = all.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [

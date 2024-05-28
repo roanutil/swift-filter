@@ -10,7 +10,7 @@ import Filter
 import FilterClosure
 import XCTest
 
-final class CompoundCollectionFilterClosureTests: XCTestCase {
+final class CompoundCollectionFilterClosureTests: XCTestCase, ClosureTestCase {
     let values: [[Int]] = [
         [1],
         [1, 2],
@@ -28,7 +28,7 @@ final class CompoundCollectionFilterClosureTests: XCTestCase {
             .isIn([1]),
             .isIn([1, 2])
         )
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -48,7 +48,7 @@ final class CompoundCollectionFilterClosureTests: XCTestCase {
                 .isIn([1, 2, 3, 4])
             )
         )
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -64,7 +64,7 @@ final class CompoundCollectionFilterClosureTests: XCTestCase {
             .isIn([1, 2]),
             .isIn([1, 2, 3]),
         ])
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -78,7 +78,7 @@ final class CompoundCollectionFilterClosureTests: XCTestCase {
             .not(.isIn([1])),
             .not(.isIn([5])),
         ])
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -95,7 +95,7 @@ final class CompoundCollectionFilterClosureTests: XCTestCase {
 
     func testNot() {
         let filter = CollectionFilter<[Int]>.not(.isIn([5]))
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -114,7 +114,7 @@ final class CompoundCollectionFilterClosureTests: XCTestCase {
     func testNotNested() {
         let filter = CollectionFilter<[Int]>.not(.isIn([5]))
             .not()
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -128,7 +128,7 @@ final class CompoundCollectionFilterClosureTests: XCTestCase {
             .isIn([1]),
             .isIn([5])
         )
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -149,7 +149,7 @@ final class CompoundCollectionFilterClosureTests: XCTestCase {
                 .isIn([4, 5])
             )
         )
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -167,7 +167,7 @@ final class CompoundCollectionFilterClosureTests: XCTestCase {
             .isIn([1, 2]),
             .isIn([5]),
         ])
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -191,7 +191,7 @@ final class CompoundCollectionFilterClosureTests: XCTestCase {
                 .isIn([5]),
             ]),
         ])
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -207,7 +207,7 @@ final class CompoundCollectionFilterClosureTests: XCTestCase {
 
     func testPassthrough() {
         let filter = CompoundFilter<CollectionFilter<[Int]>>.passthrough(.isIn([1, 2]))
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [

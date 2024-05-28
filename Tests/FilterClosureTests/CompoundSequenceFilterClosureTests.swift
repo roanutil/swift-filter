@@ -10,7 +10,7 @@ import Filter
 import FilterClosure
 import XCTest
 
-final class CompoundSequenceFilterClosureTests: XCTestCase {
+final class CompoundSequenceFilterClosureTests: XCTestCase, ClosureTestCase {
     let values: [[Int]] = [
         [1],
         [1, 2],
@@ -28,7 +28,7 @@ final class CompoundSequenceFilterClosureTests: XCTestCase {
             .contains(3),
             .contains(5)
         )
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -49,7 +49,7 @@ final class CompoundSequenceFilterClosureTests: XCTestCase {
                 .contains(4)
             )
         )
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -65,7 +65,7 @@ final class CompoundSequenceFilterClosureTests: XCTestCase {
             .contains(3),
             .contains(5),
         ])
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -86,7 +86,7 @@ final class CompoundSequenceFilterClosureTests: XCTestCase {
                 .contains(4)
             ),
         ])
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -98,7 +98,7 @@ final class CompoundSequenceFilterClosureTests: XCTestCase {
 
     func testNot() {
         let filter = SequenceFilter<[Int]>.not(.contains(3))
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -115,7 +115,7 @@ final class CompoundSequenceFilterClosureTests: XCTestCase {
             .contains(3),
             .contains(5)
         ).not()
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -134,7 +134,7 @@ final class CompoundSequenceFilterClosureTests: XCTestCase {
             .contains(3),
             .contains(5)
         )
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -159,7 +159,7 @@ final class CompoundSequenceFilterClosureTests: XCTestCase {
                 .contains(4)
             )
         )
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -177,7 +177,7 @@ final class CompoundSequenceFilterClosureTests: XCTestCase {
             .contains(2),
             .contains(3),
         ])
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -203,7 +203,7 @@ final class CompoundSequenceFilterClosureTests: XCTestCase {
                 .contains(4)
             ),
         ])
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
@@ -217,7 +217,7 @@ final class CompoundSequenceFilterClosureTests: XCTestCase {
 
     func testPassthrough() {
         let filter = CompoundFilter<SequenceFilter<[Int]>>.passthrough(.contains(3))
-        let result = values.filter(Closure.build(from: filter))
+        let result = values.filter(predicateType().build(from: filter))
         XCTAssertEqual(
             result,
             [
