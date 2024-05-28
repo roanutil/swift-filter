@@ -15,6 +15,22 @@ public enum CollectionFilter<C>: Equatable where C: Collection, C: Equatable, C.
     public typealias Optional = OptionalFilter<Self>
     public typealias OptionalCompound = OptionalFilter<CompoundFilter<Self>>
 
+    @inlinable
+    public func map<U>(
+        _ transform: (C) throws -> U,
+        sequence sequenceTransform: (C.Element) throws -> U.Element
+    ) rethrows -> CollectionFilter<U>
+        where U: Collection,
+        U.Element: Equatable
+    {
+        switch self {
+        case let .isIn(value):
+            try .isIn(transform(value))
+        case let .sequence(sequence):
+            try .sequence(sequence.map(sequenceTransform))
+        }
+    }
+
     // MARK: Compound
 
     @inlinable
