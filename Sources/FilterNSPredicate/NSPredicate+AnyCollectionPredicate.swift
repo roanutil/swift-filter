@@ -42,7 +42,7 @@ extension NSPredicate: AnyCollectionPredicate {
     @inlinable
     public static func build<Value>(
         from filter: CollectionFilter<Value>
-    ) -> NSPredicate where Value: Collection, Value: Equatable {
+    ) -> NSPredicate where Value: Collection {
         build(from: filter, on: \Value.self)
     }
 }

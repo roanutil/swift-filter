@@ -30,14 +30,14 @@ extension NSPredicate: AnySequencePredicate {
     public static func build<Root, Value>(
         from filter: SequenceFilter<Value>,
         on keyPath: KeyPath<Root, Value>
-    ) -> NSPredicate where Value: Equatable {
+    ) -> NSPredicate {
         build(from: filter, accessor: NSExpression(forKeyPath: keyPath))
     }
 
     @inlinable
     public static func build<Value>(
         from filter: SequenceFilter<Value>
-    ) -> NSPredicate where Value: Equatable {
+    ) -> NSPredicate {
         build(from: filter, on: \Value.self)
     }
 }
