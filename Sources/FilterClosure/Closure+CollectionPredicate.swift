@@ -16,9 +16,10 @@ extension Closure: CollectionPredicate where Value: Collection, Value: Equatable
     ///
     /// - Parameter filter: An instance of CollectionFilter representing the logic of the resulting NSPredicate.
     @inlinable
-    public static func build(from filter: CollectionFilter<Value>,
-                             on keyPath: KeyPath<Root, Value>) -> (@Sendable (Root) -> Bool)
-    {
+    public static func build(
+        from filter: CollectionFilter<Value>,
+        on keyPath: KeyPath<Root, Value>
+    ) -> (@Sendable (Root) -> Bool) {
         switch filter {
         case let .isIn(values):
             if #available(iOS 16, macOS 13, watchOS 9, tvOS 16, macCatalyst 16, *) {

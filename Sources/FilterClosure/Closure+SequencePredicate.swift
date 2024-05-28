@@ -15,9 +15,10 @@ extension Closure: SequencePredicate where Value: Sequence, Value: Equatable, Va
     ///
     /// - Parameter filter: An instance of SequenceFilter representing the logic of the resulting NSPredicate.
     @inlinable
-    public static func build(from filter: SequenceFilter<Value>,
-                             on keyPath: KeyPath<Root, Value>) -> (@Sendable (Root) -> Bool)
-    {
+    public static func build(
+        from filter: SequenceFilter<Value>,
+        on keyPath: KeyPath<Root, Value>
+    ) -> (@Sendable (Root) -> Bool) {
         { $0[keyPath: keyPath].contains(filter.contains) }
     }
 }
