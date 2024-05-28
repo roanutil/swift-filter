@@ -21,6 +21,7 @@ public enum CompoundFilter<T> {
     case passthrough(T)
 
     @inlinable
+    // swiftlint:disable:next cyclomatic_complexity
     public func values() -> [T] {
         switch self {
         case let .and(lhs, rhs):
@@ -49,6 +50,7 @@ public enum CompoundFilter<T> {
     }
 
     @inlinable
+    // swiftlint:disable:next cyclomatic_complexity
     public func map<U>(_ transform: (T) throws -> U) rethrows -> CompoundFilter<U> {
         switch self {
         case let .and(lhs, rhs):

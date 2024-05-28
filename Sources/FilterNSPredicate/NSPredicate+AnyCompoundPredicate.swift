@@ -11,6 +11,7 @@ import Foundation
 
 extension NSPredicate: AnyCompoundPredicate {
     @inlinable
+    // swiftlint:disable:next cyclomatic_complexity
     public static func build<Wrapped>(
         from filter: CompoundFilter<Wrapped>,
         accessor: NSExpression,

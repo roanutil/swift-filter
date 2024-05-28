@@ -10,6 +10,7 @@ import Filter
 
 extension Closure: CompoundPredicate {
     @inlinable
+    // swiftlint:disable:next cyclomatic_complexity
     public static func build<Wrapped>(
         from filter: Filter.CompoundFilter<Wrapped>,
         on keyPath: KeyPath<Root, Value>,
