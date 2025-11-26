@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2024 Andrew Roan
+// Copyright Andrew Roan
 
 import Foundation
 
@@ -16,7 +16,7 @@ public protocol OptionalAnyComparablePredicate: AnyComparablePredicate, Optional
     ///  - keyPath: KeyPath<Root, Value?>
     /// - Returns
     ///  - Output
-    static func build<Model, Value>(from filter: ComparableFilter<Value>.Optional, on keyPath: KeyPath<Model, Value?>)
+    static func build<Value>(from filter: ComparableFilter<Value>.Optional, on keyPath: KeyPath<some Any, Value?>)
         -> Output where Value: Comparable
 }
 
@@ -27,7 +27,7 @@ extension OptionalAnyComparablePredicate {
     /// - Returns
     ///  - Output
     @inlinable
-    public static func build<Value>(from filter: ComparableFilter<Value>.Optional) -> Output where Value: Comparable {
+    public static func build(from filter: ComparableFilter<some Comparable>.Optional) -> Output {
         build(from: filter, on: \.self)
     }
 }

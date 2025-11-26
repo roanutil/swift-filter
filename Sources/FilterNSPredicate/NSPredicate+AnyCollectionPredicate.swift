@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2024 Andrew Roan
+// Copyright Andrew Roan
 
 import Filter
 import Foundation
@@ -15,9 +15,9 @@ extension NSPredicate: AnyCollectionPredicate {
     /// - Parameter filter: An instance of SequenceFilter representing the logic of the resulting NSPredicate.
     /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
     @inlinable
-    public static func build<Root, Value>(
+    public static func build<Value>(
         from filter: CollectionFilter<Value>,
-        on keyPath: KeyPath<Root, Value>
+        on keyPath: KeyPath<some Any, Value>
     ) -> NSPredicate where Value: Sequence, Value: Equatable, Value.Element: Equatable {
         switch filter {
         case let .isIn(values):
@@ -46,9 +46,9 @@ extension NSPredicate: AnyCollectionPredicate {
     /// - Parameter filter: An instance of SequenceFilter representing the logic of the resulting NSPredicate.
     /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
     @inlinable
-    public static func build<Root, Value>(
+    public static func build<Value>(
         from filter: CollectionFilter<Value>,
-        on keyPath: KeyPath<Root, Value?>
+        on keyPath: KeyPath<some Any, Value?>
     ) -> NSPredicate where Value: Sequence, Value: Equatable, Value.Element: Equatable {
         switch filter {
         case let .isIn(values):

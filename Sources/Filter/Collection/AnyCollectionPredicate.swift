@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2024 Andrew Roan
+// Copyright Andrew Roan
 
 import Foundation
 
@@ -17,7 +17,7 @@ public protocol AnyCollectionPredicate {
     ///  - keyPath: KeyPath<Root, Value>
     /// - Returns
     ///  - Output
-    static func build<Root, Value>(from filter: CollectionFilter<Value>, on keyPath: KeyPath<Root, Value>) -> Output
+    static func build<Value>(from filter: CollectionFilter<Value>, on keyPath: KeyPath<some Any, Value>) -> Output
         where Value: Collection
 }
 
@@ -28,7 +28,7 @@ extension AnyCollectionPredicate {
     /// - Returns
     ///  - Output
     @inlinable
-    public static func build<Value>(from filter: CollectionFilter<Value>) -> Output where Value: Collection {
+    public static func build(from filter: CollectionFilter<some Collection>) -> Output {
         build(from: filter, on: \.self)
     }
 }

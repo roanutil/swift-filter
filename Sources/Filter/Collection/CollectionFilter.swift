@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2024 Andrew Roan
+// Copyright Andrew Roan
 
 import Foundation
 
@@ -28,11 +28,11 @@ public enum CollectionFilter<C>: Equatable where C: Collection, C: Equatable, C.
         public var unwrapped: CollectionFilter<C>? {
             switch self {
             case let .orNil(unwrapped):
-                return unwrapped
+                unwrapped
             case let .notNil(unwrapped):
-                return unwrapped
+                unwrapped
             case .isNil:
-                return nil
+                nil
             }
         }
     }

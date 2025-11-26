@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2024 Andrew Roan
+// Copyright Andrew Roan
 
 import Filter
 import Foundation
@@ -15,23 +15,23 @@ extension NSPredicate: AnyEquatablePredicate {
     /// - Parameter filter: An instance of EquatableFilter representing the logic of the resulting NSPredicate.
     /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
     @inlinable
-    public static func build<Root, Value>(
+    public static func build<Value>(
         from filter: EquatableFilter<Value>,
-        on keyPath: KeyPath<Root, Value>
+        on keyPath: KeyPath<some Any, Value>
     ) -> NSPredicate where Value: Equatable {
         switch filter {
         case let .equalTo(value):
-            return NSExpression(forKeyPath: keyPath).equalTo(NSExpression(forConstantValue: value))
+            NSExpression(forKeyPath: keyPath).equalTo(NSExpression(forConstantValue: value))
         case let .or(lhs, rhs):
-            return .or([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
+            .or([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
         case let .orMulti(predicates):
-            return .or(predicates.map { build(from: $0, on: keyPath) })
+            .or(predicates.map { build(from: $0, on: keyPath) })
         case let .and(lhs, rhs):
-            return .and([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
+            .and([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
         case let .andMulti(predicates):
-            return .and(predicates.map { build(from: $0, on: keyPath) })
+            .and(predicates.map { build(from: $0, on: keyPath) })
         case let .not(inverted):
-            return .not(build(from: inverted, on: keyPath))
+            .not(build(from: inverted, on: keyPath))
         }
     }
 
@@ -40,23 +40,23 @@ extension NSPredicate: AnyEquatablePredicate {
     /// - Parameter filter: An instance of EquatableFilter representing the logic of the resulting NSPredicate.
     /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
     @inlinable
-    public static func build<Root, Value>(
+    public static func build<Value>(
         from filter: EquatableFilter<Value>,
-        on keyPath: KeyPath<Root, Value?>
+        on keyPath: KeyPath<some Any, Value?>
     ) -> NSPredicate where Value: Equatable {
         switch filter {
         case let .equalTo(value):
-            return NSExpression(forKeyPath: keyPath).equalTo(NSExpression(forConstantValue: value))
+            NSExpression(forKeyPath: keyPath).equalTo(NSExpression(forConstantValue: value))
         case let .or(lhs, rhs):
-            return .or([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
+            .or([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
         case let .orMulti(predicates):
-            return .or(predicates.map { build(from: $0, on: keyPath) })
+            .or(predicates.map { build(from: $0, on: keyPath) })
         case let .and(lhs, rhs):
-            return .and([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
+            .and([build(from: lhs, on: keyPath), build(from: rhs, on: keyPath)])
         case let .andMulti(predicates):
-            return .and(predicates.map { build(from: $0, on: keyPath) })
+            .and(predicates.map { build(from: $0, on: keyPath) })
         case let .not(inverted):
-            return .not(build(from: inverted, on: keyPath))
+            .not(build(from: inverted, on: keyPath))
         }
     }
 }

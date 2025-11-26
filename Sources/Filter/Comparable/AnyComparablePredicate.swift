@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2024 Andrew Roan
+// Copyright Andrew Roan
 
 import Foundation
 
@@ -16,7 +16,7 @@ public protocol AnyComparablePredicate: AnyEquatablePredicate {
     ///  - keyPath: KeyPath<Root, Value>
     /// - Returns
     ///  - Output
-    static func build<Root, Value>(from filter: ComparableFilter<Value>, on keyPath: KeyPath<Root, Value>) -> Output
+    static func build<Value>(from filter: ComparableFilter<Value>, on keyPath: KeyPath<some Any, Value>) -> Output
         where Value: Comparable
 }
 
@@ -27,7 +27,7 @@ extension AnyComparablePredicate {
     /// - Returns
     ///  - Output
     @inlinable
-    public static func build<Value>(from filter: ComparableFilter<Value>) -> Output where Value: Comparable {
+    public static func build(from filter: ComparableFilter<some Comparable>) -> Output {
         build(from: filter, on: \.self)
     }
 }
