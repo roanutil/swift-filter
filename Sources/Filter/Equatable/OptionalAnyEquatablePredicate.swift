@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2024 Andrew Roan
+// Copyright Andrew Roan
 
 import Foundation
 
@@ -16,7 +16,7 @@ public protocol OptionalAnyEquatablePredicate: AnyEquatablePredicate {
     ///  - keyPath: KeyPath<Root, Value?>
     /// - Returns
     ///  - Output
-    static func build<Model, Value>(from filter: EquatableFilter<Value>.Optional, on keyPath: KeyPath<Model, Value?>)
+    static func build<Value>(from filter: EquatableFilter<Value>.Optional, on keyPath: KeyPath<some Any, Value?>)
         -> Output where Value: Equatable
 }
 
@@ -27,7 +27,7 @@ extension OptionalAnyEquatablePredicate {
     /// - Returns
     ///  - Output
     @inlinable
-    public static func build<Value>(from filter: EquatableFilter<Value>.Optional) -> Output where Value: Equatable {
+    public static func build(from filter: EquatableFilter<some Equatable>.Optional) -> Output {
         build(from: filter, on: \.self)
     }
 }

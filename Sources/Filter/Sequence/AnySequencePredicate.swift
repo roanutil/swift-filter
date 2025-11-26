@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2024 Andrew Roan
+// Copyright Andrew Roan
 
 import Foundation
 
@@ -17,7 +17,7 @@ public protocol AnySequencePredicate {
     ///  - keyPath: KeyPath<Root, Value>
     /// - Returns
     ///  - Output
-    static func build<Root, Value>(from filter: SequenceFilter<Value>, on keyPath: KeyPath<Root, Value>) -> Output
+    static func build<Value>(from filter: SequenceFilter<Value>, on keyPath: KeyPath<some Any, Value>) -> Output
         where Value: Sequence
 }
 
@@ -28,7 +28,7 @@ extension AnySequencePredicate {
     /// - Returns
     ///  - Output
     @inlinable
-    public static func build<Value>(from filter: SequenceFilter<Value>) -> Output where Value: Sequence {
+    public static func build(from filter: SequenceFilter<some Sequence>) -> Output {
         build(from: filter, on: \.self)
     }
 }

@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2024 Andrew Roan
+// Copyright Andrew Roan
 
 import Filter
 import Foundation
@@ -19,12 +19,12 @@ extension Closure: OptionalCollectionPredicate where Value: Collection, Value: E
     {
         switch filter {
         case let .orNil(subFilter):
-            return { value in
+            { value in
                 guard let value = value[keyPath: keyPath] else { return true }
                 return Closure<Value, Value>.build(from: subFilter)(value)
             }
         case let .notNil(subFilter):
-            return { value in
+            { value in
                 guard let value = value[keyPath: keyPath] else { return false }
                 if let subFilter {
                     return Closure<Value, Value>.build(from: subFilter)(value)
@@ -32,7 +32,7 @@ extension Closure: OptionalCollectionPredicate where Value: Collection, Value: E
                 return true
             }
         case .isNil:
-            return { $0[keyPath: keyPath] == nil }
+            { $0[keyPath: keyPath] == nil }
         }
     }
 }

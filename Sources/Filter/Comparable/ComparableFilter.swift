@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2024 Andrew Roan
+// Copyright Andrew Roan
 
 import Foundation
 
@@ -69,11 +69,11 @@ public enum ComparableFilter<T: Comparable>: Equatable {
         public var unwrapped: ComparableFilter<T>? {
             switch self {
             case let .orNil(unwrapped):
-                return unwrapped
+                unwrapped
             case let .notNil(unwrapped):
-                return unwrapped
+                unwrapped
             case .isNil:
-                return nil
+                nil
             }
         }
     }

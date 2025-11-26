@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2024 Andrew Roan
+// Copyright Andrew Roan
 
 import Filter
 import FilterNSPredicate

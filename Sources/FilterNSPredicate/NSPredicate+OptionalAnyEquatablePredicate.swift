@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2024 Andrew Roan
+// Copyright Andrew Roan
 
 import Filter
 import Foundation
@@ -15,9 +15,9 @@ extension NSPredicate: OptionalAnyEquatablePredicate {
     /// - Parameter filter: An instance of EquatableFilter.Optional representing the logic of the resulting NSPredicate.
     /// - Parameter keyPath: A keypath instructing what value to use for evaluating the predicate.
     @inlinable
-    public static func build<Root, Value>(
+    public static func build<Value>(
         from filter: EquatableFilter<Value>.Optional,
-        on keyPath: KeyPath<Root, Value?>
+        on keyPath: KeyPath<some Any, Value?>
     ) -> NSPredicate where Value: Equatable {
         switch filter {
         case let .orNil(subFilter):

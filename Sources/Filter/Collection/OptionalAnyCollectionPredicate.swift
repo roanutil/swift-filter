@@ -4,7 +4,7 @@
 //
 // MIT License
 //
-// Copyright © 2024 Andrew Roan
+// Copyright Andrew Roan
 
 import Foundation
 
@@ -16,7 +16,7 @@ public protocol OptionalAnyCollectionPredicate: AnyCollectionPredicate {
     ///  - keyPath: KeyPath<Root, Value?>
     /// - Returns
     ///  - Output
-    static func build<Model, Value>(from filter: CollectionFilter<Value>.Optional, on keyPath: KeyPath<Model, Value?>)
+    static func build<Value>(from filter: CollectionFilter<Value>.Optional, on keyPath: KeyPath<some Any, Value?>)
         -> Output where Value: Collection
 }
 
@@ -27,7 +27,7 @@ extension OptionalAnyCollectionPredicate {
     /// - Returns
     ///  - Output
     @inlinable
-    public static func build<Value>(from filter: CollectionFilter<Value>.Optional) -> Output where Value: Collection {
+    public static func build(from filter: CollectionFilter<some Collection>.Optional) -> Output {
         build(from: filter, on: \.self)
     }
 }
